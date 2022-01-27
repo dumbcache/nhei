@@ -1,6 +1,7 @@
 import express from "express";
 import cors from "cors";
 import bodyParser from "body-parser";
+import { cacheDoujinInfo, fetchDoujinInfo } from "./scripts/fetchDoujin.js";
 
 let app = express();
 let port = 80;
