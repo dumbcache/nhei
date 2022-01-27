@@ -27,6 +27,31 @@
 </form>
 
 <style>
+    .search-container {
+        display: grid;
+        grid-template-columns: 90% 10%;
+        width: 100%;
+        padding: 0.2rem;
+    }
+    .search {
+        border: none;
+        padding: 0.5rem;
+        border-radius: 5px;
+    }
+    .search:focus {
+        outline: none;
+    }
+    .search-button {
+        border-radius: 5px;
+        background-color: #f00;
+    }
+    .search-button:disabled {
+        background-color: #555;
+    }
+    .search-button:active {
+        background-color: #999;
+    }
+
     @media screen and (max-width: 600px) {
     }
 </style>

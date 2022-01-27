@@ -3,7 +3,7 @@
     x="0px"
     y="0px"
     width="24"
-    height="24"
+    height="auto"
     viewBox="0 0 172 172"
     style=" fill:#000;"
     ><g

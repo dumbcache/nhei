@@ -7,8 +7,12 @@
     font-family: "Poppins", sans-serif;
 }
 body {
-    background-color: #111;
+    background-color: #222;
     color: #eee;
 }
+button {
+    border: none;
+}
+
 @media screen and (max-width: 600px) {
 }
