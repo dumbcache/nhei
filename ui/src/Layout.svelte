@@ -4,7 +4,7 @@
 </script>
 
 <header>
-    <div class="menu">
+    <div class="menu-container">
         <MenuBar />
         <SearchBar on:receive />
     </div>
@@ -22,7 +22,7 @@
         align-items: center;
         /* padding: 1rem; */
     }
-    .menu {
+    .menu-container {
         display: grid;
         grid-template-columns: 1fr 1fr;
         width: 100%;
@@ -37,7 +37,7 @@
         header {
             display: block;
         }
-        .menu {
+        .menu-container {
             display: initial;
             position: fixed;
             bottom: 0;
