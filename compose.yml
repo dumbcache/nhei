@@ -1,0 +1,46 @@
+services:
+    ui:
+        build: ./ui
+        profiles:
+            - production
+    api:
+        build:
+            context: ./api
+            target: dev
+        volumes:
+            - ./api:/home/app
+        command: npm start
+        networks:
+            - backend
+            - middleware
+        ports:
+            - 5000:80
+    mongo:
+        image: mongo:latest
+        environment:
+            - MONGO_INITDB_ROOT_USERNAME=nhei
+            - MONGO_INITDB_ROOT_PASSWORD=nhei
+        volumes:
+            - mongo:/data/db
+        networks:
+            - backend
+    redis:
+        image: redis:alpine
+        command: >
+            --requirepass nhei
+        volumes:
+            - redis:/data
+        networks:
+            - backend
+volumes:
+    mongo:
+        external: true
+        name: nhei_mongo
+    redis:
+        external: true
+        name: nhei_redis
+
+networks:
+    frontend:
+    backend:
+    middleware:
