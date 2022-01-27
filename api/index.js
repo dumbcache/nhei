@@ -12,7 +12,7 @@ app.use(bodyParser.json());
 /**
  * Initial root
  */
-app.use("/", (req, res) => {
+app.get("/", (req, res) => {
     res.send({ message: "server running" });
 });
 
