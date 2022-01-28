@@ -57,6 +57,55 @@
 </div>
 
 <style>
+    .card {
+        padding: 0.5rem;
+        padding-top: 0;
+    }
+    p {
+        margin-left: 0.5rem;
+    }
+    .cover {
+        width: 100%;
+        margin-left: auto;
+    }
+    .data {
+        display: flex;
+        flex-flow: row-reverse;
+        justify-content: space-evenly;
+        align-items: center;
+    }
+    .pages {
+        display: flex;
+        flex-flow: row wrap;
+        justify-content: space-around;
+    }
+
+    .page {
+        flex-basis: 19%;
+        position: relative;
+    }
+    .overlay {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 100%;
+        background-color: rgba(0, 0, 0, 0.568);
+    }
+
     @media screen and (max-width: 600px) {
+        .cover {
+            width: 60%;
+        }
+        .data {
+            display: initial;
+        }
+
+        .page {
+            flex-basis: 45%;
+        }
+        .card {
+            margin-bottom: 130px;
+            z-index: -1;
+        }
     }
 </style>
