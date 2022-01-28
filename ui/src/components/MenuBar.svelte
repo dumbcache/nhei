@@ -1,28 +1,33 @@
 <script>
-    import ProfileIcon from "./icons/Profile.svelte";
-    import CollectionsIcon from "./icons/Collections.svelte";
-    import HomeIcon from "./icons/Home.svelte";
-    import RefreshIcon from "./icons/Refresh.svelte";
-
     import { changeActiveWindow } from "../scripts/manageWindow.js";
     import { refresh } from "../scripts/refresh";
+
+    let menuList = [
+        {
+            name: "profile",
+            src: "/images/profile.svg",
+            onclick: changeActiveWindow,
+        },
+        {
+            name: "collections",
+            src: "/images/collections.svg",
+            onclick: changeActiveWindow,
+        },
+        { name: "home", src: "/images/home.svg", onclick: changeActiveWindow },
+        { name: "refresh", src: "/images/refresh.svg", onclick: refresh },
+    ];
 </script>
 
 <div class="menu-container">
-    <button class="profile" value="profile" on:click={changeActiveWindow}
-        ><ProfileIcon />profile</button
-    >
-    <button
-        class="collections"
-        value="collections"
-        on:click={changeActiveWindow}><CollectionsIcon />collections</button
-    >
-    <button class="home" value="home" on:click={changeActiveWindow}
-        ><HomeIcon />home</button
-    >
-    <button class="refresh" value="refresh" on:click={refresh}
-        ><RefreshIcon />refresh</button
-    >
+    {#each menuList as item (item)}
+        <button
+            class={item.name}
+            value={item.name}
+            style="background-image:url({item.src})"
+            on:click={item.onclick}
+            >{item.name}
+        </button>
+    {/each}
 </div>
 
 <style>
@@ -40,14 +45,19 @@
         border-radius: 5px;
     }
     button {
-        background-color: inherit;
-        color: #95a5a6;
+        padding-top: 1rem;
+        background-size: auto;
+        background-repeat: no-repeat;
+        background-position: top;
+        background-color: #000;
+        color: white;
     }
     button:active {
         background-color: #333;
     }
     @media screen and (max-width: 600px) {
         button {
+            padding-top: 1.5rem;
             font-size: x-small;
         }
     }
