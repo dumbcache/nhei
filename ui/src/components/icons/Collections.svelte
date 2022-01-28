@@ -1,3 +1,13 @@
+<script>
+    import { createEventDispatcher } from "svelte";
+    const dispatch = createEventDispatcher();
+    function sendDispatch() {
+        dispatch("receive", {
+            value: "collections",
+        });
+    }
+</script>
+
 <svg
     xmlns="http://www.w3.org/2000/svg"
     x="0px"
@@ -6,6 +16,7 @@
     height="auto"
     viewBox="0 0 172 172"
     style=" fill:#000;"
+    on:click={sendDispatch}
     ><g
         fill="none"
         fill-rule="nonzero"

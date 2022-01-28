@@ -1,15 +1,23 @@
 <script>
-    import Profile from "./icons/Profile.svelte";
-    import Collections from "./icons/Collections.svelte";
-    import Home from "./icons/Home.svelte";
+    import ProfileIcon from "./icons/Profile.svelte";
+    import CollectionsIcon from "./icons/Collections.svelte";
+    import HomeIcon from "./icons/Home.svelte";
+
+    import { changeActiveWindow } from "../scripts/manageWindow.js";
 </script>
 
 <div class="menu-container">
-    <button class="profile" value="profile"><Profile />profile</button>
-    <button class="collections" value="collections"
-        ><Collections />collections</button
+    <button class="profile" value="profile" on:click={changeActiveWindow}
+        ><ProfileIcon />profile</button
     >
-    <button class="home" value="home"><Home />home</button>
+    <button
+        class="collections"
+        value="collections"
+        on:click={changeActiveWindow}><CollectionsIcon />collections</button
+    >
+    <button class="home" value="home" on:click={changeActiveWindow}
+        ><HomeIcon />home</button
+    >
 </div>
 
 <style>

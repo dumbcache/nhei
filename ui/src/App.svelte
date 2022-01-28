@@ -1,23 +1,11 @@
 <script>
-    import DoujinInfo from "./components/DoujinInfo.svelte";
-    import getDoujin from "./scripts/getDoujin";
     import Layout from "./Layout.svelte";
-
-    let doujin;
-
-    const getData = async (e) => {
-        let { input } = e.detail;
-        doujin = getDoujin(input);
-    };
+    import { window } from "./scripts/manageWindow.js";
 </script>
 
-<Layout on:receive={getData}>
+<Layout>
     <main>
-        {#await $doujin}
-            <div class="status">...loading</div>
-        {:then data}
-            <DoujinInfo doujin={data} />
-        {/await}
+        <svelte:component this={$window} />
     </main>
 </Layout>
 
