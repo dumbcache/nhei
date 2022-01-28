@@ -10,10 +10,12 @@ export const windowList = {
     profile: Profile,
 };
 
-export const window = writable(windowList.profile);
+export const window = writable(windowList.home);
 
 export const changeActiveWindow = (e) => {
     let activeWindow = e.target.value;
-    console.log(activeWindow, windowList[activeWindow]);
-    window.set(windowList[activeWindow]);
+    if (activeWindow) {
+        console.log(activeWindow, windowList[activeWindow]);
+        window.set(windowList[activeWindow]);
+    }
 };
