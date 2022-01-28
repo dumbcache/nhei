@@ -2,8 +2,10 @@
     import ProfileIcon from "./icons/Profile.svelte";
     import CollectionsIcon from "./icons/Collections.svelte";
     import HomeIcon from "./icons/Home.svelte";
+    import RefreshIcon from "./icons/Refresh.svelte";
 
     import { changeActiveWindow } from "../scripts/manageWindow.js";
+    import { refresh } from "../scripts/refresh";
 </script>
 
 <div class="menu-container">
@@ -17,6 +19,9 @@
     >
     <button class="home" value="home" on:click={changeActiveWindow}
         ><HomeIcon />home</button
+    >
+    <button class="refresh" value="refresh" on:click={refresh}
+        ><RefreshIcon />refresh</button
     >
 </div>
 

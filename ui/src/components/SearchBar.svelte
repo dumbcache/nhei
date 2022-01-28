@@ -1,15 +1,12 @@
 <script>
-    import { createEventDispatcher } from "svelte";
     import Search from "./icons/Search.svelte";
+    import { getDoujin } from "../scripts/getDoujin";
+    import { searchValue } from "../scripts/stores.js";
 
-    const dispatch = createEventDispatcher();
-    let input = "";
-    $: disabled = input.trim().length === 0;
-    function sendDispatch() {
-        dispatch("receive", {
-            input: input,
-        });
-    }
+    $: disabled = $searchValue.trim().length === 0;
+    const sendDispatch = () => {
+        getDoujin($searchValue.trim());
+    };
 </script>
 
 <form on:submit|preventDefault={sendDispatch}>
@@ -18,7 +15,7 @@
             class="search"
             type="search"
             placeholder="enter id"
-            bind:value={input}
+            bind:value={$searchValue}
         />
         <button class="search-button" {disabled} type="submit"
             ><Search /></button
