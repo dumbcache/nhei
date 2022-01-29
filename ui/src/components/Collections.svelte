@@ -1,19 +1,20 @@
 <script>
     import { collections } from "../scripts/stores";
     import CollectionCard from "./CollectionCard.svelte";
+    import Create from "./collections/create.svelte";
     import Add from "./icons/Add.svelte";
     import Delete from "./icons/Delete.svelte";
     import Edit from "./icons/Edit.svelte";
     import Slider from "./icons/Slider.svelte";
 
-    console.log($collections);
+    let create = false;
 </script>
 
-<div>
+<div class="wrapper">
     <div class="navigation">
         <div class="navbar">> <button><u>collections</u></button></div>
         <div class="toolbar">
-            <button on:click={() => console.log("hell")}><Add /></button>
+            <button on:click={() => (create = !create)}><Add /></button>
             <button on:click={() => console.log("hell")}><Slider /></button>
         </div>
     </div>
@@ -31,7 +32,10 @@
         </div>
     {:else}
         <h4>Collections</h4>
-        <p class="">No Data Found</p>
+        <p class="alert">No Data Found</p>
+    {/if}
+    {#if create}
+        <Create />
     {/if}
 </div>
 
@@ -115,8 +119,8 @@
         top: 40px;
     }
     @media screen and (max-width: 600px) {
-        .collection-container {
-            margin-bottom: 100px;
+        .wrapper {
+            margin-bottom: 150px;
         }
         .navigation div {
             font-size: 20px;
