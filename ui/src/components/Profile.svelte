@@ -2,7 +2,7 @@
 
 <style>
     h4 {
-        opacity: 0.1;
+        opacity: 0.3;
         position: absolute;
         left: 50%;
         top: 50%;

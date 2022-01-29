@@ -2,6 +2,8 @@
     import { collections } from "../scripts/stores";
     import CollectionCard from "./CollectionCard.svelte";
     import Add from "./icons/Add.svelte";
+    import Delete from "./icons/Delete.svelte";
+    import Edit from "./icons/Edit.svelte";
     import Slider from "./icons/Slider.svelte";
 
     console.log($collections);
@@ -9,16 +11,18 @@
 
 <div>
     <div class="navigation">
-        <div>> <button><u>collections</u></button></div>
-        <div>
+        <div class="navbar">> <button><u>collections</u></button></div>
+        <div class="toolbar">
             <button on:click={() => console.log("hell")}><Add /></button>
             <button on:click={() => console.log("hell")}><Slider /></button>
         </div>
     </div>
     {#if $collections}
-        <div class="collections">
+        <div class="collection-container">
             {#each $collections as item}
-                <div class={item.name}>
+                <div class="collection {item.name}">
+                    <button class="edit"><Edit /></button>
+                    <button class="delete"><Delete /></button>
                     {#if !item.count}
                         <CollectionCard name={item.name} />
                     {/if}
@@ -37,19 +41,22 @@
         justify-content: space-between;
         padding: 0 2rem;
         margin: 1rem 0;
+        align-items: center;
     }
+
     .navigation button :global(svg) {
         width: 40px;
     }
 
     .navigation button {
-        font-size: 30px;
+        font-size: large;
+        height: 40px;
     }
 
     .arrow,
     button {
         background-color: inherit;
-        color: #95a5a6;
+        color: inherit;
     }
 
     button:active {
@@ -64,24 +71,69 @@
         transform: translate(-50%, -50%);
     }
     h4 {
-        opacity: 0.1;
+        opacity: 0.3;
     }
     p {
         opacity: 0.5;
         top: 55%;
         font-size: x-small;
     }
-    .collections {
+    .collection-container {
+        /* position: relative; */
         display: flex;
         flex-flow: row wrap;
         justify-content: space-evenly;
     }
+    .collection {
+        position: relative;
+    }
+    .edit,
+    .delete {
+        width: 30px;
+        padding-top: 0.1rem;
+        position: absolute;
+        right: 15px;
+        top: 10px;
+        background-color: #eee;
+        border-radius: 50%;
+    }
+    .delete {
+        top: 50px;
+    }
+    .edit :global(svg),
+    .delete :global(svg) {
+        width: 20px;
+    }
+    .edit,
+    .delete {
+        width: 25px;
+        height: 25px;
+        padding-top: 0;
+        right: 15px;
+    }
+    .delete {
+        top: 40px;
+    }
     @media screen and (max-width: 600px) {
-        .collections {
+        .collection-container {
             margin-bottom: 100px;
         }
         .navigation div {
             font-size: 20px;
+        }
+        .navigation button :global(svg) {
+            width: 30px;
+        }
+        .navigation button {
+            height: 30px;
+        }
+
+        .edit,
+        .delete {
+            right: 10px;
+        }
+        .delete {
+            top: 40px;
         }
     }
 </style>

@@ -50,7 +50,7 @@
         background-repeat: no-repeat;
         background-position: top;
         background-color: #000;
-        color: #95a5a6;
+        color: inherit;
         font-size: small;
     }
     button:active {

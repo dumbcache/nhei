@@ -41,6 +41,7 @@
             position: fixed;
             bottom: 0;
             background-color: #000;
+            z-index: 1;
         }
     }
 </style>
