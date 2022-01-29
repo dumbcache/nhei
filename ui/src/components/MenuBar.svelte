@@ -15,6 +15,7 @@
         },
         { name: "home", src: "/images/home.svg", onclick: changeActiveWindow },
         { name: "refresh", src: "/images/refresh.svg", onclick: refresh },
+        { name: "add", src: "/images/add.svg", onclick: undefined },
     ];
 </script>
 

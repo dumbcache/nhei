@@ -27,10 +27,10 @@
     .search-container {
         display: grid;
         grid-template-columns: 90% 10%;
-        width: 100%;
         padding: 0.2rem;
     }
     .search {
+        width: 100%;
         border: none;
         padding: 0.5rem;
         border-radius: 5px;

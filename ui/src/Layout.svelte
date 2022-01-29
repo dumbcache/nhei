@@ -17,13 +17,13 @@
 <style>
     header {
         display: grid;
-        grid-template-columns: 2fr 1fr;
+        grid-template-columns: auto 1fr;
         background-color: #000;
         align-items: center;
     }
     .menu-container {
         display: grid;
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: 2fr 1fr;
         width: 100%;
         padding: 0.2rem;
     }

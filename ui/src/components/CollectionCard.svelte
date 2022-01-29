@@ -11,7 +11,10 @@
 
 <style>
     .collection-card {
-        width: 25vw;
+        width: 280px;
+        display: flex;
+        flex-flow: column;
+        align-items: center;
     }
     .collection-card :global(svg) {
         width: 100%;
@@ -20,11 +23,12 @@
         cursor: pointer;
     }
     h4 {
-        margin: 0;
+        font-weight: 500;
     }
-    @media screen and (max-size: 600px) {
+
+    @media screen and (max-width: 600px) {
         .collection-card {
-            width: 50vw;
+            width: 45vw;
         }
     }
 </style>

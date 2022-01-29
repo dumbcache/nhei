@@ -1,12 +1,20 @@
 <script>
     import { collections } from "../scripts/stores";
     import CollectionCard from "./CollectionCard.svelte";
+    import Add from "./icons/Add.svelte";
+    import Slider from "./icons/Slider.svelte";
 
     console.log($collections);
 </script>
 
 <div>
-    <h4>Collections</h4>
+    <div class="navigation">
+        <div>> <button><u>collections</u></button></div>
+        <div>
+            <button on:click={() => console.log("hell")}><Add /></button>
+            <button on:click={() => console.log("hell")}><Slider /></button>
+        </div>
+    </div>
     {#if $collections}
         <div class="collections">
             {#each $collections as item}
@@ -18,11 +26,35 @@
             {/each}
         </div>
     {:else}
-        <p>No Data Found</p>
+        <h4>Collections</h4>
+        <p class="">No Data Found</p>
     {/if}
 </div>
 
 <style>
+    .navigation {
+        display: flex;
+        justify-content: space-between;
+        padding: 0 2rem;
+        margin: 1rem 0;
+    }
+    .navigation button :global(svg) {
+        width: 40px;
+    }
+
+    .navigation button {
+        font-size: 30px;
+    }
+
+    .arrow,
+    button {
+        background-color: inherit;
+        color: #95a5a6;
+    }
+
+    button:active {
+        background-color: #555;
+    }
     h4,
     p {
         text-align: center;
@@ -42,5 +74,14 @@
     .collections {
         display: flex;
         flex-flow: row wrap;
+        justify-content: space-evenly;
+    }
+    @media screen and (max-width: 600px) {
+        .collections {
+            margin-bottom: 100px;
+        }
+        .navigation div {
+            font-size: 20px;
+        }
     }
 </style>

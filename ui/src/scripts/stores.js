@@ -6,4 +6,8 @@ export const collections = writable([
     { name: "AOT" },
     { name: "JJK" },
     { name: "OnePiece" },
+    { name: "favourites" },
+    { name: "AOT" },
+    { name: "JJK" },
+    { name: "OnePiece" },
 ]);
