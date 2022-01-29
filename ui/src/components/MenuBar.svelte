@@ -45,12 +45,12 @@
         border-radius: 5px;
     }
     button {
-        padding-top: 1rem;
-        background-size: auto;
+        padding-top: 1.2rem;
         background-repeat: no-repeat;
         background-position: top;
         background-color: #000;
-        color: white;
+        color: #95a5a6;
+        font-size: small;
     }
     button:active {
         background-color: #333;

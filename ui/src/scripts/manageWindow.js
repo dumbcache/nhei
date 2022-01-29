@@ -24,7 +24,7 @@ export const window = writable(windowList.home);
 export const changeActiveWindow = (e) => {
     let activeWindow = e.target.value;
     if (activeWindow) {
-        console.log(activeWindow, windowList[activeWindow]);
+        // console.log(activeWindow, windowList[activeWindow]);
         window.set(windowList[activeWindow]);
     }
 };

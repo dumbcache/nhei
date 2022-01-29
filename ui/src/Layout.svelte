@@ -20,7 +20,6 @@
         grid-template-columns: 2fr 1fr;
         background-color: #000;
         align-items: center;
-        /* padding: 1rem; */
     }
     .menu-container {
         display: grid;
