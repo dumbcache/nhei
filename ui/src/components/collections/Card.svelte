@@ -1,15 +1,32 @@
 <script>
     import { collections } from "../../scripts/stores";
     import Delete from "../icons/Delete.svelte";
+    import DeleteAction from "./Delete.svelte";
+    import EditAction from "./Edit.svelte";
     import Edit from "../icons/Edit.svelte";
     import Empty from "../icons/Empty.svelte";
+
+    let action;
+    let collectionName;
 </script>
 
 <div class="wrapper">
     {#each $collections as item}
         <div class="collection {item.name}">
-            <button class="edit"><Edit /></button>
-            <button class="delete"><Delete /></button>
+            <button
+                class="edit"
+                on:click={() => {
+                    collectionName = item.name;
+                    action = "edit";
+                }}><Edit /></button
+            >
+            <button
+                class="delete"
+                on:click={() => {
+                    collectionName = item.name;
+                    action = "delete";
+                }}><Delete /></button
+            >
             {#if !item.count}
                 <div class="collection-card">
                     <Empty />
@@ -18,6 +35,11 @@
             {/if}
         </div>
     {/each}
+    {#if action === "edit"}
+        <EditAction {collectionName} />
+    {:else if action === "delete"}
+        <DeleteAction {collectionName} />
+    {/if}
 </div>
 
 <style>
