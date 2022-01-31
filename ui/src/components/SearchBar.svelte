@@ -10,7 +10,7 @@
 </script>
 
 <form on:submit|preventDefault={sendDispatch}>
-    <div class="search-container">
+    <div class="wrapper">
         <input
             class="search"
             type="search"
@@ -24,7 +24,7 @@
 </form>
 
 <style>
-    .search-container {
+    .wrapper {
         display: grid;
         grid-template-columns: 90% 10%;
         padding: 0.2rem;

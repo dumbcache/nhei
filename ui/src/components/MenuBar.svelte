@@ -19,7 +19,7 @@
     ];
 </script>
 
-<div class="menu-container">
+<div class="wrapper">
     {#each menuList as item (item)}
         <button
             class={item.name}
@@ -32,13 +32,13 @@
 </div>
 
 <style>
-    .menu-container {
+    .wrapper {
         display: flex;
         flex-flow: row;
         align-items: center;
         justify-content: space-evenly;
     }
-    .menu-container * {
+    .wrapper * {
         display: flex;
         flex-flow: column;
         justify-content: center;

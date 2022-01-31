@@ -3,7 +3,7 @@
     import Slider from "../icons/Slider.svelte";
 </script>
 
-<div class="navigation">
+<div class="wrapper">
     <div class="navbar">> <button><u>collections</u></button></div>
     <div class="toolbar">
         <button><Add /></button>
@@ -12,7 +12,7 @@
 </div>
 
 <style>
-    .navigation {
+    .wrapper {
         display: flex;
         justify-content: space-between;
         padding: 0 2rem;
@@ -20,22 +20,22 @@
         align-items: center;
     }
 
-    .navigation button :global(svg) {
+    .wrapper button :global(svg) {
         width: 40px;
     }
 
-    .navigation button {
+    .wrapper button {
         font-size: large;
         height: 40px;
     }
     @media screen and (max-width: 600px) {
-        .navigation div {
+        .wrapper div {
             font-size: 20px;
         }
-        .navigation button :global(svg) {
+        .wrapper button :global(svg) {
             width: 30px;
         }
-        .navigation button {
+        .wrapper button {
             height: 30px;
         }
     }

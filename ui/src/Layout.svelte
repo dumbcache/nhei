@@ -31,6 +31,7 @@
         text-align: center;
         font-style: italic;
         color: red;
+        padding: 0rem 0.5rem;
     }
     @media screen and (max-width: 600px) {
         header {

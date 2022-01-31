@@ -9,7 +9,7 @@
     };
 </script>
 
-<div>
+<div class="wrapper">
     <form on:submit|preventDefault={create}>
         <input
             name="collection"
