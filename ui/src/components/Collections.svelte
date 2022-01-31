@@ -1,23 +1,13 @@
 <script>
     import { collections } from "../scripts/stores";
     import CollectionCard from "./CollectionCard.svelte";
-    import Create from "./collections/create.svelte";
-    import Add from "./icons/Add.svelte";
+    import Navigation from "./collections/Navigation.svelte";
     import Delete from "./icons/Delete.svelte";
     import Edit from "./icons/Edit.svelte";
-    import Slider from "./icons/Slider.svelte";
-
-    let create = false;
 </script>
 
 <div class="wrapper">
-    <div class="navigation">
-        <div class="navbar">> <button><u>collections</u></button></div>
-        <div class="toolbar">
-            <button on:click={() => (create = !create)}><Add /></button>
-            <button on:click={() => console.log("hell")}><Slider /></button>
-        </div>
-    </div>
+    <Navigation />
     {#if $collections}
         <div class="collection-container">
             {#each $collections as item}
@@ -34,29 +24,9 @@
         <h4>Collections</h4>
         <p class="alert">No Data Found</p>
     {/if}
-    {#if create}
-        <Create />
-    {/if}
 </div>
 
 <style>
-    .navigation {
-        display: flex;
-        justify-content: space-between;
-        padding: 0 2rem;
-        margin: 1rem 0;
-        align-items: center;
-    }
-
-    .navigation button :global(svg) {
-        width: 40px;
-    }
-
-    .navigation button {
-        font-size: large;
-        height: 40px;
-    }
-
     .arrow,
     button {
         background-color: inherit;
@@ -121,15 +91,6 @@
     @media screen and (max-width: 600px) {
         .wrapper {
             margin-bottom: 150px;
-        }
-        .navigation div {
-            font-size: 20px;
-        }
-        .navigation button :global(svg) {
-            width: 30px;
-        }
-        .navigation button {
-            height: 30px;
         }
 
         .edit,

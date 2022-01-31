@@ -12,9 +12,16 @@ body {
 }
 button {
     border: none;
+    background-color: inherit;
+    color: inherit;
 }
+
 button:hover {
     cursor: pointer;
+}
+
+button:active {
+    background-color: #555;
 }
 
 @media screen and (max-width: 600px) {
