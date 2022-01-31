@@ -36,8 +36,20 @@
         </div>
     {/each}
     {#if action === "edit"}
+        <div
+            class="overlay"
+            on:click={() => {
+                action = "";
+            }}
+        />
         <EditAction {collectionName} />
     {:else if action === "delete"}
+        <div
+            class="overlay"
+            on:click={() => {
+                action = "";
+            }}
+        />
         <DeleteAction {collectionName} />
     {/if}
 </div>
@@ -102,6 +114,17 @@
     }
     .delete {
         top: 40px;
+    }
+    .overlay {
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        background-color: #333;
+        opacity: 0.7;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
     }
 
     @media screen and (max-width: 600px) {
