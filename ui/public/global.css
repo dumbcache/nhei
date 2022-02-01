@@ -20,9 +20,5 @@ button:hover {
     cursor: pointer;
 }
 
-button:active {
-    background-color: #555;
-}
-
 @media screen and (max-width: 600px) {
 }

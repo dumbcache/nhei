@@ -3,6 +3,7 @@
     import Ok from "../icons/Ok.svelte";
 
     export let collectionName;
+    let previous = collectionName;
     let ref;
     let edit = () => {};
     onMount(() => {
@@ -11,19 +12,24 @@
 </script>
 
 <div class="wrapper">
-    <div class="form">
-        <form on:submit|preventDefault={edit}>
-            <input
-                name="collection"
-                type="text"
-                bind:value={collectionName}
-                placeholder="collection name"
-                bind:this={ref}
-                required
-            />
-            <button type="submit"><Ok /></button>
-        </form>
-    </div>
+    <form class="form" on:submit|preventDefault={edit}>
+        <p>Enter new name</p>
+        <input
+            name="collection"
+            type="search"
+            bind:value={collectionName}
+            placeholder="collection name"
+            bind:this={ref}
+            required
+            autocomplete="off"
+        />
+        <button
+            class="ok"
+            disabled={previous === collectionName ||
+                collectionName.trim() === ""}
+            type="submit"><Ok /></button
+        >
+    </form>
 </div>
 
 <style>
@@ -40,6 +46,9 @@
         left: 50%;
         transform: translate(-50%, -50%);
     }
+    .form * {
+        margin: 0.5rem 0;
+    }
     input {
         width: 100%;
         border: none;
@@ -49,13 +58,26 @@
     input:focus {
         outline: none;
     }
+    button {
+        width: 40px;
+        height: 40px;
+        display: inline-flex;
+        align-items: center;
+    }
+    button:disabled {
+        cursor: not-allowed;
+    }
+    button :global(svg) {
+        fill: red;
+    }
+    button:disabled :global(svg) {
+        fill: #95a5a6;
+    }
+
     @media screen and (max-width: 600px) {
         .form {
             width: 80%;
             font-size: smaller;
-        }
-        .form * {
-            margin: 0.3rem;
         }
     }
 </style>

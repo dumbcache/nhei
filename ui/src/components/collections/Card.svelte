@@ -8,6 +8,7 @@
 
     let action;
     let collectionName;
+    let overlay = true;
 </script>
 
 <div class="wrapper">
@@ -18,6 +19,7 @@
                 on:click={() => {
                     collectionName = item.name;
                     action = "edit";
+                    overlay = false;
                 }}><Edit /></button
             >
             <button
@@ -25,6 +27,7 @@
                 on:click={() => {
                     collectionName = item.name;
                     action = "delete";
+                    overlay = false;
                 }}><Delete /></button
             >
             {#if !item.count}
@@ -35,21 +38,17 @@
             {/if}
         </div>
     {/each}
+    <div
+        class="overlay"
+        class:overlay-visible={overlay}
+        on:click={() => {
+            action = "";
+            overlay = true;
+        }}
+    />
     {#if action === "edit"}
-        <div
-            class="overlay"
-            on:click={() => {
-                action = "";
-            }}
-        />
         <EditAction {collectionName} />
     {:else if action === "delete"}
-        <div
-            class="overlay"
-            on:click={() => {
-                action = "";
-            }}
-        />
         <DeleteAction {collectionName} />
     {/if}
 </div>
@@ -126,7 +125,9 @@
         left: 0;
         right: 0;
     }
-
+    .overlay-visible {
+        display: none;
+    }
     @media screen and (max-width: 600px) {
         .collection-card {
             width: 45vw;

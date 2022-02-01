@@ -1,4 +1,6 @@
 <script>
+    import Ok from "../icons/Ok.svelte";
+
     export let collectionName;
     const action = () => {
         // send request to server for deletion
@@ -6,22 +8,27 @@
     let value;
     let disabled = true;
     $: disabled = value === collectionName ? false : true;
+    let active = false;
 </script>
 
 <div class="wrapper">
-    <div class="form">
-        <form on:submit|preventDefault={action}>
+    <form class="form" on:submit|preventDefault={action}>
+        <div class:prev={active}>
+            <p>You sure? All pins will be deleted</p>
+            <button on:click={() => (active = !active)}><Ok /></button>
+        </div>
+        <div class:follow={!active}>
             <p>please type <b>{collectionName}</b> to delete</p>
             <input
                 type="text"
                 name="name"
                 placeholder={collectionName}
                 bind:value
-                required
+                autocomplete="off"
             />
-            <button type="submit" {disabled}>ok</button>
-        </form>
-    </div>
+            <button type="submit" {disabled}><Ok /></button>
+        </div>
+    </form>
 </div>
 
 <style>
@@ -30,14 +37,19 @@
     }
 
     button {
-        border-radius: 5px;
-        background-color: #f00;
+        width: 40px;
+        height: 40px;
+        display: inline-flex;
+        align-items: center;
+    }
+    button :global(svg) {
+        fill: red;
+    }
+    button:disabled :global(svg) {
+        fill: #95a5a6;
     }
     button:disabled {
-        background-color: #555;
-    }
-    button:active {
-        background-color: #999;
+        cursor: not-allowed;
     }
 
     .form {
@@ -49,6 +61,9 @@
         left: 50%;
         transform: translate(-50%, -50%);
     }
+    .form * {
+        margin: 0.5rem 0;
+    }
     input {
         width: 100%;
         border: none;
@@ -57,6 +72,10 @@
     }
     input:focus {
         outline: none;
+    }
+    .prev,
+    .follow {
+        display: none;
     }
     @media screen and (max-width: 600px) {
         .form {
