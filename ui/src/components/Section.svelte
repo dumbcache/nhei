@@ -1,15 +1,18 @@
 <script>
-    import { collections } from "../scripts/stores";
+    import { sections } from "../scripts/stores";
     import CollectionCard from "./collections/Card.svelte";
     import Navigation from "./collections/Navigation.svelte";
+    export let location;
+    export let navigate;
+    $: console.log(location, navigate);
 </script>
 
 <div class="wrapper">
-    <Navigation boardsCount={$collections.length} pinsCount={100} />
-    {#if $collections}
-        <CollectionCard />
+    <Navigation sectionsCount={$sections.length} pinsCount={200} />
+    {#if $sections}
+        <CollectionCard type="section" />
     {:else}
-        <h4>Collections</h4>
+        <h4>sections</h4>
         <p class="alert">No Data Found</p>
     {/if}
 </div>

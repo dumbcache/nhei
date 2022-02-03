@@ -2,6 +2,9 @@
     import Add from "../icons/Add.svelte";
     import Slider from "../icons/Slider.svelte";
     import Create from "./Create.svelte";
+    // import { useLocation } from "svelte-navigator";
+
+    // const location = useLocation();
     let overlay = true;
     let action = "";
     let searchValue;
@@ -14,6 +17,7 @@
         > <button>collections</button> >
         <button>collections</button> >
     </div>
+
     <input
         class="search"
         name="collection"

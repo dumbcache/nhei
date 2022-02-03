@@ -1,10 +1,14 @@
 <script>
-    import { collections } from "../../scripts/stores";
-    import Delete from "../icons/Delete.svelte";
-    import DeleteAction from "./Delete.svelte";
+    import { Link } from "svelte-navigator";
+    import { collections, sections } from "../../scripts/stores";
     import EditAction from "./Edit.svelte";
     import Edit from "../icons/Edit.svelte";
+    import DeleteAction from "./Delete.svelte";
+    import Delete from "../icons/Delete.svelte";
     import Empty from "../icons/Empty.svelte";
+
+    export let type;
+    let set = type === "collections" ? $collections : $sections;
 
     let action;
     let collectionName;
@@ -12,7 +16,7 @@
 </script>
 
 <div class="wrapper">
-    {#each $collections as item}
+    {#each set as item}
         <div class="collection {item.name}">
             <button
                 class="edit"
@@ -20,24 +24,29 @@
                     collectionName = item.name;
                     action = "edit";
                     overlay = false;
-                }}><Edit /></button
-            >
+                }}
+                ><Edit />
+            </button>
             <button
                 class="delete"
                 on:click={() => {
                     collectionName = item.name;
                     action = "delete";
                     overlay = false;
-                }}><Delete /></button
-            >
+                }}
+                ><Delete />
+            </button>
             {#if !item.count}
-                <div class="collection-card">
-                    <Empty />
-                    <h4>{item.name}</h4>
-                </div>
+                <Link to={item.name}>
+                    <div class="collection-card">
+                        <Empty />
+                        <h4>{item.name}</h4>
+                    </div>
+                </Link>
             {/if}
         </div>
     {/each}
+
     <div
         class="overlay"
         class:overlay-visible={overlay}

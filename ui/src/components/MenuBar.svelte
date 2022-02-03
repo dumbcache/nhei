@@ -1,33 +1,35 @@
 <script>
-    import { changeActiveWindow } from "../scripts/manageWindow.js";
-    import { refresh } from "../scripts/refresh";
+    import { Link } from "svelte-navigator";
 
     let menuList = [
         {
             name: "profile",
             src: "/images/profile.svg",
-            onclick: changeActiveWindow,
+            link: "/profile",
         },
         {
             name: "collections",
             src: "/images/collections.svg",
-            onclick: changeActiveWindow,
+            link: "collections",
         },
-        { name: "home", src: "/images/home.svg", onclick: changeActiveWindow },
-        { name: "refresh", src: "/images/refresh.svg", onclick: refresh },
-        { name: "add", src: "/images/add.svg", onclick: undefined },
+        { name: "home", src: "/images/home.svg", link: "/" },
+        { name: "refresh", src: "/images/refresh.svg", link: "/refresh" },
+        { name: "add", src: "/images/add.svg", link: "/add" },
     ];
 </script>
 
 <div class="wrapper">
     {#each menuList as item (item)}
-        <button
-            class={item.name}
-            value={item.name}
-            style="background-image:url({item.src})"
-            on:click={item.onclick}
-            >{item.name}
-        </button>
+        <Link to={item.link}
+            ><div
+                class="link {item.name}"
+                value={item.name}
+                style="background-image:url({item.src})"
+                on:click={item.onclick}
+            >
+                {item.name}
+            </div></Link
+        >
     {/each}
 </div>
 
@@ -45,7 +47,7 @@
         align-items: center;
         border-radius: 5px;
     }
-    button {
+    .link {
         padding-top: 1.2rem;
         background-repeat: no-repeat;
         background-position: top;
@@ -53,12 +55,17 @@
         color: inherit;
         font-size: small;
     }
-    button:active {
+    .link:active {
         background-color: #333;
     }
+
+    :global(a, a:active, a:visited) {
+        text-decoration: none;
+        color: inherit;
+    }
     @media screen and (max-width: 600px) {
-        button {
-            padding-top: 1.5rem;
+        .link {
+            /* padding-top: 1.5rem; */
             font-size: x-small;
         }
     }
