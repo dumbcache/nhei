@@ -4,18 +4,37 @@
     import Create from "./Create.svelte";
     let overlay = true;
     let action = "";
+    let searchValue;
+    export let boardsCount;
+    export let pinsCount;
 </script>
 
 <div class="wrapper">
-    <div class="navbar">> <button><u>collections</u></button></div>
-    <div class="toolbar">
-        <button
-            on:click={() => {
-                overlay = false;
-                action = "add";
-            }}><Add /></button
-        >
-        <button><Slider /></button>
+    <div class="navbar">
+        > <button>collections</button> >
+        <button>collections</button> >
+    </div>
+    <input
+        class="search"
+        name="collection"
+        type="search"
+        bind:value={searchValue}
+        placeholder="collection name"
+        required
+        autocomplete="off"
+    />
+    <div class="stats">
+        <p>Boards : {boardsCount}</p>
+        <p>Pins : {pinsCount}</p>
+        <div class="toolbar">
+            <button
+                on:click={() => {
+                    overlay = false;
+                    action = "add";
+                }}><Add /></button
+            >
+            <button><Slider /></button>
+        </div>
     </div>
     <div
         class="overlay"
@@ -33,10 +52,15 @@
 <style>
     .wrapper {
         display: flex;
+        flex-flow: row wrap;
         justify-content: space-between;
-        padding: 0 2rem;
+        padding: 0 1rem;
         margin: 1rem 0;
         align-items: center;
+        width: 100%;
+    }
+    .wrapper > * {
+        margin: 0.2rem 0;
     }
 
     .wrapper button :global(svg) {
@@ -45,10 +69,30 @@
 
     .wrapper button {
         font-size: large;
-        height: 40px;
+        height: 30px;
     }
+    .stats {
+        display: flex;
+        flex-flow: row nowrap;
+        align-items: center;
+        justify-content: space-around;
+        flex: 1 0 0;
+    }
+    .navbar {
+        flex: 1 0 0;
+    }
+
     .overlay {
         z-index: 1;
+    }
+    input {
+        max-width: 100%;
+        border: none;
+        padding: 0.3rem;
+        border-radius: 5px;
+    }
+    input:focus {
+        outline: none;
     }
     @media screen and (max-width: 600px) {
         .wrapper div {
@@ -59,6 +103,9 @@
         }
         .wrapper button {
             height: 30px;
+        }
+        .stats {
+            justify-content: space-between;
         }
     }
 </style>

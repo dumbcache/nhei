@@ -5,7 +5,7 @@
 </script>
 
 <div class="wrapper">
-    <Navigation />
+    <Navigation boardsCount={$collections.length} pinsCount={100} />
     {#if $collections}
         <CollectionCard />
     {:else}
