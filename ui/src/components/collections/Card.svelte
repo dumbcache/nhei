@@ -114,20 +114,7 @@
     .delete {
         top: 40px;
     }
-    .overlay {
-        position: fixed;
-        width: 100%;
-        height: 100%;
-        background-color: #333;
-        opacity: 0.7;
-        top: 0;
-        bottom: 0;
-        left: 0;
-        right: 0;
-    }
-    .overlay-visible {
-        display: none;
-    }
+
     @media screen and (max-width: 600px) {
         .collection-card {
             width: 45vw;

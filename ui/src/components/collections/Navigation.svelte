@@ -1,14 +1,33 @@
 <script>
     import Add from "../icons/Add.svelte";
     import Slider from "../icons/Slider.svelte";
+    import Create from "./Create.svelte";
+    let overlay = true;
+    let action = "";
 </script>
 
 <div class="wrapper">
     <div class="navbar">> <button><u>collections</u></button></div>
     <div class="toolbar">
-        <button><Add /></button>
+        <button
+            on:click={() => {
+                overlay = false;
+                action = "add";
+            }}><Add /></button
+        >
         <button><Slider /></button>
     </div>
+    <div
+        class="overlay"
+        class:overlay-visible={overlay}
+        on:click={() => {
+            overlay = true;
+            action = "";
+        }}
+    />
+    {#if action === "add"}
+        <Create />
+    {/if}
 </div>
 
 <style>
@@ -27,6 +46,9 @@
     .wrapper button {
         font-size: large;
         height: 40px;
+    }
+    .overlay {
+        z-index: 1;
     }
     @media screen and (max-width: 600px) {
         .wrapper div {

@@ -1,30 +1,80 @@
 <script>
-    export let value;
-    const create = (e) => {
-        let formData = new FormData(e.target);
-        for (let item of formData) {
-            const [key, value] = item;
-            console.log(console.log(key, value));
-        }
-    };
+    import { onMount } from "svelte";
+    import Ok from "../icons/Ok.svelte";
+
+    let collectionName = "";
+    let ref;
+    let edit = () => {};
+    onMount(() => {
+        ref.focus();
+    });
 </script>
 
 <div class="wrapper">
-    <form on:submit|preventDefault={create}>
+    <form class="form" on:submit|preventDefault={edit}>
+        <p>Enter collection name</p>
         <input
             name="collection"
-            type="text"
-            bind:value
+            type="search"
+            bind:value={collectionName}
             placeholder="collection name"
+            bind:this={ref}
             required
+            autocomplete="off"
         />
-        <input name="sections" type="text" value="" placeholder="sections" />
-        <div>
-            <button type="submit">ok</button>
-            <button type="cancel">cancel</button>
-        </div>
+        <button class="ok" disabled={collectionName.trim() === ""} type="submit"
+            ><Ok /></button
+        >
     </form>
 </div>
 
 <style>
+    .wrapper {
+        position: fixed;
+        z-index: 1;
+    }
+
+    .form {
+        padding: 1rem;
+        border-radius: 0.5rem;
+        background-color: #000;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+    .form * {
+        margin: 0.5rem 0;
+    }
+    input {
+        width: 100%;
+        border: none;
+        padding: 0.5rem;
+        border-radius: 5px;
+    }
+    input:focus {
+        outline: none;
+    }
+    button {
+        width: 40px;
+        height: 40px;
+        display: inline-flex;
+        align-items: center;
+    }
+    button:disabled {
+        cursor: not-allowed;
+    }
+    button :global(svg) {
+        fill: red;
+    }
+    button:disabled :global(svg) {
+        fill: #95a5a6;
+    }
+
+    @media screen and (max-width: 600px) {
+        .form {
+            width: 80%;
+            font-size: smaller;
+        }
+    }
 </style>
