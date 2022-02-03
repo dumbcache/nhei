@@ -95,14 +95,15 @@
         outline: none;
     }
     @media screen and (max-width: 600px) {
-        .wrapper div {
-            font-size: 20px;
+        p {
+            font-size: small;
         }
         .wrapper button :global(svg) {
             width: 30px;
         }
         .wrapper button {
             height: 30px;
+            font-size: medium;
         }
         .stats {
             justify-content: space-between;

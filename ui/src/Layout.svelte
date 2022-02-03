@@ -44,5 +44,8 @@
             background-color: #000;
             z-index: 2;
         }
+        .title {
+            display: none;
+        }
     }
 </style>
