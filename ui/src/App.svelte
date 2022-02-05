@@ -7,6 +7,7 @@
     import Pin from "./components/Pin.svelte";
     import Profile from "./components/Profile.svelte";
     import Navigation from "./components/collections/Navigation.svelte";
+    import Doujin from "./components/Doujin.svelte";
 </script>
 
 <Router>
@@ -20,6 +21,7 @@
             <Route path="/" component={Collection} />
         </Route>
         <Route path="/profile" component={Profile} />
+        <Route path="/search" component={Doujin} />
         <Route path="/" component={Home} />
     </Layout>
 </Router>

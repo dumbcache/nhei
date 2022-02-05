@@ -1,13 +1,7 @@
 <script>
-    import { store } from "../scripts/getDoujin";
 </script>
 
-{#if $store}
-    {console.log($store)}
-    {"doujin"}
-{:else}
-    <h4>Home</h4>
-{/if}
+<h4>Home</h4>
 
 <style>
     h4 {

@@ -1,6 +1,6 @@
 import { writable } from "svelte/store";
 
-export const store = writable();
+export const doujin = writable();
 
 export const getDoujin = async (searchId) => {
     let request = await fetch(`http://localhost:5000/`, {
@@ -11,5 +11,5 @@ export const getDoujin = async (searchId) => {
         }),
     });
     let response = await request.json();
-    return store.set(response);
+    return doujin.set(response);
 };

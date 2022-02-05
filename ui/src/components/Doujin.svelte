@@ -1,5 +1,5 @@
 <script>
-    export let doujin = null;
+    import { doujin } from "../scripts/getDoujin";
 
     let overlayActive = "";
     let turnToggle = false;
@@ -11,28 +11,28 @@
 </script>
 
 <div class="card">
-    {#if doujin}
+    {#if $doujin}
         <div class="data">
             <div>
-                <a href={doujin.url} target="_blank"
+                <a href={$doujin.url} target="_blank"
                     ><img
                         class="cover"
-                        src={doujin.cover}
+                        src={$doujin.cover}
                         alt="doujin_image"
                         referrerpolicy="no-referrer"
                     /></a
                 >
             </div>
             <div>
-                <p># {doujin.id}</p>
-                <p>Title: {doujin.title}</p>
-                <p>Author: {doujin.author}</p>
-                <p>Language: {doujin.language}</p>
-                <p>Parody: {doujin.parody}</p>
+                <p># {$doujin.id}</p>
+                <p>Title: {$doujin.title}</p>
+                <p>Author: {$doujin.author}</p>
+                <p>Language: {$doujin.language}</p>
+                <p>Parody: {$doujin.parody}</p>
             </div>
         </div>
         <div class="pages">
-            {#each doujin.pages as page (page.url)}
+            {#each $doujin.pages as page (page.url)}
                 <div
                     class="page"
                     on:click={() => {
@@ -58,7 +58,7 @@
 
 <style>
     .card {
-        padding: 0.5rem;
+        /* padding: 0.5rem; */
         padding-top: 0;
     }
     p {
@@ -101,7 +101,7 @@
         }
 
         .page {
-            flex-basis: 45%;
+            flex-basis: 100%;
         }
         .card {
             margin-bottom: 130px;

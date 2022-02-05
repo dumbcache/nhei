@@ -6,7 +6,7 @@
 <header>
     <div class="menu-container">
         <MenuBar />
-        <SearchBar on:receive />
+        <SearchBar />
     </div>
     <h1 class="title">NHei</h1>
 </header>

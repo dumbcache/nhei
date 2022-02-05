@@ -2,14 +2,15 @@
     import Search from "./icons/Search.svelte";
     import { getDoujin } from "../scripts/getDoujin";
     import { searchValue } from "../scripts/stores.js";
-
+    import { navigate } from "svelte-navigator";
     $: disabled = $searchValue.trim().length === 0;
-    const sendDispatch = () => {
+    const getData = () => {
         getDoujin($searchValue.trim());
+        navigate("/search");
     };
 </script>
 
-<form on:submit|preventDefault={sendDispatch}>
+<form on:submit|preventDefault={getData}>
     <div class="wrapper">
         <input
             class="search"
