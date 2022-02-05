@@ -1,5 +1,6 @@
 import { writable } from "svelte/store";
 
+export const navHistory = writable({});
 export const searchValue = writable("");
 export const collections = writable([
     { name: "favourites" },

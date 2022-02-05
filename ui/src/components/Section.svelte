@@ -1,14 +1,11 @@
 <script>
     import { sections } from "../scripts/stores";
     import CollectionCard from "./collections/Card.svelte";
-    import Navigation from "./collections/Navigation.svelte";
-    export let location;
-    export let navigate;
-    $: console.log(location, navigate);
+
+    export let location, navigate;
 </script>
 
 <div class="wrapper">
-    <Navigation sectionsCount={$sections.length} pinsCount={200} />
     {#if $sections}
         <CollectionCard type="section" />
     {:else}

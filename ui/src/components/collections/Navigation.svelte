@@ -2,20 +2,19 @@
     import Add from "../icons/Add.svelte";
     import Slider from "../icons/Slider.svelte";
     import Create from "./Create.svelte";
-    // import { useLocation } from "svelte-navigator";
+    import { navigate } from "svelte-navigator";
 
-    // const location = useLocation();
     let overlay = true;
     let action = "";
     let searchValue;
     export let boardsCount;
+    export let sectionsCount;
     export let pinsCount;
 </script>
 
 <div class="wrapper">
     <div class="navbar">
-        > <button>collections</button> >
-        <button>collections</button> >
+        <button on:click={() => navigate(-1)}>{"< back"}</button>
     </div>
 
     <input
@@ -29,6 +28,7 @@
     />
     <div class="stats">
         <p>Boards : {boardsCount}</p>
+        <p>Sections : {sectionsCount}</p>
         <p>Pins : {pinsCount}</p>
         <div class="toolbar">
             <button
@@ -77,13 +77,10 @@
     }
     .stats {
         display: flex;
+        width: 600px;
         flex-flow: row nowrap;
         align-items: center;
-        justify-content: space-around;
-        flex: 1 0 0;
-    }
-    .navbar {
-        flex: 1 0 0;
+        justify-content: space-between;
     }
 
     .overlay {
@@ -111,6 +108,7 @@
         }
         .stats {
             justify-content: space-between;
+            width: 100%;
         }
     }
 </style>
