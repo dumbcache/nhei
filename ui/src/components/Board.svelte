@@ -1,13 +1,17 @@
 <script>
-    import { collections } from "../scripts/stores";
-    import CollectionCard from "./Board/Card.svelte";
+    import CollectionCard from "./Board/template.svelte";
+    import { boards } from "../scripts/stores";
 
     export let location, navigate;
+    let data;
+    if ($boards.length !== 0) {
+        data = $boards.map((record) => record.name);
+    }
 </script>
 
 <div class="wrapper">
-    {#if $collections}
-        <CollectionCard type="collections" />
+    {#if $boards.length !== 0}
+        <CollectionCard {data} />
     {:else}
         <h4>Collections</h4>
         <p class="alert">No Data Found</p>

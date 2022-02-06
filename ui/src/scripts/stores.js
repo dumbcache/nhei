@@ -2,6 +2,8 @@ import { writable } from "svelte/store";
 
 export const navHistory = writable({});
 export const searchValue = writable("");
+export const activeCollection = writable();
+export const activeSection = writable();
 export const doujin = writable();
 export const boards = writable();
 export const pinss = writable();
@@ -35,22 +37,6 @@ export const getDoujin = async (searchId) => {
     doujin.set(response);
 };
 
-export const collections = writable([
-    { name: "favourites" },
-    { name: "AOT" },
-    { name: "JJK" },
-    { name: "OnePiece" },
-    { name: "favourites" },
-    { name: "AOT" },
-    { name: "JJK" },
-    { name: "OnePiece" },
-]);
-export const sections = writable([
-    { name: "Aqua" },
-    { name: "Darkness" },
-    { name: "Megumin" },
-    { name: "YunYun" },
-]);
 export const pins = writable([
     { id: "1" },
     { id: "2" },

@@ -11,9 +11,6 @@
 </script>
 
 <header>
-    {#if $boards}
-        {console.log($boards)}
-    {/if}
     <div class="menu-container">
         <MenuBar />
         <SearchBar />

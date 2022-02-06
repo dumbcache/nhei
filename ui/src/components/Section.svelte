@@ -1,13 +1,19 @@
 <script>
-    import { sections } from "../scripts/stores";
-    import Board from "./Board/Card.svelte";
+    import Section from "./Board/template.svelte";
+    import { boards } from "../scripts/stores";
 
     export let location, navigate;
+    let section = location.pathname.split("/").pop();
+    let data;
+    $: if ($boards.length !== 0) {
+        section = $boards.filter((record) => record.name === section);
+        data = section[0].sections;
+    }
 </script>
 
 <div class="wrapper">
-    {#if $sections}
-        <Board type="section" />
+    {#if $boards.length !== 0}
+        <Section {data} />
     {:else}
         <h4>sections</h4>
         <p class="alert">No Data Found</p>

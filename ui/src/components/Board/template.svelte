@@ -1,27 +1,25 @@
 <script>
     import { Link } from "svelte-navigator";
-    import { collections, sections } from "../../scripts/stores";
     import EditAction from "./Edit.svelte";
     import Edit from "../icons/Edit.svelte";
     import DeleteAction from "./Delete.svelte";
     import Delete from "../icons/Delete.svelte";
     import Empty from "../icons/Empty.svelte";
+    import { activeCollection } from "../../scripts/stores";
 
-    export let type;
-    let set = type === "collections" ? $collections : $sections;
-
+    export let data;
     let action;
     let collectionName;
     let overlay = true;
 </script>
 
 <div class="wrapper">
-    {#each set as item}
-        <div class="collection {item.name}">
+    {#each data as item}
+        <div class="collection {item}">
             <button
                 class="edit"
                 on:click={() => {
-                    collectionName = item.name;
+                    collectionName = item;
                     action = "edit";
                     overlay = false;
                 }}
@@ -30,17 +28,17 @@
             <button
                 class="delete"
                 on:click={() => {
-                    collectionName = item.name;
+                    collectionName = item;
                     action = "delete";
                     overlay = false;
                 }}
                 ><Delete />
             </button>
             {#if !item.count}
-                <Link to={item.name}>
+                <Link to={item}>
                     <div class="collection-card">
                         <Empty />
-                        <h4>{item.name}</h4>
+                        <h4>{item}</h4>
                     </div>
                 </Link>
             {/if}

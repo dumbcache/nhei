@@ -10,7 +10,7 @@
         {
             name: "collections",
             src: "/images/collections.svg",
-            link: "collections",
+            link: "/boards",
         },
         { name: "home", src: "/images/home.svg", link: "/" },
         { name: "refresh", src: "/images/refresh.svg", link: "/refresh" },
