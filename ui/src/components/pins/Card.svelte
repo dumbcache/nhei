@@ -51,6 +51,9 @@
         border-radius: 0.5rem;
         padding: 0.5rem;
     }
+    .overlay {
+        z-index: 1;
+    }
 
     .edit,
     .delete {

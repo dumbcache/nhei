@@ -5,7 +5,6 @@
     import DeleteAction from "./Delete.svelte";
     import Delete from "../icons/Delete.svelte";
     import Empty from "../icons/Empty.svelte";
-    import { activeCollection } from "../../scripts/stores";
 
     export let data;
     let action;

@@ -35,6 +35,7 @@
 <style>
     .wrapper {
         position: fixed;
+        z-index: 1;
     }
 
     .form {
