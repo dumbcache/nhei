@@ -1,6 +1,6 @@
 <script>
     import { collections } from "../scripts/stores";
-    import CollectionCard from "./collections/Card.svelte";
+    import CollectionCard from "./Board/Card.svelte";
 
     export let location, navigate;
 </script>

@@ -22,6 +22,10 @@ app.get("/", (req, res) => {
 app.post("/", cacheDoujinInfo, fetchDoujinInfo);
 
 /**
+ * recives board or section name for creation
+ */
+// app.post("/", create);
+/**
  * App listening at port
  */
 app.listen(port, () => console.log(`listening at port ${port}`));

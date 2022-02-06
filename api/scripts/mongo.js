@@ -16,3 +16,19 @@ export const run = async (doujin) => {
         await client.close();
     }
 };
+export const create = async (req, res, next) => {
+    try {
+        let { type, name } = req.data;
+        await client.connect();
+        let nhei = client.db("nhei").collection("boards");
+
+        if (type === board) {
+        }
+        nhei.insertOne(doujin);
+        await result.forEach(console.dir);
+    } catch (error) {
+        console.log(error);
+    } finally {
+        await client.close();
+    }
+};

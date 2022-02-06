@@ -2,32 +2,38 @@
     import { onMount } from "svelte";
     import Ok from "../icons/Ok.svelte";
 
-    export let collectionName;
-    let previous = collectionName;
+    let name = "";
+    export let type;
     let ref;
-    let edit = () => {};
+    let create = async () => {
+        await fetch("http://localhost:5000/create", {
+            method: "POST",
+            headers: { "Content-type": "application/json" },
+            body: JSON.stringify({
+                type,
+                name,
+            }),
+        });
+    };
     onMount(() => {
         ref.focus();
     });
 </script>
 
 <div class="wrapper">
-    <form class="form" on:submit|preventDefault={edit}>
-        <p>Enter new name</p>
+    <form class="form" on:submit|preventDefault={create}>
+        <p>Enter collection name</p>
         <input
             name="collection"
             type="search"
-            bind:value={collectionName}
+            bind:value={name}
             placeholder="collection name"
             bind:this={ref}
             required
             autocomplete="off"
         />
-        <button
-            class="ok"
-            disabled={previous === collectionName ||
-                collectionName.trim() === ""}
-            type="submit"><Ok /></button
+        <button class="ok" disabled={name.trim() === ""} type="submit"
+            ><Ok /></button
         >
     </form>
 </div>
@@ -35,6 +41,7 @@
 <style>
     .wrapper {
         position: fixed;
+        z-index: 1;
     }
 
     .form {

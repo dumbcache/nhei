@@ -2,23 +2,23 @@
     import { Router, Route } from "svelte-navigator";
     import Layout from "./Layout.svelte";
     import Home from "./components/Home.svelte";
-    import Collection from "./components/Collection.svelte";
+    import Board from "./components/Board.svelte";
     import Section from "./components/Section.svelte";
     import Pin from "./components/Pin.svelte";
     import Profile from "./components/Profile.svelte";
-    import Navigation from "./components/collections/Navigation.svelte";
+    import Navigation from "./components/Board/Navigation.svelte";
     import Doujin from "./components/Doujin.svelte";
 </script>
 
 <Router>
     <Layout>
-        <Route path="/collections/*">
+        <Route path="/boards/*">
             <Navigation boardsCount={20} sectionsCount={100} pinsCount={200} />
-            <Route path=":collection/*">
+            <Route path=":board/*">
                 <Route path=":section" component={Pin} />
                 <Route path="/" component={Section} />
             </Route>
-            <Route path="/" component={Collection} />
+            <Route path="/" component={Board} />
         </Route>
         <Route path="/profile" component={Profile} />
         <Route path="/search" component={Doujin} />

@@ -1,13 +1,13 @@
 <script>
     import { sections } from "../scripts/stores";
-    import CollectionCard from "./collections/Card.svelte";
+    import Board from "./Board/Card.svelte";
 
     export let location, navigate;
 </script>
 
 <div class="wrapper">
     {#if $sections}
-        <CollectionCard type="section" />
+        <Board type="section" />
     {:else}
         <h4>sections</h4>
         <p class="alert">No Data Found</p>
