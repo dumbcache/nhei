@@ -1,9 +1,19 @@
 <script>
+    import { onMount } from "svelte";
     import SearchBar from "./components/SearchBar.svelte";
     import MenuBar from "./components/MenuBar.svelte";
+    import { getBoards, boards } from "./scripts/stores";
+
+    onMount(async () => {
+        console.log("server request");
+        getBoards();
+    });
 </script>
 
 <header>
+    {#if $boards}
+        {console.log($boards)}
+    {/if}
     <div class="menu-container">
         <MenuBar />
         <SearchBar />

@@ -16,19 +16,37 @@ export const run = async (doujin) => {
         await client.close();
     }
 };
-export const create = async (req, res, next) => {
-    try {
-        let { type, name } = req.data;
-        await client.connect();
-        let nhei = client.db("nhei").collection("boards");
 
-        if (type === board) {
-        }
-        nhei.insertOne(doujin);
-        await result.forEach(console.dir);
+export const connect = async () => {
+    try {
+        await client.connect();
+        return client.db("nhei");
     } catch (error) {
         console.log(error);
-    } finally {
-        await client.close();
     }
+};
+// export const create = async (req, res, next) => {
+//     try {
+//         let { type, name } = req.data;
+//         await client.connect();
+//         let nhei = client.db("nhei").collection("boards");
+
+//         if (type === board) {
+//             let exits = nhei.findOne({_id:name})
+//         }
+//         nhei.insertOne(doujin);
+//         await result.forEach(console.dir);
+//     } catch (error) {
+//         console.log(error);
+//     } finally {
+//         await client.close();
+//     }
+// };
+
+export const getBoards = async (req, res, next) => {
+    let nhei = await connect();
+    let cursor = nhei.collection("boards").find();
+    let boards = await cursor.toArray();
+    console.log(boards);
+    res.send(boards);
 };

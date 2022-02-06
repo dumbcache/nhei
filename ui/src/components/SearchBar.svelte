@@ -1,7 +1,6 @@
 <script>
     import Search from "./icons/Search.svelte";
-    import { getDoujin } from "../scripts/getDoujin";
-    import { searchValue } from "../scripts/stores.js";
+    import { searchValue, getDoujin } from "../scripts/stores.js";
     import { navigate } from "svelte-navigator";
     $: disabled = $searchValue.trim().length === 0;
     const getData = () => {

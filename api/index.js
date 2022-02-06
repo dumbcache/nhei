@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 import bodyParser from "body-parser";
 import { cacheDoujinInfo, fetchDoujinInfo } from "./scripts/fetchDoujin.js";
+import { getBoards } from "./scripts/mongo.js";
 
 let app = express();
 let port = 80;
@@ -10,11 +11,9 @@ app.use(cors());
 app.use(bodyParser.json());
 
 /**
- * Initial root
+ * Sending nhei boards and sections data
  */
-app.get("/", (req, res) => {
-    res.send({ message: "server running" });
-});
+app.get("/", getBoards);
 
 /**
  * Route to get particular doujin from id
@@ -22,9 +21,8 @@ app.get("/", (req, res) => {
 app.post("/", cacheDoujinInfo, fetchDoujinInfo);
 
 /**
- * recives board or section name for creation
+ * Get
  */
-// app.post("/", create);
 /**
  * App listening at port
  */

@@ -1,5 +1,5 @@
 <script>
-    import { doujin } from "../scripts/getDoujin";
+    import { doujin } from "../scripts/stores";
 
     let overlayActive = "";
     let turnToggle = false;
