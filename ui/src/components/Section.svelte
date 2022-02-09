@@ -3,11 +3,11 @@
     import { boards } from "../scripts/stores";
 
     export let location, navigate;
-    let section = location.pathname.split("/").pop();
+    let board = location.pathname.split("/").pop();
     let data = [];
     $: if ($boards.length !== 0) {
-        section = $boards.filter((record) => record.name === section);
-        data = section[0].sections;
+        board = $boards.filter((record) => record.board === board);
+        data = board[0].sections;
     }
 </script>
 

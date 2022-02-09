@@ -2,16 +2,16 @@
     import { onMount } from "svelte";
     import Ok from "../icons/Ok.svelte";
 
-    let name = "";
-    export let type;
+    let board = "";
+    let section = "";
     let ref;
     let create = async () => {
         await fetch("http://localhost:5000/create", {
             method: "POST",
             headers: { "Content-type": "application/json" },
             body: JSON.stringify({
-                type,
-                name,
+                board,
+                section,
             }),
         });
     };
@@ -22,17 +22,24 @@
 
 <div class="wrapper">
     <form class="form" on:submit|preventDefault={create}>
-        <p>Enter collection name</p>
+        <p>Enter board name</p>
         <input
-            name="collection"
+            name="board"
             type="search"
-            bind:value={name}
-            placeholder="collection name"
+            bind:value={board}
+            placeholder="board name"
             bind:this={ref}
             required
             autocomplete="off"
         />
-        <button class="ok" disabled={name.trim() === ""} type="submit"
+        <input
+            name="section"
+            type="search"
+            bind:value={section}
+            placeholder="section name"
+            autocomplete="off"
+        />
+        <button class="ok" disabled={board.trim() === ""} type="submit"
             ><Ok /></button
         >
     </form>

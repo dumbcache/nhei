@@ -13,7 +13,7 @@
             link: "/boards",
         },
         { name: "home", src: "/images/home.svg", link: "/" },
-        { name: "refresh", src: "/images/refresh.svg", link: "/refresh" },
+        { name: "refresh", src: "/images/refresh.svg", link: "" },
         { name: "add", src: "/images/add.svg", link: "/add" },
     ];
 </script>

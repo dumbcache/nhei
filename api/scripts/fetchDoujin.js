@@ -60,6 +60,7 @@ export const fetchDoujinInfo = async (req, res, next) => {
          */
         redis.set(id, JSON.stringify(data));
         res.send(data);
+        return;
         console.log("completed");
     } catch (err) {
         console.log(err);

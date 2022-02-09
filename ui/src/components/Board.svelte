@@ -5,7 +5,7 @@
     export let location, navigate;
     let data = [];
     $: if ($boards.length !== 0) {
-        data = $boards.map((record) => record.name);
+        data = $boards.map((record) => record.board);
         console.log(data);
     }
 </script>

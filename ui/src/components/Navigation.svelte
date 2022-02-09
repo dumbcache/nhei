@@ -10,6 +10,7 @@
     export let boardsCount;
     export let sectionsCount;
     export let pinsCount;
+    console.log(location);
 </script>
 
 <div class="wrapper">
