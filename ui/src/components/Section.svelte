@@ -4,7 +4,7 @@
 
     export let location, navigate;
     let section = location.pathname.split("/").pop();
-    let data;
+    let data = [];
     $: if ($boards.length !== 0) {
         section = $boards.filter((record) => record.name === section);
         data = section[0].sections;
@@ -12,7 +12,7 @@
 </script>
 
 <div class="wrapper">
-    {#if $boards.length !== 0}
+    {#if data.length !== 0}
         <Section {data} />
     {:else}
         <h4>sections</h4>

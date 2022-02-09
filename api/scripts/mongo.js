@@ -4,49 +4,49 @@ const url = "mongodb://nhei:nhei@mongo:27017";
 
 const client = new MongoClient(url);
 
-export const run = async (doujin) => {
-    try {
-        await client.connect();
-        let nhei = client.db("nhei").collection("nhei");
-        nhei.insertOne(doujin);
-        await result.forEach(console.dir);
-    } catch (error) {
-        console.log(error);
-    } finally {
-        await client.close();
-    }
-};
-
 export const connect = async () => {
     try {
         await client.connect();
         return client.db("nhei");
     } catch (error) {
-        console.log(error);
+        console.log("error while connecting");
     }
 };
-// export const create = async (req, res, next) => {
-//     try {
-//         let { type, name } = req.data;
-//         await client.connect();
-//         let nhei = client.db("nhei").collection("boards");
 
-//         if (type === board) {
-//             let exits = nhei.findOne({_id:name})
-//         }
-//         nhei.insertOne(doujin);
-//         await result.forEach(console.dir);
-//     } catch (error) {
-//         console.log(error);
-//     } finally {
-//         await client.close();
-//     }
-// };
+export const close = async () => {
+    try {
+        await client.close();
+    } catch (error) {
+        console.log("error while closing");
+    }
+};
 
 export const getBoards = async (req, res, next) => {
-    let nhei = await connect();
-    let cursor = nhei.collection("boards").find();
-    let boards = await cursor.toArray();
-    console.log(boards);
-    res.send(boards);
+    try {
+        let nhei = await connect();
+        let cursor = nhei.collection("boards").find();
+        let boards = await cursor.toArray();
+        console.log(boards);
+        res.send(boards);
+        close();
+    } catch (error) {
+        console.log(`${error} error in getBoards`);
+    }
+};
+
+export const create = async (req, res, next) => {
+    try {
+        let { type, name } = req.data;
+        await connect();
+        let nhei = client.db("nhei").collection("boards");
+
+        if (type === board) {
+            let exits = nhei.findOne({ _id: name });
+        }
+        nhei.insertOne(doujin);
+        await result.forEach(console.dir);
+        close();
+    } catch (error) {
+        console.log(`${error} error in create`);
+    }
 };

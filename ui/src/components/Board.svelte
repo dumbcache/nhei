@@ -3,7 +3,7 @@
     import { boards } from "../scripts/stores";
 
     export let location, navigate;
-    let data;
+    let data = [];
     $: if ($boards.length !== 0) {
         data = $boards.map((record) => record.name);
         console.log(data);
@@ -11,7 +11,7 @@
 </script>
 
 <div class="wrapper">
-    {#if $boards.length !== 0}
+    {#if data.length !== 0}
         <CollectionCard {data} />
     {:else}
         <h4>Collections</h4>

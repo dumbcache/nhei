@@ -49,10 +49,10 @@ export const fetchDoujinInfo = async (req, res, next) => {
             id: request.id,
             url: request.url,
             cover: request.thumbnail.url,
-            title: request.titles.pretty,
-            author: request.tags.artists[0].name,
+            title: request.titles?.pretty,
+            author: request.tags.artists[0]?.name,
             language: request.tags.languages[0].name,
-            parody: request.tags.parodies[0].name,
+            parody: request.tags.parodies[0]?.name,
             pages: request.pages,
         };
         /**

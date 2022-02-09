@@ -1,4 +1,5 @@
 <script>
+    export let location, navigate;
 </script>
 
 <h4>Home</h4>

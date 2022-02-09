@@ -2,10 +2,10 @@
     import { onMount } from "svelte";
     import SearchBar from "./components/SearchBar.svelte";
     import MenuBar from "./components/MenuBar.svelte";
-    import { getBoards, boards } from "./scripts/stores";
+    import { getBoards } from "./scripts/stores";
 
     onMount(async () => {
-        console.log("server request");
+        console.log("retrieving nhei data");
         getBoards();
     });
 </script>

@@ -33,14 +33,12 @@
                 }}
                 ><Delete />
             </button>
-            {#if !item.count}
-                <Link to={item}>
-                    <div class="collection-card">
-                        <Empty />
-                        <h4>{item}</h4>
-                    </div>
-                </Link>
-            {/if}
+            <Link to={item}>
+                <div class="collection-card">
+                    <Empty />
+                    <h4>{item}</h4>
+                </div>
+            </Link>
         </div>
     {/each}
 

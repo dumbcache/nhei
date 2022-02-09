@@ -6,7 +6,7 @@
     import Section from "./components/Section.svelte";
     import Pin from "./components/Pin.svelte";
     import Profile from "./components/Profile.svelte";
-    import Navigation from "./components/Board/Navigation.svelte";
+    import Navigation from "./components/Navigation.svelte";
     import Doujin from "./components/Doujin.svelte";
 </script>
 

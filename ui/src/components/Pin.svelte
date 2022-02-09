@@ -4,9 +4,14 @@
 </script>
 
 <div class="wrapper">
-    {#each $pins as pin (pin.id)}
-        <Pin details={pin} />
-    {/each}
+    {#if $pins.length !== 0}
+        {#each $pins as pin (pin.id)}
+            <Pin details={pin} />
+        {/each}
+    {:else}
+        <h4>Pins</h4>
+        <p class="alert">No Data Found</p>
+    {/if}
 </div>
 
 <style>
@@ -22,6 +27,22 @@
     }
     .wrapper :global(.wrapper > svg) {
         width: 100%;
+    }
+    h4,
+    p {
+        text-align: center;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+    }
+    h4 {
+        opacity: 0.3;
+    }
+    p {
+        opacity: 0.5;
+        top: 55%;
+        font-size: x-small;
     }
     @media screen and (max-width: 600px) {
         .wrapper {
