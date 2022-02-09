@@ -4,8 +4,9 @@
 
     export let location, navigate;
     let data;
-    if ($boards.length !== 0) {
+    $: if ($boards.length !== 0) {
         data = $boards.map((record) => record.name);
+        console.log(data);
     }
 </script>
 

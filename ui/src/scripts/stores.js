@@ -5,7 +5,7 @@ export const searchValue = writable("");
 export const activeCollection = writable();
 export const activeSection = writable();
 export const doujin = writable();
-export const boards = writable();
+export const boards = writable([]);
 export const pinss = writable();
 
 export const getBoards = async () => {

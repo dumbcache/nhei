@@ -42,10 +42,10 @@ services:
             - backend
 volumes:
     mongo:
-        external: true
+        external: false
         name: nhei_mongo
     redis:
-        external: true
+        external: false
         name: nhei_redis
 
 networks:
