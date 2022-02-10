@@ -103,11 +103,23 @@ export const edit = async (req, res, next) => {
     try {
         let nhei = await connect();
         let { type, previous, name, parent } = req.body;
+        let status;
 
-        if (parent) {
-            console.log(parent);
+        if (type === "section") {
+            await nhei
+                .collection("boards")
+                .updateOne(
+                    { board: parent, sections: previous },
+                    { $set: { "sections.$": name } }
+                );
+            status = "section rename successful";
+        } else {
+            await nhei
+                .collection("boards")
+                .updateOne({ board: previous }, { $set: { board: name } });
+            status = "board rename successful";
         }
-        res.send({ status: "status" });
+        res.send({ status });
     } catch (error) {
         console.log(`${error} error in create`);
     } finally {
