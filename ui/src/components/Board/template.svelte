@@ -12,7 +12,16 @@
     let overlay = true;
     let status;
 
-    const showStatus = (e) => {
+    const showEditStatus = (e) => {
+        status = e.detail.status;
+        setTimeout(() => {
+            status = undefined;
+        }, 2000);
+        overlay = true;
+        action = "";
+        console.log(status);
+    };
+    const showDeleteStatus = (e) => {
         status = e.detail.status;
         setTimeout(() => {
             status = undefined;
@@ -62,9 +71,9 @@
         }}
     />
     {#if action === "edit"}
-        <EditAction {name} {type} {parent} on:recieve={showStatus} />
+        <EditAction {name} {type} {parent} on:recieve={showEditStatus} />
     {:else if action === "delete"}
-        <DeleteAction {name} {type} {parent} />
+        <DeleteAction {name} {type} {parent} on:recieve={showDeleteStatus} />
     {/if}
     {#if status}
         <p class="status">{status}</p>

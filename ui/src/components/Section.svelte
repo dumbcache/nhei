@@ -3,7 +3,7 @@
     import { boards } from "../scripts/stores";
 
     export let location, navigate;
-    let board = location.pathname.split("/").pop();
+    let board = location.pathname.split("/").pop().trim();
     let parent = board;
     let data = [];
     $: if ($boards.length !== 0) {

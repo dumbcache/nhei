@@ -104,14 +104,16 @@ export const edit = async (req, res, next) => {
         let nhei = await connect();
         let { type, previous, name, parent } = req.body;
         let status;
-
+        previous = previous.trim();
+        parent = parent.trim();
         if (type === "section") {
-            await nhei
+            let inserted = await nhei
                 .collection("boards")
                 .updateOne(
                     { board: parent, sections: previous },
                     { $set: { "sections.$": name } }
                 );
+            console.log(inserted);
             status = "section rename successful";
         } else {
             await nhei
@@ -119,6 +121,34 @@ export const edit = async (req, res, next) => {
                 .updateOne({ board: previous }, { $set: { board: name } });
             status = "board rename successful";
         }
+        res.send({ status });
+    } catch (error) {
+        console.log(`${error} error in create`);
+    } finally {
+        client.close();
+    }
+};
+
+export const remove = async (req, res, next) => {
+    try {
+        let nhei = await connect();
+        let { type, name, parent } = req.body;
+        let status;
+        name = name.trim();
+        if (type === "section") {
+            let deleted = await nhei
+                .collection("boards")
+                .updateOne({ board: parent }, { $pull: { sections: name } });
+            console.log(deleted);
+            status = "section deleted";
+        } else {
+            let deleted = await nhei
+                .collection("boards")
+                .deleteOne({ board: name });
+            console.log(deleted);
+            status = "board deleted";
+        }
+        console.log(req.body);
         res.send({ status });
     } catch (error) {
         console.log(`${error} error in create`);

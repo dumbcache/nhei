@@ -1,28 +1,52 @@
 <script>
+    import { createEventDispatcher } from "svelte";
     import Ok from "../icons/Ok.svelte";
 
-    export let collectionName;
-    const action = () => {
-        // send request to server for deletion
-    };
+    export let name, parent, type;
+    const dispatch = createEventDispatcher();
+
     let value;
     let disabled = true;
-    $: disabled = value === collectionName ? false : true;
-    let active = false;
+    $: disabled = value === name.trim() ? false : true;
+    let prev = false;
+    let follow = true;
+
+    let remove = async () => {
+        let response = await fetch("http://localhost:5000/delete", {
+            method: "POST",
+            headers: { "Content-type": "application/json" },
+            body: JSON.stringify({
+                type,
+                name,
+                parent,
+            }),
+        });
+
+        let { status } = await response.json();
+        dispatch("recieve", {
+            status,
+        });
+    };
 </script>
 
 <div class="wrapper">
-    <form class="form" on:submit|preventDefault={action}>
-        <div class:prev={active}>
+    <form class="form" on:submit|preventDefault={remove}>
+        <div class:prev>
             <p>You sure? All pins will be deleted</p>
-            <button on:click={() => (active = !active)}><Ok /></button>
+            <button
+                type="button"
+                on:click={() => {
+                    prev = !prev;
+                    follow = !follow;
+                }}><Ok /></button
+            >
         </div>
-        <div class:follow={!active}>
-            <p>please type <b>{collectionName}</b> to delete</p>
+        <div class:follow>
+            <p>please type <b>{name}</b> to delete</p>
             <input
                 type="text"
                 name="name"
-                placeholder={collectionName}
+                placeholder={name}
                 bind:value
                 autocomplete="off"
             />
