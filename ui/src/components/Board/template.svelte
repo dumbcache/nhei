@@ -6,10 +6,21 @@
     import Delete from "../icons/Delete.svelte";
     import Empty from "../icons/Empty.svelte";
 
-    export let data;
+    export let data, type, parent;
     let action;
-    let collectionName;
+    let name;
     let overlay = true;
+    let status;
+
+    const showStatus = (e) => {
+        status = e.detail.status;
+        setTimeout(() => {
+            status = undefined;
+        }, 2000);
+        overlay = true;
+        action = "";
+        console.log(status);
+    };
 </script>
 
 <div class="wrapper">
@@ -18,7 +29,7 @@
             <button
                 class="edit"
                 on:click={() => {
-                    collectionName = item;
+                    name = item;
                     action = "edit";
                     overlay = false;
                 }}
@@ -27,7 +38,7 @@
             <button
                 class="delete"
                 on:click={() => {
-                    collectionName = item;
+                    name = item;
                     action = "delete";
                     overlay = false;
                 }}
@@ -51,9 +62,12 @@
         }}
     />
     {#if action === "edit"}
-        <EditAction {collectionName} />
+        <EditAction {name} {type} {parent} on:recieve={showStatus} />
     {:else if action === "delete"}
-        <DeleteAction {collectionName} />
+        <DeleteAction {name} {type} {parent} />
+    {/if}
+    {#if status}
+        <p class="status">{status}</p>
     {/if}
 </div>
 

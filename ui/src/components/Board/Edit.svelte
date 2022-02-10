@@ -1,19 +1,27 @@
 <script>
-    import { onMount } from "svelte";
+    import { onMount, createEventDispatcher } from "svelte";
     import Ok from "../icons/Ok.svelte";
 
-    export let name;
-    export let type;
+    export let name, type, parent;
     let previous = name;
     let ref;
+    let dispatch = createEventDispatcher();
+
     let edit = async () => {
-        await fetch("http://localhost:5000/create", {
+        let response = await fetch("http://localhost:5000/edit", {
             method: "POST",
             headers: { "Content-type": "application/json" },
             body: JSON.stringify({
                 type,
+                previous,
                 name,
+                parent,
             }),
+        });
+
+        let { status } = await response.json();
+        dispatch("recieve", {
+            status,
         });
     };
     onMount(() => {

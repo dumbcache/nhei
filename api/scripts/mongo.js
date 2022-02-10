@@ -56,6 +56,7 @@ export const create = async (req, res, next) => {
     try {
         let nhei = await connect();
         let { board, section } = req.body;
+        let status;
         board = board.trim();
         section = section.trim();
         console.log(board, section);
@@ -68,18 +69,18 @@ export const create = async (req, res, next) => {
         let boardStatus = await isBoardPresent(nhei, board);
 
         if (boardStatus) {
-            console.log("board present");
+            status = "Board present";
         } else {
             await nhei
                 .collection("boards")
                 .insertOne({ board: board, sections: [] });
-            console.log("board created");
+            status = "Board created";
         }
 
         if (section.length !== 0) {
             let sectionStatus = await isSectionPresent(nhei, board, section);
             if (sectionStatus) {
-                console.log("section present");
+                status = "section present";
             } else {
                 await nhei
                     .collection("boards")
@@ -87,9 +88,26 @@ export const create = async (req, res, next) => {
                         { board: board },
                         { $push: { sections: section } }
                     );
-                console.log("section added");
+                status = "section added";
             }
         }
+        res.send({ status });
+    } catch (error) {
+        console.log(`${error} error in create`);
+    } finally {
+        client.close();
+    }
+};
+
+export const edit = async (req, res, next) => {
+    try {
+        let nhei = await connect();
+        let { type, previous, name, parent } = req.body;
+
+        if (parent) {
+            console.log(parent);
+        }
+        res.send({ status: "status" });
     } catch (error) {
         console.log(`${error} error in create`);
     } finally {

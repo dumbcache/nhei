@@ -1,12 +1,14 @@
 <script>
-    import { onMount } from "svelte";
+    import { onMount, createEventDispatcher } from "svelte";
     import Ok from "../icons/Ok.svelte";
 
     let board = "";
     let section = "";
     let ref;
+    let dispatch = createEventDispatcher();
     let create = async () => {
-        await fetch("http://localhost:5000/create", {
+        console.log("sent");
+        let response = await fetch("http://localhost:5000/create", {
             method: "POST",
             headers: { "Content-type": "application/json" },
             body: JSON.stringify({
@@ -14,6 +16,12 @@
                 section,
             }),
         });
+        let { status } = await response.json();
+
+        dispatch("recieve", {
+            status,
+        });
+        // console.log(await response.json());
     };
     onMount(() => {
         ref.focus();

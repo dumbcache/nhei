@@ -12,7 +12,7 @@
 
 <div class="wrapper">
     {#if data.length !== 0}
-        <CollectionCard {data} />
+        <CollectionCard {data} type="board" />
     {:else}
         <h4>Collections</h4>
         <p class="alert">No Data Found</p>

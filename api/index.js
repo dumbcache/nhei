@@ -2,7 +2,7 @@ import express from "express";
 import cors from "cors";
 import bodyParser from "body-parser";
 import { cacheDoujinInfo, fetchDoujinInfo } from "./scripts/fetchDoujin.js";
-import { getBoards, create } from "./scripts/mongo.js";
+import { getBoards, create, edit } from "./scripts/mongo.js";
 
 let app = express();
 let port = 80;
@@ -24,6 +24,10 @@ app.post("/", cacheDoujinInfo, fetchDoujinInfo);
  * create collection
  */
 app.post("/create", create);
+/**
+ * edit collection
+ */
+app.post("/edit", edit);
 /**
  * App listening at port
  */

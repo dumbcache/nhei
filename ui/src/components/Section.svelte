@@ -4,6 +4,7 @@
 
     export let location, navigate;
     let board = location.pathname.split("/").pop();
+    let parent = board;
     let data = [];
     $: if ($boards.length !== 0) {
         board = $boards.filter((record) => record.board === board);
@@ -13,7 +14,7 @@
 
 <div class="wrapper">
     {#if data.length !== 0}
-        <Section {data} />
+        <Section {data} type="section" {parent} />
     {:else}
         <h4>sections</h4>
         <p class="alert">No Data Found</p>

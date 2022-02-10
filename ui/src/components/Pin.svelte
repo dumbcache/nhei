@@ -49,7 +49,7 @@
             margin-bottom: 150px;
         }
         .wrapper > :global(.wrapper) {
-            width: 44%;
+            width: 42%;
             background-color: #555;
         }
     }
