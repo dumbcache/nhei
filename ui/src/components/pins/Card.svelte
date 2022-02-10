@@ -5,6 +5,7 @@
     import Edit from "../icons/Edit.svelte";
     import Delete from "../icons/Delete.svelte";
     export let details;
+
     let action,
         overlay = true;
 </script>

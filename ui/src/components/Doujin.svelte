@@ -1,6 +1,4 @@
 <script>
-    import { doujin } from "../scripts/stores";
-
     let overlayActive = "";
     let turnToggle = false;
 
@@ -45,6 +43,7 @@
                         alt={page.url}
                         width="100%"
                         referrerpolicy="no-referrer"
+                        on:click={send}
                     />
                     <div
                         class="overlay"
