@@ -166,7 +166,9 @@ export const remove = async (req, res, next) => {
 export const add = async (req, res, next) => {
     try {
         let nhei = await connect();
+        let doujin = req.body;
         console.log(req.body.data);
+        await nhei.collection("doujins").insertOne(doujin);
         res.send();
     } catch (error) {
         console.log(error);

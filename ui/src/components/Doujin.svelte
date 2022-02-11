@@ -1,9 +1,13 @@
 <script>
-    let overlayActive = "";
+    import { doujin } from "../scripts/stores";
+    import Add from "../components/Add.svelte";
+    let overlay = true;
+    let overlayActiveCard = "";
     let turnToggle = false;
+    let toggleSave = false;
 
     const toggle = (id) => {
-        overlayActive = id;
+        overlayActiveCard = id;
         turnToggle = !turnToggle;
     };
 </script>
@@ -11,6 +15,12 @@
 <div class="card">
     {#if $doujin}
         <div class="data">
+            <button
+                on:click={() => {
+                    toggleSave = !toggleSave;
+                    overlay = !overlay;
+                }}>save</button
+            >
             <div>
                 <a href={$doujin.url} target="_blank"
                     ><img
@@ -43,15 +53,27 @@
                         alt={page.url}
                         width="100%"
                         referrerpolicy="no-referrer"
-                        on:click={send}
                     />
                     <div
                         class="overlay"
-                        class:overlay={overlayActive === page.url && turnToggle}
+                        class:overlay={overlayActiveCard === page.url &&
+                            turnToggle}
                     />
                 </div>
             {/each}
         </div>
+    {/if}
+
+    <div
+        class="overlay"
+        class:overlay-visible={overlay}
+        on:click={() => {
+            toggleSave = !toggleSave;
+            overlay = true;
+        }}
+    />
+    {#if toggleSave}
+        <Add />
     {/if}
 </div>
 

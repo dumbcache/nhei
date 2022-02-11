@@ -6,7 +6,7 @@ export const activeCollection = writable();
 export const activeSection = writable();
 export const doujin = writable();
 export const boards = writable([]);
-export const pinss = writable();
+export const pins = writable();
 
 export const getBoards = async () => {
     let response = await fetch("http://localhost:5000/");
@@ -22,7 +22,7 @@ export const getPins = async (board, section) => {
             section,
         }),
     });
-    pinss.set(await response.json());
+    pins.set(await response.json());
 };
 
 export const getDoujin = async (searchId) => {
@@ -36,17 +36,3 @@ export const getDoujin = async (searchId) => {
     let response = await request.json();
     doujin.set(response);
 };
-
-export const pins = writable([
-    { id: "1" },
-    { id: "2" },
-    { id: "3" },
-    { id: "4" },
-]);
-
-export const nheiData = writable([
-    { name: "favourites" },
-    { name: "AOT" },
-    { name: "JJK" },
-    { name: "OnePiece" },
-]);

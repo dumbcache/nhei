@@ -25,9 +25,7 @@
         background-color: #555;
         margin: 0.5rem;
     }
-    .wrapper :global(.wrapper > svg) {
-        width: 100%;
-    }
+
     h4,
     p {
         text-align: center;

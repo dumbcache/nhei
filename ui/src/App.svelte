@@ -21,7 +21,7 @@
             <Route path="/" component={Board} />
         </Route>
         <Route path="/profile" component={Profile} />
-        <Route path="/search" component={Doujin} />
+        <Route path="/doujin" component={Doujin} />
         <Route path="/" component={Home} />
     </Layout>
 </Router>

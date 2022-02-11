@@ -4,6 +4,7 @@
     import EditAction from "./Edit.svelte";
     import Edit from "../icons/Edit.svelte";
     import Delete from "../icons/Delete.svelte";
+    import { doujin } from "../../scripts/stores";
     export let details;
 
     let action,
@@ -12,8 +13,10 @@
 
 <div class="wrapper">
     <!-- <img src="" alt="cover" /> -->
-    <Empty />
-    <p class="id">{details.id}</p>
+    <div class="cover" on:click={invoke}>
+        <Empty />
+        <p class="id">{details.id}</p>
+    </div>
 
     <button
         class="edit"
@@ -51,6 +54,9 @@
         position: relative;
         border-radius: 0.5rem;
         padding: 0.5rem;
+    }
+    .cover :global(svg) {
+        width: 100%;
     }
     .overlay {
         z-index: 1;

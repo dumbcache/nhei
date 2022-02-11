@@ -1,13 +1,30 @@
 <script>
-    import Ok from "../icons/Ok.svelte";
-    import { doujin, boards } from "../scripts/stores";
+    import Ok from "./icons/Ok.svelte";
+    import { doujin, boards as collections } from "../scripts/stores";
 
+    let selectedBoard;
+    $: console.log(selectedBoard);
+    let board = [];
+
+    $: if ($collections.length !== 0) {
+        board = $collections.map((record) => record.board);
+    }
+    let section = [];
+    $: if (selectedBoard) {
+        let board = $collections.filter(
+            (record) => record.board === selectedBoard
+        );
+        console.log(board);
+        section = board[0].sections;
+    }
+    $: console.log(board, section);
     let add = async () => {
+        $doujin = { ...$doujin, selectedBoard, selectedSection };
         await fetch("http://localhost:5000/add", {
             method: "POST",
             headers: { "Content-type": "application/json" },
             body: JSON.stringify({
-                data: $doujin,
+                doujin: $doujin,
             }),
         });
     };
@@ -15,25 +32,23 @@
     export let collectionName;
     let previous = collectionName;
     let ref;
-    let edit = () => {};
-    onMount(() => {
-        ref.focus();
-    });
 </script>
 
 <div class="wrapper">
     <form class="form" on:submit|preventDefault={add}>
-        <p>Enter new name</p>
-        {$boards}
-        <input
-            name="collection"
-            type="search"
-            bind:value={collectionName}
-            placeholder="collection name"
-            bind:this={ref}
-            required
-            autocomplete="off"
-        />
+        <label for="board">select board</label>
+        <select bind:value={selectedBoard} name="board" id="board">
+            {#each board as option}
+                <option value={option}>{option}</option>
+            {/each}
+        </select>
+        <label for="section">select section</label>
+        <select name="section" id="section">
+            {#each section as option}
+                <option value={option}>{option}</option>
+            {/each}
+        </select>
+
         <button
             class="ok"
             disabled={previous === collectionName ||
@@ -61,15 +76,7 @@
     .form * {
         margin: 0.5rem 0;
     }
-    input {
-        width: 100%;
-        border: none;
-        padding: 0.5rem;
-        border-radius: 5px;
-    }
-    input:focus {
-        outline: none;
-    }
+
     button {
         width: 40px;
         height: 40px;

@@ -5,7 +5,7 @@
     $: disabled = $searchValue.trim().length === 0;
     const getData = () => {
         getDoujin($searchValue.trim());
-        navigate("/search");
+        navigate("/doujin");
     };
 </script>
 
