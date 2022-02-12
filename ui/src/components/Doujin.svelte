@@ -1,9 +1,9 @@
 <script>
     import { doujin } from "../scripts/stores";
     import SaveIcon from "./icons/Save.svelte";
-    import SavedIcon from "./icons/Select.svelte";
+    import SavedIcon from "./icons/Saved.svelte";
     import Add from "../components/Add.svelte";
-    let present = false;
+    let present = true;
     let turnToggle = false;
     let toggleSave = false;
     $: optionalCover = $doujin ? $doujin.cover : undefined;
@@ -18,6 +18,7 @@
     {#if $doujin}
         <div class="data">
             <div class="cover-wrapper">
+                <div class="button-background" />
                 {#if !present}
                     <div
                         class="save"
@@ -101,10 +102,18 @@
         width: 30px;
     }
     .save,
-    .saved {
+    .saved,
+    .button-background {
         position: absolute;
         right: 5px;
         top: 5px;
+    }
+
+    .button-background {
+        width: 30px;
+        height: 30px;
+        background-color: #000;
+        border-radius: 50%;
     }
     .cover {
         width: 100%;
