@@ -171,23 +171,35 @@ export const add = async (req, res, next) => {
         let nhei = await connect();
         let { doujin, addData } = req.body;
         let status = `saved successfully`;
+        let inserted;
+
         let present = await nhei
             .collection("doujins")
             .findOne({ id: doujin.id });
         if (present === null) {
             await nhei.collection("doujins").insertOne(doujin);
         }
-        let inserted = await nhei
-            .collection("boards")
-            .updateOne(
-                { board: addData.board, "sections.section": addData.section },
+
+        if (addData.section) {
+            inserted = await nhei.collection("boards").updateOne(
+                {
+                    board: addData.board,
+                    "sections.section": addData.section,
+                },
                 { $addToSet: { "sections.$.pins": doujin.id } }
             );
+        } else {
+            inserted = await nhei.collection("boards").updateOne(
+                {
+                    board: addData.board,
+                },
+                { $addToSet: { pins: doujin.id } }
+            );
+        }
         if (inserted.modifiedCount === 0) {
             status = "already present";
         }
         res.send({ status });
-        console.log(inserted);
     } catch (error) {
         console.log(error);
     }
