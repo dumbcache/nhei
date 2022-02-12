@@ -60,7 +60,7 @@
             id="board"
             bind:this={ref1}
             on:focus={() =>
-                (ref1.size = section.length > 3 ? 3 : section.length)}
+                (ref1.size = section.length > 3 ? 3 : section.length - 1)}
             on:blur={() => (ref1.size = 1)}
             on:change={() => (ref1.size = 1)}
         >
@@ -75,7 +75,7 @@
             id="section"
             bind:this={ref2}
             on:focus={() =>
-                (ref2.size = section.length > 4 ? 4 : section.length)}
+                (ref2.size = section.length > 4 ? 4 : section.length - 1)}
             on:blur={() => (ref2.size = 1)}
             on:change={() => (ref2.size = 1)}
         >

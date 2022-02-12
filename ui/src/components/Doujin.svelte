@@ -3,7 +3,7 @@
     import SaveIcon from "./icons/Save.svelte";
     import SavedIcon from "./icons/Saved.svelte";
     import Add from "../components/Add.svelte";
-    let present = true;
+    let present = false;
     let turnToggle = false;
     let toggleSave = false;
     $: optionalCover = $doujin ? $doujin.cover : undefined;

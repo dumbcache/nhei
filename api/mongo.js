@@ -111,7 +111,9 @@ export const edit = async (req, res, next) => {
         let { type, previous, name, parent } = req.body;
         let status;
         previous = previous.trim();
-        parent = parent.trim();
+        if (parent) {
+            parent = parent.trim();
+        }
         if (type === "section") {
             let inserted = await nhei
                 .collection("boards")
