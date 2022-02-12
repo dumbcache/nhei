@@ -214,7 +214,7 @@ export const fetchDoujinInfo = async (req, res, next) => {
          */
         let api = new API();
         let request = await api.fetchDoujin(id);
-        doujin = {
+        let doujin = {
             id: request.id,
             url: request.url,
             cover: request.thumbnail.url,

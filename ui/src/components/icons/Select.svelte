@@ -1,11 +1,4 @@
-<svg
-    xmlns="http://www.w3.org/2000/svg"
-    x="0px"
-    y="0px"
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    style=" fill:#95a5a6;"
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" style=" fill:#f00;"
     ><path
         d="M11,16.4l-4.7-4.7l1.4-1.4l3.3,3.3l8.4-8.4C17.5,3.3,14.9,2,12,2C6.5,2,2,6.5,2,12s4.5,10,10,10s10-4.5,10-10	c0-1.9-0.5-3.6-1.4-5.2L11,16.4z"
     /></svg

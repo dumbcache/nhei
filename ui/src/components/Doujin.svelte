@@ -1,27 +1,35 @@
 <script>
     import { doujin } from "../scripts/stores";
+    import SaveIcon from "./icons/Save.svelte";
+    import SavedIcon from "./icons/Select.svelte";
     import Add from "../components/Add.svelte";
-    let overlay = true;
-    let overlayActiveCard = "";
+    let present = false;
     let turnToggle = false;
     let toggleSave = false;
+    $: optionalCover = $doujin ? $doujin.cover : undefined;
 
     const toggle = (id) => {
-        overlayActiveCard = id;
         turnToggle = !turnToggle;
+        optionalCover = turnToggle ? id : $doujin.cover;
     };
 </script>
 
 <div class="card">
     {#if $doujin}
         <div class="data">
-            <button
-                on:click={() => {
-                    toggleSave = !toggleSave;
-                    overlay = !overlay;
-                }}>save</button
-            >
-            <div>
+            <div class="cover-wrapper">
+                {#if !present}
+                    <div
+                        class="save"
+                        on:click={() => {
+                            toggleSave = !toggleSave;
+                        }}
+                    >
+                        <SaveIcon />
+                    </div>
+                {:else}
+                    <div class="saved"><SavedIcon /></div>
+                {/if}
                 <a href={$doujin.url} target="_blank"
                     ><img
                         class="cover"
@@ -34,9 +42,13 @@
             <div>
                 <p># {$doujin.id}</p>
                 <p>Title: {$doujin.title}</p>
-                <p>Author: {$doujin.author}</p>
+                {#if $doujin.author}
+                    <p>Author: {$doujin.author}</p>
+                {/if}
                 <p>Language: {$doujin.language}</p>
-                <p>Parody: {$doujin.parody}</p>
+                {#if $doujin.parody}
+                    <p>Parody: {$doujin.parody}</p>
+                {/if}
             </div>
         </div>
         <div class="pages">
@@ -56,38 +68,48 @@
                     />
                     <div
                         class="overlay"
-                        class:overlay={overlayActiveCard === page.url &&
-                            turnToggle}
+                        class:overlay={optionalCover === page.url && turnToggle}
                     />
                 </div>
             {/each}
         </div>
     {/if}
 
-    <div
-        class="overlay"
-        class:overlay-visible={overlay}
-        on:click={() => {
-            toggleSave = !toggleSave;
-            overlay = true;
-        }}
-    />
     {#if toggleSave}
-        <Add />
+        <Add
+            {optionalCover}
+            on:toggle={() => {
+                toggleSave = !toggleSave;
+            }}
+        />
     {/if}
 </div>
 
 <style>
     .card {
-        /* padding: 0.5rem; */
-        padding-top: 0;
+        padding: 0.2rem;
     }
+
     p {
         margin-left: 0.5rem;
+    }
+    .cover-wrapper {
+        width: 50%;
+        position: relative;
+    }
+    .cover-wrapper :global(svg) {
+        width: 30px;
+    }
+    .save,
+    .saved {
+        position: absolute;
+        right: 5px;
+        top: 5px;
     }
     .cover {
         width: 100%;
         margin-left: auto;
+        border-radius: 5px;
     }
     .data {
         display: flex;
@@ -114,9 +136,6 @@
     }
 
     @media screen and (max-width: 600px) {
-        .cover {
-            width: 60%;
-        }
         .data {
             display: initial;
         }

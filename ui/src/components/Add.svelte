@@ -1,7 +1,15 @@
 <script>
     import Ok from "./icons/Ok.svelte";
     import { doujin, boards as collections } from "../scripts/stores";
+    import { createEventDispatcher } from "svelte";
 
+    export let optionalCover;
+    let dispatch = createEventDispatcher();
+    let sendDispatch = () => {
+        dispatch("toggle");
+    };
+
+    let ref;
     let selectedBoard;
     let selectedSection;
     $: console.log(selectedBoard);
@@ -19,7 +27,12 @@
     }
     let add = async () => {
         selectedSection = document.querySelector("#section").value;
-        $doujin = { ...$doujin, selectedBoard, selectedSection };
+        $doujin = {
+            ...$doujin,
+            board: selectedBoard,
+            section: selectedSection,
+            optionalCover,
+        };
         // await fetch("http://localhost:5000/add", {
         //     method: "POST",
         //     headers: { "Content-type": "application/json" },
@@ -32,15 +45,29 @@
 </script>
 
 <div class="wrapper">
+    <div
+        class="overlay"
+        class:overlay-visible={false}
+        on:click={sendDispatch}
+    />
     <form class="form" on:submit|preventDefault={add}>
+        <img src={optionalCover} alt="optionalCover" />
         <label for="board">select board</label>
         <select bind:value={selectedBoard} name="board" id="board">
             {#each board as option}
                 <option value={option}>{option}</option>
             {/each}
         </select>
+
         <label for="section">select section</label>
-        <select name="section" id="section">
+        <select
+            name="section"
+            id="section"
+            bind:this={ref}
+            on:focus={() => (ref.size = 4)}
+            on:blur={() => (ref.size = 1)}
+            on:change={() => (ref.size = 1)}
+        >
             <option value="" />
             {#each section as option}
                 <option value={option}>{option}</option>
@@ -57,6 +84,10 @@
         z-index: 1;
     }
 
+    img {
+        height: 200px;
+        object-fit: contain;
+    }
     .form {
         display: flex;
         flex-flow: column;
@@ -65,9 +96,9 @@
         border-radius: 0.5rem;
         background-color: #000;
         position: fixed;
-        top: 50%;
+        top: 30%;
         left: 50%;
-        transform: translate(-50%, -50%);
+        transform: translate(-50%, -40%);
     }
     .form * {
         margin: 0.2rem;
@@ -79,15 +110,21 @@
         padding: 0.3rem;
         border-radius: 5px;
     }
-    select:active {
+    select:active,
+    select:focus {
         outline: none;
-        background-color: #95a5a6;
+        background-color: #333;
         color: white;
+        margin: 0;
     }
     option {
         color: white;
-        background-color: #222;
+        background-color: #333;
         font-size: smaller;
+        border: none;
+        padding: 0.3rem;
+        border-radius: 5px;
+        margin: 0;
     }
 
     button {
@@ -108,7 +145,7 @@
 
     @media screen and (max-width: 600px) {
         .form {
-            width: 80%;
+            width: 70%;
             font-size: smaller;
         }
     }
