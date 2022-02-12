@@ -9,7 +9,7 @@
         dispatch("toggle");
     };
 
-    let ref;
+    let ref1, ref2;
     let selectedBoard;
     let selectedSection;
     $: console.log(selectedBoard);
@@ -33,13 +33,14 @@
             section: selectedSection,
             optionalCover,
         };
-        // await fetch("http://localhost:5000/add", {
-        //     method: "POST",
-        //     headers: { "Content-type": "application/json" },
-        //     body: JSON.stringify({
-        //         doujin: $doujin,
-        //     }),
-        // });
+        sendDispatch();
+        await fetch("http://localhost:5000/add", {
+            method: "POST",
+            headers: { "Content-type": "application/json" },
+            body: JSON.stringify({
+                doujin: $doujin,
+            }),
+        });
         console.log($doujin);
     };
 </script>
@@ -53,7 +54,16 @@
     <form class="form" on:submit|preventDefault={add}>
         <img src={optionalCover} alt="optionalCover" />
         <label for="board">select board</label>
-        <select bind:value={selectedBoard} name="board" id="board">
+        <select
+            bind:value={selectedBoard}
+            name="board"
+            id="board"
+            bind:this={ref1}
+            on:focus={() =>
+                (ref1.size = section.length > 3 ? 3 : section.length)}
+            on:blur={() => (ref1.size = 1)}
+            on:change={() => (ref1.size = 1)}
+        >
             {#each board as option}
                 <option value={option}>{option}</option>
             {/each}
@@ -63,10 +73,11 @@
         <select
             name="section"
             id="section"
-            bind:this={ref}
-            on:focus={() => (ref.size = 4)}
-            on:blur={() => (ref.size = 1)}
-            on:change={() => (ref.size = 1)}
+            bind:this={ref2}
+            on:focus={() =>
+                (ref2.size = section.length > 4 ? 4 : section.length)}
+            on:blur={() => (ref2.size = 1)}
+            on:change={() => (ref2.size = 1)}
         >
             <option value="" />
             {#each section as option}
@@ -104,22 +115,19 @@
         margin: 0.2rem;
     }
     select {
-        appearance: none;
-        /* border: none; */
         outline: none;
         padding: 0.3rem;
         border-radius: 5px;
+        color: white;
+        background-color: #333;
     }
     select:active,
     select:focus {
         outline: none;
-        background-color: #333;
-        color: white;
-        margin: 0;
+        padding: 0.3rem;
+        border-radius: 5px;
     }
     option {
-        color: white;
-        background-color: #333;
         font-size: smaller;
         border: none;
         padding: 0.3rem;
