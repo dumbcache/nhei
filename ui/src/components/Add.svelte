@@ -3,6 +3,7 @@
     import { doujin, boards as collections } from "../scripts/stores";
 
     let selectedBoard;
+    let selectedSection;
     $: console.log(selectedBoard);
     let board = [];
 
@@ -14,24 +15,20 @@
         let board = $collections.filter(
             (record) => record.board === selectedBoard
         );
-        console.log(board);
         section = board[0].sections;
     }
-    $: console.log(board, section);
     let add = async () => {
+        selectedSection = document.querySelector("#section").value;
         $doujin = { ...$doujin, selectedBoard, selectedSection };
-        await fetch("http://localhost:5000/add", {
-            method: "POST",
-            headers: { "Content-type": "application/json" },
-            body: JSON.stringify({
-                doujin: $doujin,
-            }),
-        });
+        // await fetch("http://localhost:5000/add", {
+        //     method: "POST",
+        //     headers: { "Content-type": "application/json" },
+        //     body: JSON.stringify({
+        //         doujin: $doujin,
+        //     }),
+        // });
+        console.log($doujin);
     };
-
-    export let collectionName;
-    let previous = collectionName;
-    let ref;
 </script>
 
 <div class="wrapper">
@@ -44,17 +41,13 @@
         </select>
         <label for="section">select section</label>
         <select name="section" id="section">
+            <option value="" />
             {#each section as option}
                 <option value={option}>{option}</option>
             {/each}
         </select>
 
-        <button
-            class="ok"
-            disabled={previous === collectionName ||
-                collectionName.trim() === ""}
-            type="submit"><Ok /></button
-        >
+        <button class="ok" type="submit"><Ok /></button>
     </form>
 </div>
 
@@ -65,6 +58,9 @@
     }
 
     .form {
+        display: flex;
+        flex-flow: column;
+        width: 40%;
         padding: 1rem;
         border-radius: 0.5rem;
         background-color: #000;
@@ -74,7 +70,24 @@
         transform: translate(-50%, -50%);
     }
     .form * {
-        margin: 0.5rem 0;
+        margin: 0.2rem;
+    }
+    select {
+        appearance: none;
+        /* border: none; */
+        outline: none;
+        padding: 0.3rem;
+        border-radius: 5px;
+    }
+    select:active {
+        outline: none;
+        background-color: #95a5a6;
+        color: white;
+    }
+    option {
+        color: white;
+        background-color: #222;
+        font-size: smaller;
     }
 
     button {
