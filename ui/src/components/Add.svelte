@@ -1,6 +1,11 @@
 <script>
     import Ok from "./icons/Ok.svelte";
-    import { doujin, boards as collections } from "../scripts/stores";
+    import {
+        doujin,
+        boards as collections,
+        status,
+        refreshStatus,
+    } from "../scripts/stores";
     import { createEventDispatcher } from "svelte";
 
     export let optionalCover;
@@ -34,14 +39,16 @@
             optionalCover,
         };
         sendDispatch();
-        await fetch("http://localhost:5000/add", {
+        let response = await fetch("http://localhost:5000/add", {
             method: "POST",
             headers: { "Content-type": "application/json" },
             body: JSON.stringify({
                 doujin: $doujin,
             }),
         });
-        console.log($doujin);
+        $status = await response.json();
+        refreshStatus();
+        console.log($status);
     };
 </script>
 

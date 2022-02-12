@@ -1,5 +1,6 @@
 <script>
     import { onMount, createEventDispatcher } from "svelte";
+    import { status, refreshStatus } from "../../scripts/stores";
     import Ok from "../icons/Ok.svelte";
 
     export let name, type, parent;
@@ -18,11 +19,9 @@
                 parent,
             }),
         });
-
-        let { status } = await response.json();
-        dispatch("recieve", {
-            status,
-        });
+        $status = await response.json();
+        refreshStatus();
+        dispatch("recieve");
     };
     onMount(() => {
         ref.focus();

@@ -2,7 +2,8 @@
     import { onMount } from "svelte";
     import SearchBar from "./components/SearchBar.svelte";
     import MenuBar from "./components/MenuBar.svelte";
-    import { getBoards } from "./scripts/stores";
+    import { getBoards, status } from "./scripts/stores";
+    import Status from "./components/Status.svelte";
 
     onMount(async () => {
         console.log("retrieving nhei data");
@@ -16,6 +17,11 @@
         <SearchBar />
     </div>
     <h1 class="title">NHei</h1>
+    {#if $status}
+        <div class="status">
+            <Status />
+        </div>
+    {/if}
 </header>
 <main>
     <slot />
@@ -39,6 +45,14 @@
         font-style: italic;
         color: red;
         padding: 0rem 0.5rem;
+    }
+    .status {
+        z-index: 5;
+        position: fixed;
+        top: 10%;
+        left: 50%;
+        transform: translate(-50%, 0);
+        box-shadow: 5px 5px 50px #000;
     }
     @media screen and (max-width: 600px) {
         header {

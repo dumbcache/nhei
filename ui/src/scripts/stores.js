@@ -7,6 +7,13 @@ export const activeSection = writable();
 export const doujin = writable();
 export const boards = writable([]);
 export const pins = writable();
+export const status = writable();
+
+export const refreshStatus = () => {
+    setTimeout(() => {
+        status.set(undefined);
+    }, 3000);
+};
 
 export const getBoards = async () => {
     let response = await fetch("http://localhost:5000/");

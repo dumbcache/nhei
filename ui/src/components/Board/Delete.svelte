@@ -1,6 +1,7 @@
 <script>
     import { createEventDispatcher } from "svelte";
     import Ok from "../icons/Ok.svelte";
+    import { status, refreshStatus } from "../../scripts/stores";
 
     export let name, parent, type;
     const dispatch = createEventDispatcher();
@@ -22,10 +23,9 @@
             }),
         });
 
-        let { status } = await response.json();
-        dispatch("recieve", {
-            status,
-        });
+        $status = await response.json();
+        refreshStatus();
+        dispatch("recieve");
     };
 </script>
 

@@ -14,7 +14,7 @@
     {#if data.length !== 0}
         <CollectionCard {data} type="board" />
     {:else}
-        <h4>Collections</h4>
+        <h4>Boards</h4>
         <p class="alert">No Data Found</p>
     {/if}
 </div>
@@ -27,6 +27,7 @@
         left: 50%;
         top: 50%;
         transform: translate(-50%, -50%);
+        user-select: none;
     }
     h4 {
         opacity: 0.3;

@@ -74,6 +74,8 @@
                 </div>
             {/each}
         </div>
+    {:else}
+        <p class="alert">search to view</p>
     {/if}
 
     {#if toggleSave}
@@ -98,22 +100,22 @@
         width: 50%;
         position: relative;
     }
-    .cover-wrapper :global(svg) {
-        width: 30px;
-    }
-    .save,
-    .saved,
+    .save :global(svg),
+    .saved :global(svg),
     .button-background {
+        width: 50px;
         position: absolute;
         right: 5px;
         top: 5px;
     }
 
     .button-background {
-        width: 30px;
-        height: 30px;
+        width: 40px;
+        height: 40px;
         background-color: #000;
         border-radius: 50%;
+        top: 10px;
+        right: 10px;
     }
     .cover {
         width: 100%;
@@ -144,6 +146,16 @@
         background-color: rgba(0, 0, 0, 0.568);
     }
 
+    .alert {
+        text-align: center;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        opacity: 0.3;
+        user-select: none;
+    }
+
     @media screen and (max-width: 600px) {
         .data {
             display: initial;
@@ -155,6 +167,17 @@
         .card {
             margin-bottom: 130px;
             z-index: -1;
+        }
+        .save :global(svg),
+        .saved :global(svg),
+        .button-background {
+            width: 40px;
+            position: absolute;
+        }
+
+        .button-background {
+            width: 30px;
+            height: 30px;
         }
     }
 </style>

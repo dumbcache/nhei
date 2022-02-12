@@ -10,25 +10,14 @@
     let action;
     let name;
     let overlay = true;
-    let status;
 
     const showEditStatus = (e) => {
-        status = e.detail.status;
-        setTimeout(() => {
-            status = undefined;
-        }, 2000);
         overlay = true;
         action = "";
-        console.log(status);
     };
     const showDeleteStatus = (e) => {
-        status = e.detail.status;
-        setTimeout(() => {
-            status = undefined;
-        }, 2000);
         overlay = true;
         action = "";
-        console.log(status);
     };
 </script>
 

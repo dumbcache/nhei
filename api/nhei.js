@@ -159,7 +159,7 @@ export const remove = async (req, res, next) => {
         console.log(req.body);
         res.send({ status });
     } catch (error) {
-        console.log(`${error} error in create`);
+        console.log(`${error} error in edit`);
     } finally {
         client.close();
     }
@@ -168,10 +168,11 @@ export const remove = async (req, res, next) => {
 export const add = async (req, res, next) => {
     try {
         let nhei = await connect();
-        let doujin = req.body;
-        console.log(req.body.data);
-        await nhei.collection("doujins").insertOne(doujin);
-        res.send();
+        let { doujin } = req.body;
+        console.log(doujin.title, doujin.id, doujin.board, doujin.section);
+        let inserted = await nhei.collection("doujins").insertOne(doujin);
+        res.send({ status: `saved successfully` });
+        console.log(inserted);
     } catch (error) {
         console.log(error);
     }
