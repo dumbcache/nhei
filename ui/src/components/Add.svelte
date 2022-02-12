@@ -25,19 +25,18 @@
     }
     let section = [];
     $: if (selectedBoard) {
-        board = $collections.filter((record) => record.board === board);
-        let drill = board[0].sections;
-        section = drill.map((record) => {
-            record.section;
-        });
+        let board = $collections.filter(
+            (record) => record.board === selectedBoard
+        );
+        section = board[0].sections.map((record) => record.section);
     }
     let add = async () => {
         selectedSection = document.querySelector("#section").value;
         let addData = {
             board: selectedBoard,
             section: selectedSection,
-            optionalCover,
         };
+        $doujin = { ...$doujin, optionalCover };
         sendDispatch();
         let response = await fetch("http://localhost:5000/add", {
             method: "POST",

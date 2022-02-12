@@ -7,11 +7,8 @@
     let parent = board;
     let data = [];
     $: if ($boards.length !== 0) {
-        console.log(board);
         board = $boards.filter((record) => record.board === board);
-        console.log(board);
-        data = board.sections;
-        console.log(data);
+        data = board[0].sections.map((record) => record.section);
     }
 </script>
 

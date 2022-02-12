@@ -170,7 +170,7 @@ export const add = async (req, res, next) => {
     try {
         let nhei = await connect();
         let { doujin, addData } = req.body;
-        console.log(addData);
+        let status = `saved successfully`;
         let present = await nhei
             .collection("doujins")
             .findOne({ id: doujin.id });
@@ -183,7 +183,10 @@ export const add = async (req, res, next) => {
                 { board: addData.board, "sections.section": addData.section },
                 { $addToSet: { "sections.$.pins": doujin.id } }
             );
-        res.send({ status: `saved successfully` });
+        if (inserted.modifiedCount === 0) {
+            status = "already present";
+        }
+        res.send({ status });
         console.log(inserted);
     } catch (error) {
         console.log(error);
