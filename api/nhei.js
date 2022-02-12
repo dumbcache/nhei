@@ -39,6 +39,14 @@ export const getBoards = async (req, res, next) => {
         console.log(`${error} error in getBoards`);
     }
 };
+
+export const getDoujin = async (req, res, next) => {
+    let { id } = req.body;
+    let nhei = await connect();
+    doujin = nhei.collection("doujins").findOne(id);
+    res.send({ doujin });
+};
+
 export const isBoardPresent = async (nhei, board) => {
     let found = await nhei.collection("boards").findOne({ board: board });
     if (found !== null) {

@@ -9,6 +9,7 @@ import {
     add,
     cacheDoujinInfo,
     fetchDoujinInfo,
+    getDoujin,
 } from "./nhei.js";
 
 let app = express();
@@ -22,6 +23,7 @@ app.use(bodyParser.json());
  */
 app.get("/", getBoards);
 
+app.post("/doujin", getDoujin);
 /**
  * Route to get particular doujin from id
  */

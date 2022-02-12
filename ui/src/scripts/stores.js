@@ -20,16 +20,15 @@ export const getBoards = async () => {
     boards.set(await response.json());
 };
 
-export const getPins = async (board, section) => {
-    let response = await fetch("http://localhost:5000/pins", {
+export const getPin = async (id) => {
+    let response = await fetch("http://localhost:5000/doujin", {
         method: "POST",
         headers: { "Content-type": "application/json" },
         body: JSON.stringify({
-            board,
-            section,
+            id,
         }),
     });
-    pins.set(await response.json());
+    doujin.set(await response.json());
 };
 
 export const getDoujin = async (searchId) => {
@@ -42,10 +41,4 @@ export const getDoujin = async (searchId) => {
     });
     let response = await request.json();
     doujin.set(response);
-};
-
-let data = {
-    board: "konosuba",
-    sections: [{ section: "name", pins: [] }],
-    pins: [],
 };

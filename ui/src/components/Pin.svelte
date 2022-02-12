@@ -1,5 +1,5 @@
 <script>
-    import { pins } from "../scripts/stores.js";
+    import { boards } from "../scripts/stores.js";
     import Pin from "./pins/Card.svelte";
 </script>
 
