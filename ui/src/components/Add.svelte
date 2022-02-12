@@ -25,15 +25,15 @@
     }
     let section = [];
     $: if (selectedBoard) {
-        let board = $collections.filter(
-            (record) => record.board === selectedBoard
-        );
-        section = board[0].sections;
+        board = $collections.filter((record) => record.board === board);
+        let drill = board[0].sections;
+        section = drill.map((record) => {
+            record.section;
+        });
     }
     let add = async () => {
         selectedSection = document.querySelector("#section").value;
-        $doujin = {
-            ...$doujin,
+        let addData = {
             board: selectedBoard,
             section: selectedSection,
             optionalCover,
@@ -44,6 +44,7 @@
             headers: { "Content-type": "application/json" },
             body: JSON.stringify({
                 doujin: $doujin,
+                addData,
             }),
         });
         $status = await response.json();

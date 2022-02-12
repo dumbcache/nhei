@@ -1,5 +1,6 @@
 <script>
     import { onMount, createEventDispatcher } from "svelte";
+    import { refreshStatus, status } from "../../scripts/stores";
     import Ok from "../icons/Ok.svelte";
 
     let board = "";
@@ -16,11 +17,9 @@
                 section,
             }),
         });
-        let { status } = await response.json();
-
-        dispatch("recieve", {
-            status,
-        });
+        $status = await response.json();
+        refreshStatus();
+        dispatch("recieve");
         // console.log(await response.json());
     };
     onMount(() => {

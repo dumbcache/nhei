@@ -7,20 +7,14 @@
     let overlay = true;
     let action = "";
     let searchValue;
-    let status;
     export let boardsCount;
     export let sectionsCount;
     export let pinsCount;
     console.log(location);
 
     const showStatus = (e) => {
-        status = e.detail.status;
-        setTimeout(() => {
-            status = undefined;
-        }, 2000);
         overlay = true;
         action = "";
-        console.log(status);
     };
 </script>
 
@@ -62,9 +56,6 @@
     />
     {#if action === "add"}
         <Create on:recieve={showStatus} />
-    {/if}
-    {#if status}
-        <p class="status">{status}</p>
     {/if}
 </div>
 

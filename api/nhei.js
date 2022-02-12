@@ -50,7 +50,7 @@ export const isBoardPresent = async (nhei, board) => {
 export const isSectionPresent = async (nhei, board, section) => {
     let found = await nhei
         .collection("boards")
-        .findOne({ board: board, sections: { $in: [section] } });
+        .findOne({ board: board, "sections.section": section });
     console.log(found);
     if (found !== null) {
         return true;
@@ -79,7 +79,7 @@ export const create = async (req, res, next) => {
         } else {
             await nhei
                 .collection("boards")
-                .insertOne({ board: board, sections: [] });
+                .insertOne({ board: board, sections: [], pins: [] });
             status = "Board created";
         }
 
@@ -88,6 +88,7 @@ export const create = async (req, res, next) => {
             if (sectionStatus) {
                 status = "section present";
             } else {
+                section = { section, pins: [] };
                 await nhei
                     .collection("boards")
                     .updateOne(
@@ -168,9 +169,20 @@ export const remove = async (req, res, next) => {
 export const add = async (req, res, next) => {
     try {
         let nhei = await connect();
-        let { doujin } = req.body;
-        console.log(doujin.title, doujin.id, doujin.board, doujin.section);
-        let inserted = await nhei.collection("doujins").insertOne(doujin);
+        let { doujin, addData } = req.body;
+        console.log(addData);
+        let present = await nhei
+            .collection("doujins")
+            .findOne({ id: doujin.id });
+        if (present === null) {
+            await nhei.collection("doujins").insertOne(doujin);
+        }
+        let inserted = await nhei
+            .collection("boards")
+            .updateOne(
+                { board: addData.board, "sections.section": addData.section },
+                { $addToSet: { "sections.$.pins": doujin.id } }
+            );
         res.send({ status: `saved successfully` });
         console.log(inserted);
     } catch (error) {

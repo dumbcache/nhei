@@ -43,3 +43,9 @@ export const getDoujin = async (searchId) => {
     let response = await request.json();
     doujin.set(response);
 };
+
+let data = {
+    board: "konosuba",
+    sections: [{ section: "name", pins: [] }],
+    pins: [],
+};
