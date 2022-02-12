@@ -1,23 +1,34 @@
 <script>
     import Section from "./Board/template.svelte";
     import { boards } from "../scripts/stores";
+    import Navigation from "./Navigation.svelte";
+    import Pin from "./pins/Card.svelte";
 
     export let location, navigate;
     let board = location.pathname.split("/").pop().trim();
     let parent = board;
     let data = [];
+    let pins;
     $: if ($boards.length !== 0) {
         board = $boards.filter((record) => record.board === board);
         data = board[0].sections.map((record) => record.section);
+        pins = board[0].pins;
+        console.log(pins);
     }
 </script>
 
 <div class="wrapper">
+    <Navigation sectionsCount={100} pinsCount={200} />
     {#if data.length !== 0}
         <Section {data} type="section" {parent} />
     {:else}
         <h4>sections</h4>
         <p class="alert">No Data Found</p>
+    {/if}
+    {#if pins}
+        {#each pins as pin}
+            <Pin {pin} />
+        {/each}
     {/if}
 </div>
 

@@ -33,9 +33,14 @@
         autocomplete="off"
     />
     <div class="stats">
-        <p>Boards : {boardsCount}</p>
-        <p>Sections : {sectionsCount}</p>
-        <p>Pins : {pinsCount}</p>
+        {#if boardsCount}
+            <p>Boards : {boardsCount}</p>
+        {/if}
+        {#if sectionsCount}
+            <p>Sections : {sectionsCount}</p>
+        {/if}{#if pinsCount}
+            <p>Pins : {pinsCount}</p>
+        {/if}
         <div class="toolbar">
             <button
                 on:click={() => {

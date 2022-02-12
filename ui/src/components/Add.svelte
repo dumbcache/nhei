@@ -35,8 +35,8 @@
         let addData = {
             board: selectedBoard,
             section: selectedSection,
+            cover: optionalCover,
         };
-        $doujin = { ...$doujin, optionalCover };
         sendDispatch();
         let response = await fetch("http://localhost:5000/add", {
             method: "POST",

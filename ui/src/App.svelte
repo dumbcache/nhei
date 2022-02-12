@@ -6,14 +6,12 @@
     import Section from "./components/Section.svelte";
     import Pin from "./components/Pin.svelte";
     import Profile from "./components/Profile.svelte";
-    import Navigation from "./components/Navigation.svelte";
     import Doujin from "./components/Doujin.svelte";
 </script>
 
 <Router>
     <Layout>
         <Route path="/boards/*">
-            <Navigation boardsCount={20} sectionsCount={100} pinsCount={200} />
             <Route path=":board/*">
                 <Route path=":section" component={Pin} />
                 <Route path="/" component={Section} />

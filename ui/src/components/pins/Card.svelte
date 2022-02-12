@@ -1,21 +1,24 @@
 <script>
-    import Empty from "../icons/Empty.svelte";
     import DeleteAction from "./Delete.svelte";
     import EditAction from "./Edit.svelte";
     import Edit from "../icons/Edit.svelte";
     import Delete from "../icons/Delete.svelte";
-    import { doujin } from "../../scripts/stores";
-    export let details;
+    import { getPin } from "../../scripts/stores";
+    import { navigate } from "svelte-navigator";
 
+    export let pin;
+    const invoke = () => {
+        getPin(pin.id);
+        navigate("/doujin");
+    };
     let action,
         overlay = true;
 </script>
 
 <div class="wrapper">
-    <!-- <img src="" alt="cover" /> -->
     <div class="cover" on:click={invoke}>
-        <Empty />
-        <p class="id">{details.id}</p>
+        <img src={pin.cover} alt="cover" />
+        <p class="id">{pin.id}</p>
     </div>
 
     <button
@@ -45,7 +48,7 @@
     {#if action === "edit"}
         <EditAction />
     {:else if action === "delete"}
-        <DeleteAction id={details.id} />
+        <DeleteAction id={pin.id} />
     {/if}
 </div>
 

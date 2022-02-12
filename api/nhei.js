@@ -194,14 +194,21 @@ export const add = async (req, res, next) => {
                     board: addData.board,
                     "sections.section": addData.section,
                 },
-                { $addToSet: { "sections.$.pins": doujin.id } }
+                {
+                    $addToSet: {
+                        "sections.$.pins": {
+                            id: doujin.id,
+                            cover: addData.cover,
+                        },
+                    },
+                }
             );
         } else {
             inserted = await nhei.collection("boards").updateOne(
                 {
                     board: addData.board,
                 },
-                { $addToSet: { pins: doujin.id } }
+                { $addToSet: { pins: { id: doujin.id, cover: addData.cover } } }
             );
         }
         if (inserted.modifiedCount === 0) {

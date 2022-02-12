@@ -1,6 +1,7 @@
 <script>
     import CollectionCard from "./Board/template.svelte";
     import { boards } from "../scripts/stores";
+    import Navigation from "./Navigation.svelte";
 
     export let location, navigate;
     let data = [];
@@ -11,6 +12,7 @@
 </script>
 
 <div class="wrapper">
+    <Navigation boardsCount={20} pinsCount={200} />
     {#if data.length !== 0}
         <CollectionCard {data} type="board" />
     {:else}
