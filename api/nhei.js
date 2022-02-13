@@ -84,6 +84,9 @@ export const isSectionPresent = async (nhei, board, section) => {
         return false;
     }
 };
+/**
+ * Creating boards
+ */
 export const create = async (req, res, next) => {
     try {
         let nhei = await connect();
@@ -132,6 +135,9 @@ export const create = async (req, res, next) => {
     }
 };
 
+/**
+ * Editing boards
+ */
 export const edit = async (req, res, next) => {
     try {
         let nhei = await connect();
@@ -164,6 +170,9 @@ export const edit = async (req, res, next) => {
     }
 };
 
+/**
+ * Removing data from boards
+ */
 export const remove = async (req, res, next) => {
     try {
         let nhei = await connect();
@@ -191,6 +200,10 @@ export const remove = async (req, res, next) => {
         client.close();
     }
 };
+
+/**
+ * Adding doujin data to respective board and section
+ */
 
 export const add = async (req, res, next) => {
     try {
