@@ -7,8 +7,8 @@ import {
     edit,
     remove,
     add,
-    cacheDoujinInfo,
-    fetchDoujinInfo,
+    getFromDoujinSearchCache,
+    searchDoujin,
     getDoujin,
 } from "./nhei.js";
 
@@ -27,7 +27,7 @@ app.post("/doujin", getDoujin);
 /**
  * Route to get particular doujin from id
  */
-app.post("/", cacheDoujinInfo, fetchDoujinInfo);
+app.post("/", getFromDoujinSearchCache, searchDoujin);
 
 /**
  * create collection

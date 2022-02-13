@@ -44,7 +44,24 @@ export const getDoujin = async (req, res, next) => {
     let { id } = req.body;
     let nhei = await connect();
     doujin = nhei.collection("doujins").findOne(id);
-    res.send({ doujin });
+    console.log(`caching doujin ${id} `);
+    redis.set(id, JSON.stringify(doujin));
+    console.log(`caching ${id} completed`);
+    res.send(doujin);
+};
+
+export const getFromDoujinCache = async (req, res, next) => {
+    let { id } = req.body;
+    redis.get(id, (err, data) => {
+        if (err) throw err;
+        if (data !== null) {
+            console.log(`fetching doujin ${id} from doujinCache`);
+            res.send(data);
+            console.log(`fetch ${id} completed`);
+        } else {
+            next();
+        }
+    });
 };
 
 export const isBoardPresent = async (nhei, board) => {
@@ -223,7 +240,7 @@ export const add = async (req, res, next) => {
 /**
  * Function to cache the doujin data in redis database
  */
-export const cacheDoujinInfo = async (req, res, next) => {
+export const getFromDoujinSearchCache = async (req, res, next) => {
     /**
      * storing id from request body into local variable
      */
@@ -234,9 +251,9 @@ export const cacheDoujinInfo = async (req, res, next) => {
     redis.get(id, (err, data) => {
         if (err) throw err;
         if (data !== null) {
-            console.log(`caching doujin info of ${id}`);
+            console.log(`fetching ${id} from doujinSearchCache`);
             res.send(data);
-            console.log("completed");
+            console.log(`fetching ${id} completed`);
         } else {
             next();
         }
@@ -246,7 +263,7 @@ export const cacheDoujinInfo = async (req, res, next) => {
 /**
  * Function to fetch doujin data using the nhentai api
  */
-export const fetchDoujinInfo = async (req, res, next) => {
+export const searchDoujin = async (req, res, next) => {
     try {
         /**
          * storing id from request body into local variable
@@ -272,7 +289,9 @@ export const fetchDoujinInfo = async (req, res, next) => {
         /**
          * Caching the retrived doujin data into the redia database.
          */
+        console.log(`caching doujin ${id}`);
         redis.set(id, JSON.stringify(doujin));
+        console.log(`caching ${id} completed`);
         res.send(doujin);
         return;
     } catch (err) {
