@@ -277,7 +277,6 @@ export const searchDoujin = async (req, res, next) => {
          */
         let api = new API();
         let request = await api.fetchDoujin(id);
-        console.log(request);
         let doujin = {
             id: request.id,
             url: request.url,

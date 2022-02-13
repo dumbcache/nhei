@@ -55,10 +55,12 @@
         display: flex;
         flex-flow: wrap;
         margin: 0.5rem;
+        z-index: -1;
     }
     .pin {
         width: 10rem;
         padding: 0.2rem;
+        z-index: -1;
     }
     @media screen and (max-width: 600px) {
         .section-wrapper {

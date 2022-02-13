@@ -133,7 +133,7 @@
     .cover {
         width: 100%;
         margin-left: auto;
-        border-radius: 5px;
+        border-radius: 10px;
     }
     .data {
         display: flex;
@@ -148,8 +148,11 @@
     }
 
     .page {
-        flex-basis: 19%;
+        width: 200px;
         position: relative;
+    }
+    .page > img {
+        border-radius: 5px;
     }
     .overlay {
         position: absolute;
