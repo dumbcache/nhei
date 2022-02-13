@@ -29,6 +29,7 @@ export const getPin = async (id) => {
         }),
     });
     doujin.set(await response.json());
+    // console.log("hell", await response.json());
 };
 
 export const getDoujin = async (searchId) => {

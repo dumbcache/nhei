@@ -1,4 +1,5 @@
 <script>
+    import { navigate } from "svelte-navigator";
     import { doujin } from "../scripts/stores";
     import SaveIcon from "./icons/Save.svelte";
     import SavedIcon from "./icons/Saved.svelte";
@@ -15,6 +16,9 @@
 </script>
 
 <div class="card">
+    <div class="navigation">
+        <button on:click={() => navigate(-1)}>{"< back"}</button>
+    </div>
     {#if $doujin}
         <div class="data">
             <div class="cover-wrapper">
@@ -50,6 +54,8 @@
                 {#if $doujin.parody}
                     <p><small>Parody:</small> {$doujin.parody}</p>
                 {/if}
+                <p><small>Pages:</small> {$doujin.count}</p>
+                <p><small>Favourites:</small> {$doujin.favourites}</p>
             </div>
         </div>
         <div class="pages">
@@ -89,6 +95,9 @@
 </div>
 
 <style>
+    .navigation {
+        margin: 0.5rem;
+    }
     .card {
         padding: 0.2rem;
     }

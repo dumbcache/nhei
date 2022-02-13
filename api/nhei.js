@@ -43,7 +43,8 @@ export const getBoards = async (req, res, next) => {
 export const getDoujin = async (req, res, next) => {
     let { id } = req.body;
     let nhei = await connect();
-    doujin = nhei.collection("doujins").findOne({ id: id });
+    let doujin = await nhei.collection("doujins").findOne({ id: id });
+    console.log(doujin);
     console.log(`caching doujin ${id} `);
     redis.set(id, JSON.stringify(doujin));
     console.log(`caching ${id} completed`);
@@ -276,6 +277,7 @@ export const searchDoujin = async (req, res, next) => {
          */
         let api = new API();
         let request = await api.fetchDoujin(id);
+        console.log(request);
         let doujin = {
             id: request.id,
             url: request.url,
@@ -285,6 +287,8 @@ export const searchDoujin = async (req, res, next) => {
             language: request.tags.languages[0].name,
             parody: request.tags.parodies[0]?.name,
             pages: request.pages,
+            count: request.length,
+            favourites: request.favorites,
         };
         /**
          * Caching the retrived doujin data into the redia database.

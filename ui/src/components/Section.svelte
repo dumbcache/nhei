@@ -26,9 +26,11 @@
         <p class="alert">No Data Found</p>
     {/if}
     {#if pins}
-        {#each pins as pin}
-            <Pin {pin} />
-        {/each}
+        <div class="pins">
+            {#each pins as pin}
+                <div class="pin"><Pin {pin} /></div>
+            {/each}
+        </div>
     {/if}
 </div>
 
@@ -49,10 +51,21 @@
         top: 55%;
         font-size: x-small;
     }
-
+    .pins {
+        display: flex;
+        flex-flow: wrap;
+        margin: 0.5rem;
+    }
+    .pin {
+        width: 10rem;
+        padding: 0.2rem;
+    }
     @media screen and (max-width: 600px) {
         .section-wrapper {
             margin-bottom: 150px;
+        }
+        .pin {
+            width: 33%;
         }
     }
 </style>
