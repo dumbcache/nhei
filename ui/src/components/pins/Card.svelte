@@ -26,10 +26,10 @@
     </div>
 
     <div
-        class="edit"
+        class="save"
         on:click={() => {
-            action = "edit";
-            overlay = false;
+            action = "save";
+            overlay = !overlay;
         }}
     >
         <Saved />
@@ -51,8 +51,8 @@
             overlay = !overlay;
         }}
     />
-    {#if action === "edit"}
-        <Save />
+    {#if action === "save"}
+        <Save optionalCover={pin.cover} id={pin.id} on:recieve={toggle} />
     {:else if action === "delete"}
         <DeleteAction id={pin.id} {board} {section} on:recieve={toggle} />
     {/if}
@@ -77,7 +77,7 @@
         z-index: 1;
     }
 
-    .edit,
+    .save,
     .delete {
         position: absolute;
         right: 15px;
@@ -92,17 +92,17 @@
     .delete {
         top: 40px;
     }
-    .edit :global(svg),
+    .save :global(svg),
     .delete :global(svg) {
         fill: #95a5a6;
         width: 20px;
     }
-    .edit :global(svg) {
+    .save :global(svg) {
         width: 24px;
     }
 
     @media screen and (max-width: 600px) {
-        .edit,
+        .save,
         .delete {
             right: 10px;
         }

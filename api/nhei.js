@@ -235,13 +235,11 @@ export const deletePin = async (req, res, next) => {
 export const add = async (req, res, next) => {
     try {
         let nhei = await connect();
-        let { doujin, addData } = req.body;
+        let { id, doujin, addData } = req.body;
         let status = `saved successfully`;
         let inserted;
 
-        let present = await nhei
-            .collection("doujins")
-            .findOne({ id: doujin.id });
+        let present = await nhei.collection("doujins").findOne({ id: id });
         if (present === null) {
             await nhei.collection("doujins").insertOne(doujin);
         }
@@ -255,7 +253,7 @@ export const add = async (req, res, next) => {
                 {
                     $addToSet: {
                         "sections.$.pins": {
-                            id: doujin.id,
+                            id: id,
                             cover: addData.cover,
                         },
                     },
@@ -266,7 +264,7 @@ export const add = async (req, res, next) => {
                 {
                     board: addData.board,
                 },
-                { $addToSet: { pins: { id: doujin.id, cover: addData.cover } } }
+                { $addToSet: { pins: { id: id, cover: addData.cover } } }
             );
         }
         if (inserted.modifiedCount === 0) {

@@ -42,6 +42,7 @@
             method: "POST",
             headers: { "Content-type": "application/json" },
             body: JSON.stringify({
+                id: $doujin.id,
                 doujin: $doujin,
                 addData,
             }),
