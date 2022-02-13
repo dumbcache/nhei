@@ -10,7 +10,7 @@
 </script>
 
 <form on:submit|preventDefault={getData}>
-    <div class="wrapper">
+    <div class="searchbar-wrapper">
         <input
             class="search"
             type="search"
@@ -24,7 +24,7 @@
 </form>
 
 <style>
-    .wrapper {
+    .searchbar-wrapper {
         display: grid;
         grid-template-columns: 90% 10%;
         padding: 0.2rem;

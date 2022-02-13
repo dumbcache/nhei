@@ -11,7 +11,7 @@
     }
 </script>
 
-<div class="wrapper">
+<div class="board-wrapper">
     <Navigation boardsCount={20} pinsCount={200} />
     {#if data.length !== 0}
         <CollectionCard {data} type="board" />
@@ -41,7 +41,7 @@
     }
 
     @media screen and (max-width: 600px) {
-        .wrapper {
+        .board-wrapper {
             margin-bottom: 150px;
         }
     }

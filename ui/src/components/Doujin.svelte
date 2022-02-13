@@ -41,14 +41,14 @@
                 >
             </div>
             <div>
-                <p># {$doujin.id}</p>
-                <p>Title: {$doujin.title}</p>
+                <p><small>#</small>{$doujin.id}</p>
+                <p><small>Title:</small> {$doujin.title}</p>
                 {#if $doujin.author}
-                    <p>Author: {$doujin.author}</p>
+                    <p><small>Author:</small> {$doujin.author}</p>
                 {/if}
-                <p>Language: {$doujin.language}</p>
+                <p><small>Language:</small> {$doujin.language}</p>
                 {#if $doujin.parody}
-                    <p>Parody: {$doujin.parody}</p>
+                    <p><small>Parody:</small> {$doujin.parody}</p>
                 {/if}
             </div>
         </div>
@@ -95,6 +95,10 @@
 
     p {
         margin-left: 0.5rem;
+    }
+    small {
+        opacity: 0.6;
+        user-select: none;
     }
     .cover-wrapper {
         width: 50%;

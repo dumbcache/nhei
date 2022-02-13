@@ -43,7 +43,7 @@ export const getBoards = async (req, res, next) => {
 export const getDoujin = async (req, res, next) => {
     let { id } = req.body;
     let nhei = await connect();
-    doujin = nhei.collection("doujins").findOne(id);
+    doujin = nhei.collection("doujins").findOne({ id: id });
     console.log(`caching doujin ${id} `);
     redis.set(id, JSON.stringify(doujin));
     console.log(`caching ${id} completed`);

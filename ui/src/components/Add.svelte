@@ -52,7 +52,7 @@
     };
 </script>
 
-<div class="wrapper">
+<div class="add-wrapper">
     <div
         class="overlay"
         class:overlay-visible={false}
@@ -97,7 +97,7 @@
 </div>
 
 <style>
-    .wrapper {
+    .add-wrapper {
         position: fixed;
         z-index: 1;
     }

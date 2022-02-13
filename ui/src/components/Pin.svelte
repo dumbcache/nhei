@@ -19,28 +19,30 @@
     }
 </script>
 
-<div class="wrapper">
+<div class="pins-wrapper">
     <Navigation pinsCount={200} />
-    {#if pins.length !== 0}
-        {#each pins as pin (pin.id)}
-            <Pin {pin} />
-        {/each}
-    {:else}
-        <h4>Pins</h4>
-        <p class="alert">No Data Found</p>
-    {/if}
+    <div class="body">
+        {#if pins.length !== 0}
+            {#each pins as pin (pin.id)}
+                <div class="pin"><Pin {pin} /></div>
+            {/each}
+        {:else}
+            <h4>Pins</h4>
+            <p class="alert">No Data Found</p>
+        {/if}
+    </div>
 </div>
 
 <style>
-    .wrapper {
+    .body {
         display: flex;
         flex-flow: wrap;
-        padding: 0 0.5rem;
-    }
-    .wrapper > :global(.wrapper) {
-        width: 200px;
-        background-color: #555;
         margin: 0.5rem;
+    }
+
+    .pin {
+        width: 10rem;
+        padding: 0.2rem;
     }
 
     h4,
@@ -60,12 +62,12 @@
         font-size: x-small;
     }
     @media screen and (max-width: 600px) {
-        .wrapper {
+        .pins-wrapper {
             margin-bottom: 150px;
         }
-        .wrapper > :global(.wrapper) {
-            width: 42%;
-            background-color: #555;
+
+        .pin {
+            width: 33%;
         }
     }
 </style>

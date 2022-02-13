@@ -18,7 +18,7 @@
     ];
 </script>
 
-<div class="wrapper">
+<div class="menubar-wrapper">
     {#each menuList as item (item)}
         <Link to={item.link}
             ><div
@@ -34,13 +34,13 @@
 </div>
 
 <style>
-    .wrapper {
+    .menubar-wrapper {
         display: flex;
         flex-flow: row;
         align-items: center;
         justify-content: space-evenly;
     }
-    .wrapper * {
+    .menubar-wrapper * {
         display: flex;
         flex-flow: column;
         justify-content: center;

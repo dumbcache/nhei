@@ -18,7 +18,7 @@
     };
 </script>
 
-<div class="wrapper">
+<div class="navigation-wrapper">
     <div class="navbar">
         <button on:click={() => navigate(-1)}>{"< back"}</button>
     </div>
@@ -65,7 +65,7 @@
 </div>
 
 <style>
-    .wrapper {
+    .navigation-wrapper {
         display: flex;
         flex-flow: row wrap;
         justify-content: space-between;
@@ -74,15 +74,15 @@
         align-items: center;
         width: 100%;
     }
-    .wrapper > * {
+    .navigation-wrapper > * {
         margin: 0.2rem 0;
     }
 
-    .wrapper button :global(svg) {
+    .navigation-wrapper button :global(svg) {
         width: 40px;
     }
 
-    .wrapper button {
+    .navigation-wrapper button {
         font-size: large;
         height: 30px;
     }
@@ -110,10 +110,10 @@
         p {
             font-size: small;
         }
-        .wrapper button :global(svg) {
+        .navigation-wrapper button :global(svg) {
             width: 30px;
         }
-        .wrapper button {
+        .navigation-wrapper button {
             height: 30px;
             font-size: medium;
         }

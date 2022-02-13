@@ -17,7 +17,7 @@
     }
 </script>
 
-<div class="wrapper">
+<div class="section-wrapper">
     <Navigation sectionsCount={100} pinsCount={200} />
     {#if data.length !== 0}
         <Section {data} type="section" {parent} />
@@ -51,7 +51,7 @@
     }
 
     @media screen and (max-width: 600px) {
-        .wrapper {
+        .section-wrapper {
             margin-bottom: 150px;
         }
     }

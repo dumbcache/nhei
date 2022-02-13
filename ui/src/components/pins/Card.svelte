@@ -15,10 +15,10 @@
         overlay = true;
 </script>
 
-<div class="wrapper">
+<div class="card-wrapper">
     <div class="cover" on:click={invoke}>
-        <img src={pin.cover} alt="cover" />
-        <p class="id">{pin.id}</p>
+        <img src={pin.cover} alt="cover" referrerpolicy="no-referrer" />
+        <p class="id"><small>#</small>{pin.id}</p>
     </div>
 
     <button
@@ -53,44 +53,40 @@
 </div>
 
 <style>
-    .wrapper {
+    .card-wrapper {
         position: relative;
         border-radius: 0.5rem;
-        padding: 0.5rem;
     }
-    .cover :global(svg) {
+    img {
         width: 100%;
+        border-radius: 5px;
     }
+    small {
+        opacity: 0.6;
+        user-select: none;
+    }
+
     .overlay {
         z-index: 1;
     }
 
     .edit,
     .delete {
-        width: 30px;
-        padding-top: 0.1rem;
         position: absolute;
         right: 15px;
         top: 10px;
         background-color: #eee;
         border-radius: 50%;
+        width: 25px;
+        height: 25px;
+        padding-top: 0.1rem;
     }
     .delete {
-        top: 50px;
+        top: 40px;
     }
     .edit :global(svg),
     .delete :global(svg) {
         width: 20px;
-    }
-    .edit,
-    .delete {
-        width: 25px;
-        height: 25px;
-        padding-top: 0;
-        right: 15px;
-    }
-    .delete {
-        top: 40px;
     }
 
     @media screen and (max-width: 600px) {
