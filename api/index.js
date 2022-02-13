@@ -11,6 +11,7 @@ import {
     searchDoujin,
     getDoujin,
     getFromDoujinCache,
+    deletePin,
 } from "./nhei.js";
 
 let app = express();
@@ -49,4 +50,7 @@ app.post("/delete", remove);
 /**
  * App listening at port
  */
+
+app.put("/delete", deletePin);
+
 app.listen(port, () => console.log(`listening at port ${port}`));

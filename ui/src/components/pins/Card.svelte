@@ -6,13 +6,17 @@
     import { getPin } from "../../scripts/stores";
     import { navigate } from "svelte-navigator";
 
-    export let pin;
+    export let pin, board, section;
     const invoke = () => {
         getPin(pin.id);
         navigate("/doujin");
     };
     let action,
         overlay = true;
+    let toggle = () => {
+        overlay = !overlay;
+        action = "";
+    };
 </script>
 
 <div class="card-wrapper">
@@ -34,7 +38,7 @@
         class="delete"
         on:click={() => {
             action = "delete";
-            overlay = false;
+            overlay = !overlay;
         }}
     >
         <Delete />
@@ -44,13 +48,13 @@
         class:overlay-visible={overlay}
         on:click={() => {
             action = "";
-            overlay = true;
+            overlay = !overlay;
         }}
     />
     {#if action === "edit"}
         <Save />
     {:else if action === "delete"}
-        <DeleteAction id={pin.id} />
+        <DeleteAction id={pin.id} {board} {section} on:recieve={toggle} />
     {/if}
 </div>
 

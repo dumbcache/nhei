@@ -201,6 +201,33 @@ export const remove = async (req, res, next) => {
     }
 };
 
+export const deletePin = async (req, res, next) => {
+    let { id, board, section } = req.body;
+    let status;
+    // console.log(req.body);
+    let nhei = await connect();
+    if (section) {
+        let deleted = await nhei.collection("boards").updateOne(
+            {
+                board: board,
+                "sections.section": section,
+            },
+            { $pull: { "sections.$.pins": { id: id } } }
+        );
+        if (deleted.modifiedCount === 1) {
+            status = `deleted`;
+        }
+        console.log(deleted);
+    } else {
+        let deleted = await nhei
+            .collection("boards")
+            .updateOne({ board: board }, { $pull: { pins: { id: id } } });
+        status = `deleted`;
+        console.log(deleted);
+    }
+    res.send({ status });
+};
+
 /**
  * Adding doujin data to respective board and section
  */

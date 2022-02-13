@@ -1,16 +1,29 @@
 <script>
-    import Ok from "../icons/Ok.svelte";
+    import { createEventDispatcher } from "svelte";
 
-    export let id;
-    const action = () => {
-        // send request to server for deletion
+    import { refreshStatus, status } from "../../scripts/stores";
+    import Ok from "../icons/Ok.svelte";
+    export let id, section, board;
+
+    let dispatch = createEventDispatcher();
+    const action = async () => {
+        let response = await fetch("http://localhost:5000/delete", {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ id, section, board }),
+        });
+        dispatch("recieve");
+        $status = await response.json();
+        refreshStatus();
     };
 </script>
 
 <div class="wrapper">
     <div>
         <p>You sure?</p>
-        <button on:click={() => {}}><Ok /></button>
+        <button on:click={action}><Ok /></button>
     </div>
 </div>
 

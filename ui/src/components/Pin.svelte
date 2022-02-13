@@ -10,12 +10,10 @@
     let pins = [];
 
     $: if ($boards.length !== 0) {
-        board = $boards.filter((record) => record.board === board);
-        let data = board[0].sections.filter(
-            (record) => record.section === section
-        );
+        let data = $boards.filter((record) => record.board === board);
+        data = data[0].sections.filter((record) => record.section === section);
         pins = data[0].pins;
-        console.log(pins);
+        console.log("board", board);
     }
 </script>
 
@@ -24,7 +22,7 @@
     <div class="body">
         {#if pins.length !== 0}
             {#each pins as pin (pin.id)}
-                <div class="pin"><Pin {pin} /></div>
+                <div class="pin"><Pin {board} {section} {pin} /></div>
             {/each}
         {:else}
             <h4>Pins</h4>

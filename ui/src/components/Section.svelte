@@ -24,7 +24,7 @@
             {#if pins.length !== 0}
                 <div class="pins">
                     {#each pins as pin}
-                        <div class="pin"><Pin {pin} /></div>
+                        <div class="pin"><Pin {pin} board={parent} /></div>
                     {/each}
                 </div>
             {/if}
