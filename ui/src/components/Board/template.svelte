@@ -24,24 +24,26 @@
 <div class="wrapper">
     {#each data as item}
         <div class="collection {item}">
-            <button
+            <div
                 class="edit"
                 on:click={() => {
                     name = item;
                     action = "edit";
                     overlay = false;
                 }}
-                ><Edit />
-            </button>
-            <button
+            >
+                <Edit />
+            </div>
+            <div
                 class="delete"
                 on:click={() => {
                     name = item;
                     action = "delete";
                     overlay = false;
                 }}
-                ><Delete />
-            </button>
+            >
+                <Delete />
+            </div>
             <Link to={item}>
                 <div class="collection-card">
                     <Empty />
@@ -92,15 +94,11 @@
     h4 {
         font-weight: 500;
     }
-    .arrow,
-    button {
+    .arrow {
         background-color: inherit;
         color: inherit;
     }
 
-    button:active {
-        background-color: #555;
-    }
     .wrapper {
         /* position: relative; */
         display: flex;
@@ -112,13 +110,14 @@
     }
     .edit,
     .delete {
-        width: 30px;
-        padding-top: 0.1rem;
+        width: 25px;
+        height: 25px;
         position: absolute;
         right: 15px;
         top: 10px;
-        background-color: #eee;
+        background-color: #222;
         border-radius: 50%;
+        text-align: center;
     }
     .delete {
         top: 50px;
@@ -127,13 +126,7 @@
     .delete :global(svg) {
         width: 20px;
     }
-    .edit,
-    .delete {
-        width: 25px;
-        height: 25px;
-        padding-top: 0;
-        right: 15px;
-    }
+
     .delete {
         top: 40px;
     }

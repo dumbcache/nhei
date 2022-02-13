@@ -1,7 +1,7 @@
 <script>
     import DeleteAction from "./Delete.svelte";
     import Save from "./Save.svelte";
-    import Ok from "../icons/Ok.svelte";
+    import Saved from "../icons/Saved.svelte";
     import Delete from "../icons/Delete.svelte";
     import { getPin } from "../../scripts/stores";
     import { navigate } from "svelte-navigator";
@@ -28,7 +28,7 @@
             overlay = false;
         }}
     >
-        <Ok />
+        <Saved />
     </div>
     <div
         class="delete"
@@ -59,6 +59,7 @@
         position: relative;
         border-radius: 0.5rem;
     }
+
     img {
         width: 100%;
         border-radius: 5px;
@@ -77,20 +78,23 @@
         position: absolute;
         right: 15px;
         top: 10px;
-        background-color: black;
         border-radius: 50%;
         width: 25px;
         height: 25px;
         /* padding-top: 0.1rem; */
         text-align: center;
+        background-color: #222;
     }
     .delete {
         top: 40px;
     }
     .edit :global(svg),
     .delete :global(svg) {
-        fill: #f00;
-        width: 100%;
+        fill: #95a5a6;
+        width: 20px;
+    }
+    .edit :global(svg) {
+        width: 24px;
     }
 
     @media screen and (max-width: 600px) {
