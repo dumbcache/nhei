@@ -8,7 +8,7 @@
     let board = location.pathname.split("/").pop().trim();
     let parent = board;
     let data = [];
-    let pins;
+    let pins = [];
     $: if ($boards.length !== 0) {
         board = $boards.filter((record) => record.board === board);
         data = board[0].sections.map((record) => record.section);
@@ -19,18 +19,19 @@
 
 <div class="section-wrapper">
     <Navigation sectionsCount={100} pinsCount={200} />
-    {#if data.length !== 0}
-        <Section {data} type="section" {parent} />
+    {#if data.length !== 0 || pins.length !== 0}
+        <Section {data} type="section" {parent}>
+            {#if pins.length !== 0}
+                <div class="pins">
+                    {#each pins as pin}
+                        <div class="pin"><Pin {pin} /></div>
+                    {/each}
+                </div>
+            {/if}
+        </Section>
     {:else}
         <h4>sections</h4>
         <p class="alert">No Data Found</p>
-    {/if}
-    {#if pins}
-        <div class="pins">
-            {#each pins as pin}
-                <div class="pin"><Pin {pin} /></div>
-            {/each}
-        </div>
     {/if}
 </div>
 
@@ -55,12 +56,10 @@
         display: flex;
         flex-flow: wrap;
         margin: 0.5rem;
-        z-index: -1;
     }
     .pin {
         width: 10rem;
         padding: 0.2rem;
-        z-index: -1;
     }
     @media screen and (max-width: 600px) {
         .section-wrapper {

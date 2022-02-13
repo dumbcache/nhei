@@ -1,7 +1,7 @@
 <script>
     import DeleteAction from "./Delete.svelte";
-    import EditAction from "./Edit.svelte";
-    import Edit from "../icons/Edit.svelte";
+    import Save from "./Save.svelte";
+    import Ok from "../icons/Ok.svelte";
     import Delete from "../icons/Delete.svelte";
     import { getPin } from "../../scripts/stores";
     import { navigate } from "svelte-navigator";
@@ -21,22 +21,24 @@
         <p class="id"><small>#</small>{pin.id}</p>
     </div>
 
-    <button
+    <div
         class="edit"
         on:click={() => {
             action = "edit";
             overlay = false;
         }}
-        ><Edit />
-    </button>
-    <button
+    >
+        <Ok />
+    </div>
+    <div
         class="delete"
         on:click={() => {
             action = "delete";
             overlay = false;
         }}
-        ><Delete />
-    </button>
+    >
+        <Delete />
+    </div>
     <div
         class="overlay"
         class:overlay-visible={overlay}
@@ -46,7 +48,7 @@
         }}
     />
     {#if action === "edit"}
-        <EditAction />
+        <Save />
     {:else if action === "delete"}
         <DeleteAction id={pin.id} />
     {/if}
@@ -75,18 +77,20 @@
         position: absolute;
         right: 15px;
         top: 10px;
-        background-color: #eee;
+        background-color: black;
         border-radius: 50%;
         width: 25px;
         height: 25px;
-        padding-top: 0.1rem;
+        /* padding-top: 0.1rem; */
+        text-align: center;
     }
     .delete {
         top: 40px;
     }
     .edit :global(svg),
     .delete :global(svg) {
-        width: 20px;
+        fill: #f00;
+        width: 100%;
     }
 
     @media screen and (max-width: 600px) {

@@ -13,7 +13,7 @@
 
 <div class="wrapper">
     <form class="form" on:submit|preventDefault={edit}>
-        <p>Enter new name</p>
+        <p>Add to</p>
         <input
             name="collection"
             type="search"
@@ -35,6 +35,7 @@
 <style>
     .wrapper {
         position: fixed;
+        z-index: 1;
     }
 
     .form {

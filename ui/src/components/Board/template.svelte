@@ -59,13 +59,20 @@
             overlay = true;
         }}
     />
+    <slot />
     {#if action === "edit"}
-        <EditAction {name} {type} {parent} on:recieve={showEditStatus} />
+        <div class="action">
+            <EditAction {name} {type} {parent} on:recieve={showEditStatus} />
+        </div>
     {:else if action === "delete"}
-        <DeleteAction {name} {type} {parent} on:recieve={showDeleteStatus} />
-    {/if}
-    {#if status}
-        <p class="status">{status}</p>
+        <div class="action">
+            <DeleteAction
+                {name}
+                {type}
+                {parent}
+                on:recieve={showDeleteStatus}
+            />
+        </div>
     {/if}
 </div>
 
@@ -129,6 +136,10 @@
     }
     .delete {
         top: 40px;
+    }
+    .overlay,
+    .action {
+        z-index: 1;
     }
 
     @media screen and (max-width: 600px) {
