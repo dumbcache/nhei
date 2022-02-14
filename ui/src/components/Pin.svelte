@@ -18,7 +18,7 @@
 </script>
 
 <div class="pins-wrapper">
-    <Navigation pinsCount={200} />
+    <Navigation pinsCount={200} pin="pin" />
     <div class="body">
         {#if pins.length !== 0}
             {#each pins as pin (pin.id)}

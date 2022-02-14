@@ -18,7 +18,7 @@
 </script>
 
 <div class="section-wrapper">
-    <Navigation sectionsCount={100} pinsCount={200} />
+    <Navigation sectionsCount={100} pinsCount={200} {parent} />
     {#if data.length !== 0 || pins.length !== 0}
         <Section {data} type="section" {parent}>
             {#if pins.length !== 0}

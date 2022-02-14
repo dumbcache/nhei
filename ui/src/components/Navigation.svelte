@@ -4,6 +4,7 @@
     import Slider from "./icons/Slider.svelte";
     import Create from "./Create.svelte";
 
+    export let parent, pin;
     let overlay = true;
     let action = "";
     let searchValue;
@@ -28,7 +29,7 @@
         name="collection"
         type="search"
         bind:value={searchValue}
-        placeholder="collection name"
+        placeholder="search"
         required
         autocomplete="off"
     />
@@ -42,12 +43,14 @@
             <p>Pins : {pinsCount}</p>
         {/if}
         <div class="toolbar">
-            <button
-                on:click={() => {
-                    overlay = false;
-                    action = "add";
-                }}><Add /></button
-            >
+            {#if !pin}
+                <button
+                    on:click={() => {
+                        overlay = false;
+                        action = "add";
+                    }}><Add /></button
+                >
+            {/if}
             <button><Slider /></button>
         </div>
     </div>
@@ -60,7 +63,7 @@
         }}
     />
     {#if action === "add"}
-        <Create on:recieve={showStatus} />
+        <Create on:recieve={showStatus} {parent} />
     {/if}
 </div>
 
@@ -97,14 +100,18 @@
     .overlay {
         z-index: 1;
     }
-    input {
+    .search {
         max-width: 100%;
         border: none;
         padding: 0.3rem;
         border-radius: 5px;
     }
-    input:focus {
+    .search:focus {
         outline: none;
+    }
+    ::placeholder {
+        color: white;
+        opacity: 0.7;
     }
     @media screen and (max-width: 600px) {
         p {

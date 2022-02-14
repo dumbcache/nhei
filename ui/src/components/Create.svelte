@@ -3,9 +3,11 @@
     import { refreshStatus, status } from "../scripts/stores";
     import Ok from "./icons/Ok.svelte";
 
-    let board = "";
+    export let parent;
+    let disabled = parent ? true : false;
+    let board = parent ? parent : "";
     let section = "";
-    let ref;
+    let ref1, ref2;
     let dispatch = createEventDispatcher();
     let create = async () => {
         console.log("sent");
@@ -23,7 +25,11 @@
         // console.log(await response.json());
     };
     onMount(() => {
-        ref.focus();
+        if (parent) {
+            ref2.focus();
+        } else {
+            ref1.focus();
+        }
     });
 </script>
 
@@ -35,18 +41,22 @@
             type="search"
             bind:value={board}
             placeholder="board"
-            bind:this={ref}
+            bind:this={ref1}
             required
             autocomplete="off"
+            {disabled}
         />
-        <p>Section name</p>
-        <input
-            name="section"
-            type="search"
-            bind:value={section}
-            placeholder="section"
-            autocomplete="off"
-        />
+        {#if disabled}
+            <p>Section name</p>
+            <input
+                name="section"
+                type="search"
+                bind:value={section}
+                bind:this={ref2}
+                placeholder="section"
+                autocomplete="off"
+            />
+        {/if}
         <button class="ok" disabled={board.trim() === ""} type="submit"
             ><Ok /></button
         >
@@ -69,6 +79,9 @@
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
+    }
+    input:disabled {
+        background-color: #111;
     }
     .form * {
         margin: 0.5rem 0;
