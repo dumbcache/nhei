@@ -1,7 +1,7 @@
 <script>
     import { onMount, createEventDispatcher } from "svelte";
-    import { refreshStatus, status } from "../../scripts/stores";
-    import Ok from "../icons/Ok.svelte";
+    import { refreshStatus, status } from "../scripts/stores";
+    import Ok from "./icons/Ok.svelte";
 
     let board = "";
     let section = "";

@@ -1,4 +1,6 @@
 <script>
+    import { createEventDispatcher } from "svelte";
+
     import { Link } from "svelte-navigator";
 
     let menuList = [
@@ -13,9 +15,13 @@
             link: "/boards",
         },
         { name: "home", src: "/images/home.svg", link: "/" },
-        { name: "refresh", src: "/images/refresh.svg", link: "" },
-        { name: "add", src: "/images/add.svg", link: "/add" },
+        // { name: "add", src: "/images/add.svg", link: "/add" },
     ];
+
+    const dispatch = new createEventDispatcher();
+    const add = () => {
+        dispatch("recieve");
+    };
 </script>
 
 <div class="menubar-wrapper">
@@ -31,6 +37,13 @@
             </div></Link
         >
     {/each}
+    <div
+        class="link add"
+        style="background-image: url('/images/add.svg');"
+        on:click={add}
+    >
+        add
+    </div>
 </div>
 
 <style>

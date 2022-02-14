@@ -2,7 +2,7 @@
     import { navigate } from "svelte-navigator";
     import Add from "./icons/Add.svelte";
     import Slider from "./icons/Slider.svelte";
-    import Create from "./Board/Create.svelte";
+    import Create from "./Create.svelte";
 
     let overlay = true;
     let action = "";

@@ -4,16 +4,23 @@
     import MenuBar from "./components/MenuBar.svelte";
     import { getBoards, status } from "./scripts/stores";
     import Status from "./components/Status.svelte";
+    import Create from "./components/Create.svelte";
 
+    let add = false;
+    let overlay = true;
     onMount(async () => {
         console.log("retrieving nhei data");
         getBoards();
     });
+    const toggle = () => {
+        add = !add;
+        overlay = !overlay;
+    };
 </script>
 
 <header>
     <div class="menu-container">
-        <MenuBar />
+        <MenuBar on:recieve={toggle} />
         <SearchBar />
     </div>
     <h1 class="title">NHei</h1>
@@ -21,6 +28,17 @@
         <div class="status">
             <Status />
         </div>
+    {/if}
+    {#if add}
+        <div
+            class="overlay"
+            class:overlay-visible={overlay}
+            on:click={() => {
+                overlay = !overlay;
+                add = !add;
+            }}
+        />
+        <Create on:recieve={toggle} />
     {/if}
 </header>
 <main>
@@ -33,6 +51,9 @@
         grid-template-columns: auto 1fr;
         background-color: #000;
         align-items: center;
+    }
+    .overlay {
+        z-index: 1;
     }
     .menu-container {
         display: grid;
@@ -66,7 +87,7 @@
             z-index: 2;
         }
         .title {
-            display: none;
+            /* display: none; */
         }
     }
 </style>
