@@ -30,19 +30,18 @@
             ><div
                 class="link {item.name}"
                 value={item.name}
-                style="background-image:url({item.src})"
                 on:click={item.onclick}
             >
-                {item.name}
+                <img src={item.src} alt={item.name} />
+                <p class="button-tag">
+                    {item.name}
+                </p>
             </div></Link
         >
     {/each}
-    <div
-        class="link add"
-        style="background-image: url('/images/add.svg');"
-        on:click={add}
-    >
-        add
+    <div class="link add" on:click={add}>
+        <img src="/images/add.svg" alt="add" />
+        <p class="button-tag">add</p>
     </div>
 </div>
 
@@ -61,25 +60,37 @@
         border-radius: 5px;
     }
     .link {
-        padding-top: 1.2rem;
         background-repeat: no-repeat;
         background-position: top;
         background-color: #000;
         color: inherit;
         font-size: small;
+        cursor: pointer;
     }
     .link:active {
         background-color: #333;
     }
 
+    .button-tag {
+        display: none;
+    }
     :global(a, a:active, a:visited) {
         text-decoration: none;
         color: inherit;
+    }
+    img {
+        width: 30px;
     }
     @media screen and (max-width: 600px) {
         .link {
             /* padding-top: 1.5rem; */
             font-size: x-small;
+        }
+        .button-tag {
+            display: initial;
+        }
+        img {
+            width: initial;
         }
     }
 </style>
