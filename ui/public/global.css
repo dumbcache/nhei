@@ -33,5 +33,9 @@ button:hover {
 .overlay-visible {
     display: none;
 }
+input {
+    background-color: #333;
+    color: #fff;
+}
 @media screen and (max-width: 600px) {
 }

@@ -29,21 +29,22 @@
 
 <div class="wrapper">
     <form class="form" on:submit|preventDefault={create}>
-        <p>Enter board name</p>
+        <p>Board name</p>
         <input
             name="board"
             type="search"
             bind:value={board}
-            placeholder="board name"
+            placeholder="board"
             bind:this={ref}
             required
             autocomplete="off"
         />
+        <p>Section name</p>
         <input
             name="section"
             type="search"
             bind:value={section}
-            placeholder="section name"
+            placeholder="section"
             autocomplete="off"
         />
         <button class="ok" disabled={board.trim() === ""} type="submit"
@@ -57,7 +58,9 @@
         position: fixed;
         z-index: 1;
     }
-
+    .form p {
+        margin: 0;
+    }
     .form {
         padding: 1rem;
         border-radius: 0.5rem;
