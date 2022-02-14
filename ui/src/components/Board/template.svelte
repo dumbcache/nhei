@@ -61,7 +61,7 @@
             overlay = true;
         }}
     />
-    <slot />
+
     {#if action === "edit"}
         <div class="action">
             <EditAction {name} {type} {parent} on:recieve={showEditStatus} />
@@ -77,6 +77,7 @@
         </div>
     {/if}
 </div>
+<slot />
 
 <style>
     .collection-card {
@@ -103,7 +104,8 @@
         /* position: relative; */
         display: flex;
         flex-flow: row wrap;
-        justify-content: space-evenly;
+        justify-content: center;
+        gap: 1rem;
     }
     .collection {
         position: relative;

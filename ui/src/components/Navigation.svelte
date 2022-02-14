@@ -109,10 +109,7 @@
     .search:focus {
         outline: none;
     }
-    ::placeholder {
-        color: white;
-        opacity: 0.7;
-    }
+
     @media screen and (max-width: 600px) {
         p {
             font-size: small;

@@ -18,7 +18,7 @@
 </script>
 
 <div class="section-wrapper">
-    <Navigation sectionsCount={100} pinsCount={200} {parent} />
+    <Navigation sectionsCount={data.length} pinsCount={pins.length} {parent} />
     {#if data.length !== 0 || pins.length !== 0}
         <Section {data} type="section" {parent}>
             {#if pins.length !== 0}
@@ -56,6 +56,7 @@
         display: flex;
         flex-flow: wrap;
         margin: 0.5rem;
+        justify-content: center;
     }
     .pin {
         width: 10rem;

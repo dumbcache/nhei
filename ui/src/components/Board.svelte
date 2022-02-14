@@ -12,7 +12,7 @@
 </script>
 
 <div class="board-wrapper">
-    <Navigation boardsCount={20} pinsCount={200} />
+    <Navigation boardsCount={data.length} pinsCount={200} />
     {#if data.length !== 0}
         <CollectionCard {data} type="board" />
     {:else}

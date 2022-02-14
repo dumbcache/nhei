@@ -37,5 +37,9 @@ input {
     background-color: #333;
     color: #fff;
 }
+::placeholder {
+    color: white;
+    opacity: 0.6;
+}
 @media screen and (max-width: 600px) {
 }
