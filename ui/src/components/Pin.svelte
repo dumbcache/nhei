@@ -5,8 +5,8 @@
 
     export let location, navigate;
     let path = location.pathname.split("/");
-    let section = path.pop().trim();
-    let board = path.pop().trim();
+    let section = decodeURI(path.pop().trim());
+    let board = decodeURI(path.pop().trim());
     let pins = [];
 
     $: if ($boards.length !== 0) {

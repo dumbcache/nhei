@@ -5,7 +5,7 @@
     import Pin from "./pins/Card.svelte";
 
     export let location, navigate;
-    let board = location.pathname.split("/").pop().trim();
+    let board = decodeURI(location.pathname.split("/").pop().trim());
     let parent = board;
     let data = [];
     let pins = [];
