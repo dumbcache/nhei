@@ -1,4 +1,5 @@
 <script>
+    import { fly } from "svelte/transition";
     import { onMount } from "svelte";
     import SearchBar from "./components/SearchBar.svelte";
     import MenuBar from "./components/MenuBar.svelte";
@@ -25,7 +26,7 @@
     </div>
     <h1 class="title">NHei</h1>
     {#if $status}
-        <div class="status">
+        <div transition:fly class="status">
             <Status />
         </div>
     {/if}

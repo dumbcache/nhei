@@ -151,8 +151,8 @@ export const edit = async (req, res, next) => {
             let inserted = await nhei
                 .collection("boards")
                 .updateOne(
-                    { board: parent, sections: previous },
-                    { $set: { "sections.$": name } }
+                    { board: parent, "sections.section": previous },
+                    { $set: { "sections.$.section": name } }
                 );
             console.log(inserted);
             status = "section rename successful";
@@ -182,7 +182,10 @@ export const remove = async (req, res, next) => {
         if (type === "section") {
             let deleted = await nhei
                 .collection("boards")
-                .updateOne({ board: parent }, { $pull: { sections: name } });
+                .updateOne(
+                    { board: parent },
+                    { $pull: { sections: { section: name } } }
+                );
             console.log(deleted);
             status = "section deleted";
         } else {
