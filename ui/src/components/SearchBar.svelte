@@ -37,6 +37,9 @@
         background-color: #ffe;
         color: black;
     }
+    ::placeholder {
+        color: black;
+    }
     .search:focus {
         outline: none;
     }
