@@ -2,7 +2,7 @@
     import { onMount, createEventDispatcher } from "svelte";
     import { refreshStatus, status } from "../scripts/stores";
     import Ok from "./icons/Ok.svelte";
-
+    import { fade } from "svelte/transition";
     export let parent;
     let disabled = parent ? true : false;
     let board = parent ? parent : "";
@@ -33,7 +33,7 @@
     });
 </script>
 
-<div class="wrapper">
+<div class="wrapper" transition:fade={{ duration: 300 }}>
     <form class="form" on:submit|preventDefault={create}>
         <p>Board name</p>
         <input

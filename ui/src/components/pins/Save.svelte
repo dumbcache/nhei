@@ -1,5 +1,6 @@
 <script>
     import Ok from "../icons/Ok.svelte";
+    import { fade } from "svelte/transition";
     import {
         doujin,
         boards as collections,
@@ -58,7 +59,11 @@
         class:overlay-visible={false}
         on:click={sendDispatch}
     />
-    <form class="form" on:submit|preventDefault={add}>
+    <form
+        class="form"
+        on:submit|preventDefault={add}
+        transition:fade={{ duration: 300 }}
+    >
         <img src={optionalCover} alt="optionalCover" />
         <label for="board">select board</label>
         <select

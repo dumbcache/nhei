@@ -143,6 +143,7 @@ export const edit = async (req, res, next) => {
         let nhei = await connect();
         let { type, previous, name, parent } = req.body;
         let status;
+        name = name.trim();
         previous = previous.trim();
         if (parent) {
             parent = parent.trim();

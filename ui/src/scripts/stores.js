@@ -7,11 +7,11 @@ export const activeSection = writable();
 export const doujin = writable();
 export const boards = writable([]);
 export const pins = writable();
-export const status = writable();
+export const status = writable("");
 
 export const refreshStatus = () => {
     setTimeout(() => {
-        status.set(undefined);
+        status.set("");
     }, 3000);
 };
 

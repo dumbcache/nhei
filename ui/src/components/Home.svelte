@@ -1,8 +1,9 @@
 <script>
+    import { fade } from "svelte/transition";
     export let location, navigate;
 </script>
 
-<h4>Home</h4>
+<h4 in:fade={{ duration: 200 }}>Home</h4>
 
 <style>
     h4 {

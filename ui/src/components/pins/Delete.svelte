@@ -1,5 +1,6 @@
 <script>
     import { createEventDispatcher } from "svelte";
+    import { fade } from "svelte/transition";
 
     import { refreshStatus, status } from "../../scripts/stores";
     import Ok from "../icons/Ok.svelte";
@@ -20,7 +21,7 @@
     };
 </script>
 
-<div class="wrapper">
+<div class="wrapper" transition:fade={{ duration: 300 }}>
     <div>
         <p>You sure?</p>
         <button on:click={action}><Ok /></button>

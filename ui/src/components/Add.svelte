@@ -1,5 +1,6 @@
 <script>
     import Ok from "./icons/Ok.svelte";
+    import { fade } from "svelte/transition";
     import {
         doujin,
         boards as collections,
@@ -53,7 +54,7 @@
     };
 </script>
 
-<div class="add-wrapper">
+<div class="add-wrapper" transition:fade={{ duration: 300 }}>
     <div
         class="overlay"
         class:overlay-visible={false}

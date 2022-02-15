@@ -1,4 +1,5 @@
 <script>
+    import { fade } from "svelte/transition";
     import { onMount, createEventDispatcher } from "svelte";
     import { status, refreshStatus } from "../../scripts/stores";
     import Ok from "../icons/Ok.svelte";
@@ -9,26 +10,26 @@
     let dispatch = createEventDispatcher();
 
     let edit = async () => {
+        dispatch("recieve");
         let response = await fetch("http://localhost:5000/edit", {
             method: "POST",
             headers: { "Content-type": "application/json" },
             body: JSON.stringify({
                 type,
                 previous,
-                name,
+                name: name.trim(),
                 parent,
             }),
         });
         $status = await response.json();
         refreshStatus();
-        dispatch("recieve");
     };
     onMount(() => {
         ref.focus();
     });
 </script>
 
-<div class="wrapper">
+<div class="wrapper" transition:fade={{ duration: 300 }}>
     <form class="form" on:submit|preventDefault={edit}>
         <p>Enter new name</p>
         <input
@@ -42,7 +43,7 @@
         />
         <button
             class="ok"
-            disabled={previous === name || name.trim() === ""}
+            disabled={previous === name.trim() || name.trim() === ""}
             type="submit"><Ok /></button
         >
     </form>

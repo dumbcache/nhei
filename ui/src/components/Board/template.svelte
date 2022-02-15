@@ -1,4 +1,5 @@
 <script>
+    import { fade } from "svelte/transition";
     import { Link } from "svelte-navigator";
     import EditAction from "./Edit.svelte";
     import Edit from "../icons/Edit.svelte";
@@ -23,7 +24,7 @@
 
 <div class="wrapper">
     {#each data as item}
-        <div class="collection {item}">
+        <div class="collection {item}" in:fade={{ duration: 300 }}>
             <div
                 class="edit"
                 on:click={() => {

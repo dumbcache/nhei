@@ -1,4 +1,5 @@
 <script>
+    import { fade } from "svelte/transition";
     import { createEventDispatcher } from "svelte";
     import Ok from "../icons/Ok.svelte";
     import { status, refreshStatus } from "../../scripts/stores";
@@ -29,7 +30,7 @@
     };
 </script>
 
-<div class="wrapper">
+<div class="wrapper" transition:fade={{ duration: 300 }}>
     <form class="form" on:submit|preventDefault={remove}>
         <div class:prev>
             <p>You sure? All pins will be deleted</p>

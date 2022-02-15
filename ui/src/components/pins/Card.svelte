@@ -1,4 +1,5 @@
 <script>
+    import { fly, fade } from "svelte/transition";
     import DeleteAction from "./Delete.svelte";
     import Save from "./Save.svelte";
     import Saved from "../icons/Saved.svelte";
@@ -19,7 +20,7 @@
     };
 </script>
 
-<div class="card-wrapper">
+<div class="card-wrapper" in:fly={{ y: 100, delay: 100 }}>
     <div class="cover" on:click={invoke}>
         <img src={pin.cover} alt="cover" referrerpolicy="no-referrer" />
         <p class="id"><small>#</small>{pin.id}</p>
