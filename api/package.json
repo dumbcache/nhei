@@ -11,6 +11,7 @@
         "body-parser": "^1.19.1",
         "cors": "^2.8.5",
         "express": "^4.17.2",
+        "googleapis": "^95.0.0",
         "ioredis": "^4.28.3",
         "mongodb": "^4.3.1",
         "nhentai": "^3.0.0"
