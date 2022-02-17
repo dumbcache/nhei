@@ -2,9 +2,9 @@
     import { Router, Route } from "svelte-navigator";
     import Layout from "./Layout.svelte";
     import Home from "./components/Home.svelte";
-    import Board from "./components/Board.svelte";
-    import Section from "./components/Section.svelte";
-    import Pin from "./components/Pin.svelte";
+    import Board from "./components/Boards.svelte";
+    import Section from "./components/Sections.svelte";
+    import Pin from "./components/Pins.svelte";
     import Profile from "./components/Profile.svelte";
     import Doujin from "./components/Doujin.svelte";
 </script>

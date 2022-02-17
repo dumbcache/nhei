@@ -3,8 +3,10 @@
     import { refreshStatus, status } from "../scripts/stores";
     import Ok from "./icons/Ok.svelte";
     import { fade } from "svelte/transition";
+
     export let parent;
     let disabled = parent ? true : false;
+
     let board = parent ? parent : "";
     let section = "";
     let ref1, ref2;

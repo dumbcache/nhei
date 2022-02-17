@@ -94,6 +94,7 @@ export const create = async (req, res, next) => {
         let status;
         board = board.trim();
         section = section.trim();
+        let created = new Date().toUTCString();
         console.log(board, section);
 
         if (board.length === 0) {
@@ -106,9 +107,13 @@ export const create = async (req, res, next) => {
         if (boardStatus) {
             status = "Board present";
         } else {
-            await nhei
-                .collection("boards")
-                .insertOne({ board: board, sections: [], pins: [] });
+            await nhei.collection("boards").insertOne({
+                board: board,
+                cover: "",
+                created,
+                sections: [],
+                pins: [],
+            });
             status = "Board created";
         }
 
@@ -117,7 +122,7 @@ export const create = async (req, res, next) => {
             if (sectionStatus) {
                 status = "section present";
             } else {
-                section = { section, pins: [] };
+                section = { section, created, pins: [] };
                 await nhei
                     .collection("boards")
                     .updateOne(
