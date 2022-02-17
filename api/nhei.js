@@ -344,4 +344,11 @@ export const searchDoujin = async (req, res, next) => {
     }
 };
 
-export const getBackup = () => {};
+export const getBackup = async () => {
+    let nhei = await connect();
+    let boardsCursor = nhei.collection("boards").find();
+    let doujinCursor = nhei.collection("doujins").find();
+    let boards = await boardsCursor.toArray();
+    let doujins = await doujinCursor.toArray();
+    return { boardData: boards, doujinData: doujins };
+};

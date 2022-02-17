@@ -1,26 +1,58 @@
-import fs from "fs";
+import { google } from "googleapis";
+import { keys } from "./credentials.js";
 import { getBackup } from "./nhei.js";
-import { insertBackup } from "./drive.js";
 
-// const { boardData, douinData } = getBackup();
+const scopes = ["https://www.googleapis.com/auth/drive"];
 
-fs.writeFile(
-    "./backup/boardDataBackup.json",
-    JSON.stringify(boardData),
-    (err, file) => {
-        if (err) {
-            throw err;
-        }
-        console.log("data backed");
-    }
+const auth = new google.auth.JWT(
+    keys.client_email,
+    null,
+    keys.private_key,
+    scopes
 );
-fs.writeFile(
-    "./backup/doujinDataBackup.json",
-    JSON.stringify(douinData),
-    (err, file) => {
-        if (err) {
-            throw err;
-        }
-        console.log("data backed");
+
+auth.authorize((err) => {
+    if (err) {
+        console.log(new Error("Error,", err));
     }
-);
+    err;
+    console.log("connection eshtablished");
+});
+
+const drive = google.drive({ version: "v3", auth: auth });
+
+export const backupData = async () => {
+    drive.files.list(
+        { q: "name contains 'json'", fields: "files(id,name)" },
+
+        (err, res) => {
+            if (err) return console.log("The API returned an error: " + err);
+            const files = res.data.files;
+            backup(files);
+        }
+    );
+};
+
+export const updateBackupFiles = (id, media) => {
+    drive.files.update({ fileId: id, media: media }, (err, res) => {
+        if (err) {
+            console.log(err);
+            return;
+        }
+        console.log("inserted", res.data);
+    });
+};
+
+const backup = async (files) => {
+    const { boardData, doujinData } = await getBackup();
+    let boardMedia = {
+        mimeType: "application/json",
+        body: boardData,
+    };
+    let doujinMedia = {
+        mimeType: "application/json",
+        body: doujinData,
+    };
+    updateBackupFiles(files[0].id, doujinMedia);
+    updateBackupFiles(files[1].id, boardMedia);
+};

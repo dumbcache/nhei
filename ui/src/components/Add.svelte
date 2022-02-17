@@ -20,7 +20,7 @@
     let selectedSection;
     $: console.log(selectedBoard);
     let board = [];
-
+    $: disabled = board.length === 0;
     $: if ($collections.length !== 0) {
         board = $collections.map((record) => record.board);
     }
@@ -72,6 +72,7 @@
                 (ref1.size = section.length > 3 ? 3 : section.length - 1)}
             on:blur={() => (ref1.size = 1)}
             on:change={() => (ref1.size = 1)}
+            {disabled}
         >
             {#each board as option}
                 <option value={option}>{option}</option>
@@ -87,6 +88,7 @@
                 (ref2.size = section.length > 4 ? 4 : section.length - 1)}
             on:blur={() => (ref2.size = 1)}
             on:change={() => (ref2.size = 1)}
+            {disabled}
         >
             <option value="" />
             {#each section as option}
@@ -94,7 +96,7 @@
             {/each}
         </select>
 
-        <button class="ok" type="submit"><Ok /></button>
+        <button class="ok" type="submit" {disabled}><Ok /></button>
     </form>
 </div>
 
@@ -135,6 +137,10 @@
         outline: none;
         padding: 0.3rem;
         border-radius: 5px;
+    }
+    select:disabled {
+        appearance: none;
+        background-color: #111;
     }
     option {
         font-size: smaller;

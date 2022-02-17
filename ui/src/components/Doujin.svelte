@@ -41,6 +41,7 @@
                         src={$doujin.cover}
                         alt="doujin_image"
                         referrerpolicy="no-referrer"
+                        loading="lazy"
                     /></a
                 >
             </div>
