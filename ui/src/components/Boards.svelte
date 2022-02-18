@@ -9,6 +9,7 @@
         data = $boards.map((record) => ({
             name: record.board,
             cover: record.cover,
+            position: record.position,
         }));
         console.log(data);
     }

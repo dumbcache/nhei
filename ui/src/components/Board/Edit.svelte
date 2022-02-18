@@ -3,11 +3,11 @@
     import { onMount, createEventDispatcher } from "svelte";
     import { status, refreshStatus } from "../../scripts/stores";
     import Ok from "../icons/Ok.svelte";
-    import Empty from "../icons/Empty.svelte";
 
-    export let name, type, parent, cover;
+    export let name, type, parent, cover, position;
     let previous = name;
     let previousCover = cover;
+    let previousPosition = position;
     let ref;
     let coverlist,
         toggle = false;
@@ -23,7 +23,8 @@
                 previous,
                 name: name.trim(),
                 parent,
-                cover: previousCover,
+                cover: cover,
+                position: position,
             }),
         });
         $status = await response.json();
@@ -47,8 +48,8 @@
         <div
             class="cover"
             on:click={getCovers}
-            style="background-image: url({previousCover});"
-            style:background-position="center"
+            style="background-image: url({cover});"
+            style:background-position={position}
         >
             {#if !previousCover}
                 <img src="/images/empty.svg" alt="" />
@@ -66,7 +67,8 @@
         <button
             class="ok"
             disabled={(previous === name.trim() || name.trim() === "") &&
-                previousCover === cover}
+                previousCover === cover &&
+                position === previousPosition}
             type="submit"><Ok /></button
         >
     </form>
@@ -78,7 +80,7 @@
                 src={item}
                 alt=""
                 on:click={() => {
-                    previousCover = item;
+                    cover = item;
                     toggle = false;
                 }}
             />

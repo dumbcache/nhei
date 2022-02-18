@@ -146,7 +146,7 @@ export const create = async (req, res, next) => {
 export const edit = async (req, res, next) => {
     try {
         let nhei = await connect();
-        let { type, previous, name, parent, cover } = req.body;
+        let { type, previous, name, parent, cover, position } = req.body;
         let status;
         console.log("cover", cover);
         name = name.trim();
@@ -161,6 +161,7 @@ export const edit = async (req, res, next) => {
                     $set: {
                         "sections.$.section": name,
                         "sections.$.cover": cover,
+                        "sections.$.position": position,
                     },
                 }
             );
@@ -171,7 +172,7 @@ export const edit = async (req, res, next) => {
                 .collection("boards")
                 .updateOne(
                     { board: previous },
-                    { $set: { board: name, cover: cover } }
+                    { $set: { board: name, cover: cover, position: position } }
                 );
             status = "board rename successful";
         }

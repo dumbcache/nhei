@@ -7,7 +7,7 @@
     import Delete from "../icons/Delete.svelte";
 
     export let data, type, parent;
-    let action, name, cover;
+    let action, name, cover, position;
     let overlay = true;
 
     const showEditStatus = (e) => {
@@ -28,6 +28,7 @@
                 on:click={() => {
                     name = item.name;
                     cover = item.cover;
+                    position = item.position;
                     action = "edit";
                     overlay = false;
                 }}
@@ -50,7 +51,7 @@
                         <div
                             class="cover"
                             style:background-image="url({item.cover})"
-                            style:background-position="center"
+                            style:background-position={item.position}
                         />
                     {:else}
                         <div
@@ -80,6 +81,7 @@
                 {type}
                 {parent}
                 {cover}
+                {position}
                 on:recieve={showEditStatus}
             />
         </div>

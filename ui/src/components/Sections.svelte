@@ -14,6 +14,7 @@
         data = board[0].sections.map((record) => ({
             name: record.section,
             cover: record.cover,
+            position: record.position,
         }));
         pins = board[0].pins;
         console.log(pins);
