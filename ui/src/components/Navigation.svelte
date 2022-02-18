@@ -3,14 +3,17 @@
     import Add from "./icons/Add.svelte";
     import Slider from "./icons/Slider.svelte";
     import Create from "./Create.svelte";
+    import Sort from "./Sort.svelte";
+    import { createEventDispatcher } from "svelte";
 
     export let parent, pin;
-    let overlay = true;
-    let action = "";
-    let searchValue;
     export let boardsCount;
     export let sectionsCount;
     export let pinsCount;
+    let overlay = true;
+    let action = "";
+    let searchValue;
+    let toggleSort = false;
     console.log(location);
 
     const showStatus = (e) => {
@@ -51,7 +54,14 @@
                     }}><Add /></button
                 >
             {/if}
-            <button><Slider /></button>
+            <button on:click={() => (toggleSort = !toggleSort)}
+                ><Slider /></button
+            >
+            {#if toggleSort}
+                <div class="sort">
+                    <Sort on:sort />
+                </div>
+            {/if}
         </div>
     </div>
     <div
@@ -109,7 +119,15 @@
     .search:focus {
         outline: none;
     }
-
+    .toolbar {
+        position: relative;
+    }
+    .sort {
+        position: absolute;
+        right: 0px;
+        font-size: smaller;
+        z-index: 1;
+    }
     @media screen and (max-width: 600px) {
         p {
             font-size: small;

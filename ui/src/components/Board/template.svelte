@@ -117,6 +117,7 @@
         height: 200px;
         background-size: cover;
         background-position: center;
+        border-radius: 10px;
     }
 
     .collection-card:hover {

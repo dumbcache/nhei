@@ -21,7 +21,7 @@
 </script>
 
 <div class="board-wrapper">
-    <Navigation boardsCount={data.length} pinsCount={count} />
+    <Navigation boardsCount={data.length} pinsCount={count} on:sort />
     {#if data.length !== 0}
         <CollectionCard {data} type="board" />
     {:else}

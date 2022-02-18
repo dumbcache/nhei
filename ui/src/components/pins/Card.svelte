@@ -77,7 +77,10 @@
     .overlay {
         z-index: 1;
     }
-
+    p {
+        font-size: x-small;
+        text-align: center;
+    }
     .save,
     .delete {
         position: absolute;
