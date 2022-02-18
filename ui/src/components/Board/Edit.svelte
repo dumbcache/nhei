@@ -57,39 +57,18 @@
                 class="cover"
                 on:click={getCovers}
                 style="background-image: url({cover});"
-                style:background-position={position}
+                style:background-position="0% {position}%"
                 style:border="1px solid #555"
             />
             <div class="position">
-                <label>
-                    <input
-                        type="radio"
-                        bind:group={position}
-                        name="scoops"
-                        value="top"
-                    />
-                    top
-                </label>
-
-                <label>
-                    <input
-                        type="radio"
-                        bind:group={position}
-                        name="scoops"
-                        value="center"
-                    />
-                    center
-                </label>
-
-                <label>
-                    <input
-                        type="radio"
-                        bind:group={position}
-                        name="scoops"
-                        value="bottom"
-                    />
-                    bottom
-                </label>
+                <input
+                    type="range"
+                    name="range"
+                    id="range"
+                    bind:value={position}
+                    min="0"
+                    max="100"
+                />
             </div>
         {/if}
         <input
@@ -143,12 +122,13 @@
     .form > * {
         margin: 0.5rem 0;
     }
-    .position {
-        background-color: green;
+    .position input[type="range"] {
+        /* width: fit-content; */
+        writing-mode: vertical-rl;
     }
     .cover {
-        width: 100%;
-        height: 200px;
+        width: 210px;
+        height: 180px;
         object-fit: cover;
         background-size: cover;
     }
@@ -185,9 +165,11 @@
         left: 0;
         right: 0;
         bottom: 0;
-        width: 90%;
+        width: 100%;
         z-index: 1;
         background-color: #333;
+        overflow-y: scroll;
+        /* margin-bottom: 100px; */
     }
     .cover-list img {
         cursor: pointer;
@@ -195,11 +177,16 @@
     }
     @media screen and (max-width: 600px) {
         .form {
-            max-width: 300px;
+            width: 80%;
             font-size: smaller;
         }
+
         .cover-list > img {
             width: 33%;
+        }
+        .cover {
+            width: 180px;
+            height: 150px;
         }
     }
 </style>

@@ -22,6 +22,7 @@
 
 <div class="wrapper">
     {#each data as item}
+        <!-- {console.log(item.cover)} -->
         <div class="collection {item.name}" in:fade={{ duration: 300 }}>
             <div
                 class="edit"
@@ -51,12 +52,12 @@
                         <div
                             class="cover"
                             style:background-image="url({item.cover})"
-                            style:background-position={item.position}
+                            style:background-position="0% {item.position}%"
                         />
                     {:else}
                         <div
                             class="cover"
-                            style:background-image="url('images/empty.svg')"
+                            style:background-image="url('/images/empty.svg')"
                         />
                     {/if}
                     <h4>{item.name}</h4>
