@@ -89,6 +89,7 @@
         /* padding-top: 0.1rem; */
         text-align: center;
         background-color: #222;
+        cursor: pointer;
     }
     .delete {
         top: 40px;

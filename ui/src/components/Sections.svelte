@@ -16,6 +16,7 @@
             cover: record.cover,
             position: record.position,
         }));
+        console.log(data);
         pins = board[0].pins;
         console.log(pins);
     }

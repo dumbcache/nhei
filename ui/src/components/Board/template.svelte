@@ -146,6 +146,7 @@
         background-color: #222;
         border-radius: 50%;
         text-align: center;
+        cursor: pointer;
     }
     .delete {
         top: 50px;

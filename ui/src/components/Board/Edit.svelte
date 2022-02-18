@@ -45,16 +45,53 @@
 
 <div class="wrapper" transition:fade={{ duration: 300 }}>
     <form class="form" on:submit|preventDefault={edit}>
-        <div
-            class="cover"
-            on:click={getCovers}
-            style="background-image: url({cover});"
-            style:background-position={position}
-        >
-            {#if !previousCover}
-                <img src="/images/empty.svg" alt="" />
-            {/if}
-        </div>
+        {#if cover === ""}
+            <div
+                class="cover"
+                on:click={getCovers}
+                style:background-image="url('images/empty.svg')"
+                style:background-position="center"
+            />
+        {:else}
+            <div
+                class="cover"
+                on:click={getCovers}
+                style="background-image: url({cover});"
+                style:background-position={position}
+                style:border="1px solid #555"
+            />
+            <div class="position">
+                <label>
+                    <input
+                        type="radio"
+                        bind:group={position}
+                        name="scoops"
+                        value="top"
+                    />
+                    top
+                </label>
+
+                <label>
+                    <input
+                        type="radio"
+                        bind:group={position}
+                        name="scoops"
+                        value="center"
+                    />
+                    center
+                </label>
+
+                <label>
+                    <input
+                        type="radio"
+                        bind:group={position}
+                        name="scoops"
+                        value="bottom"
+                    />
+                    bottom
+                </label>
+            </div>
+        {/if}
         <input
             name="collection"
             type="search"
@@ -94,6 +131,7 @@
     }
 
     .form {
+        max-width: 400px;
         padding: 1rem;
         border-radius: 0.5rem;
         background-color: #000;
@@ -102,8 +140,11 @@
         left: 50%;
         transform: translate(-50%, -50%);
     }
-    .form * {
+    .form > * {
         margin: 0.5rem 0;
+    }
+    .position {
+        background-color: green;
     }
     .cover {
         width: 100%;
@@ -142,8 +183,11 @@
         position: fixed;
         top: 0;
         left: 0;
+        right: 0;
+        bottom: 0;
         width: 90%;
         z-index: 1;
+        background-color: #333;
     }
     .cover-list img {
         cursor: pointer;
@@ -151,7 +195,7 @@
     }
     @media screen and (max-width: 600px) {
         .form {
-            width: 80%;
+            max-width: 300px;
             font-size: smaller;
         }
         .cover-list > img {
