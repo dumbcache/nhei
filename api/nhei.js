@@ -146,26 +146,33 @@ export const create = async (req, res, next) => {
 export const edit = async (req, res, next) => {
     try {
         let nhei = await connect();
-        let { type, previous, name, parent } = req.body;
+        let { type, previous, name, parent, cover } = req.body;
         let status;
+        console.log("cover", cover);
         name = name.trim();
         previous = previous.trim();
         if (parent) {
             parent = parent.trim();
         }
         if (type === "section") {
-            let inserted = await nhei
-                .collection("boards")
-                .updateOne(
-                    { board: parent, "sections.section": previous },
-                    { $set: { "sections.$.section": name } }
-                );
+            let inserted = await nhei.collection("boards").updateOne(
+                { board: parent, "sections.section": previous },
+                {
+                    $set: {
+                        "sections.$.section": name,
+                        "sections.$.cover": cover,
+                    },
+                }
+            );
             console.log(inserted);
             status = "section rename successful";
         } else {
             await nhei
                 .collection("boards")
-                .updateOne({ board: previous }, { $set: { board: name } });
+                .updateOne(
+                    { board: previous },
+                    { $set: { board: name, cover: cover } }
+                );
             status = "board rename successful";
         }
         res.send({ status });
@@ -279,12 +286,29 @@ export const add = async (req, res, next) => {
         if (inserted.modifiedCount === 0) {
             status = "already present";
         }
+        console.log("hell");
+        addToThumbs(nhei, id, addData.cover);
         res.send({ status });
     } catch (error) {
         console.log(error);
     }
 };
 
+const addToThumbs = async (nhei, id, cover) => {
+    let found = await nhei.collection("thumbs").findOne({ id, cover });
+    if (found === null) {
+        nhei.collection("thumbs").insertOne({ id, cover });
+        console.log("added to thumbs");
+    }
+};
+
+export const getThumbs = async (req, res, next) => {
+    let nhei = await connect();
+    let cursor = nhei.collection("thumbs").find({}, { cover: 1 });
+    let data = await cursor.toArray();
+    data = data.map((record) => record.cover);
+    res.send({ data });
+};
 /**
  * Function to cache the doujin data in redis database
  */

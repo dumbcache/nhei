@@ -12,6 +12,7 @@ import {
     getDoujin,
     getFromDoujinCache,
     deletePin,
+    getThumbs,
 } from "./nhei.js";
 
 let app = express();
@@ -52,5 +53,7 @@ app.post("/delete", remove);
  */
 
 app.put("/delete", deletePin);
+
+app.get("/thumbs", getThumbs);
 
 app.listen(port, () => console.log(`listening at port ${port}`));

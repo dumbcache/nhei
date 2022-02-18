@@ -8,8 +8,7 @@
     import Empty from "../icons/Empty.svelte";
 
     export let data, type, parent;
-    let action;
-    let name;
+    let action, name, cover;
     let overlay = true;
 
     const showEditStatus = (e) => {
@@ -29,6 +28,7 @@
                 class="edit"
                 on:click={() => {
                     name = item.name;
+                    cover = item.cover;
                     action = "edit";
                     overlay = false;
                 }}
@@ -48,7 +48,13 @@
             <Link to={item.name}>
                 <div class="collection-card">
                     {#if item.cover !== ""}
-                        <img src={item.cover} alt="cover" />
+                        <img
+                            src={item.cover}
+                            alt="cover"
+                            width="200px"
+                            height="200px"
+                            style="object-fit: cover;"
+                        />
                     {:else}
                         <Empty />
                     {/if}
@@ -69,7 +75,13 @@
 
     {#if action === "edit"}
         <div class="action">
-            <EditAction {name} {type} {parent} on:recieve={showEditStatus} />
+            <EditAction
+                {name}
+                {type}
+                {parent}
+                {cover}
+                on:recieve={showEditStatus}
+            />
         </div>
     {:else if action === "delete"}
         <div class="action">
@@ -82,6 +94,7 @@
         </div>
     {/if}
 </div>
+
 <slot />
 
 <style>
