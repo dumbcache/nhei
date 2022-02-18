@@ -43,7 +43,7 @@
                 add = !add;
             }}
         />
-        <Create on:recieve={toggle} />
+        <Create on:recieve={toggle} external="true" />
     {/if}
 </header>
 <main>

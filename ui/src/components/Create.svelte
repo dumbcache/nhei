@@ -4,9 +4,10 @@
     import Ok from "./icons/Ok.svelte";
     import { fade } from "svelte/transition";
 
-    export let parent;
+    export let parent, external;
     let disabled = parent ? true : false;
-
+    disabled = external ? false : disabled;
+    $: console.log(disabled);
     let board = parent ? parent : "";
     let section = "";
     let ref1, ref2;
@@ -48,7 +49,7 @@
             autocomplete="off"
             {disabled}
         />
-        {#if disabled}
+        {#if disabled || external}
             <p>Section name</p>
             <input
                 name="section"

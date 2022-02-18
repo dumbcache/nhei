@@ -32,7 +32,7 @@ export const getBoards = async (req, res, next) => {
         let nhei = await connect();
         let cursor = nhei.collection("boards").find();
         let boards = await cursor.toArray();
-        console.log(boards);
+        console.log("requested for boards");
         res.send(boards);
         close();
     } catch (error) {

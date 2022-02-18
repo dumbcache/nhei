@@ -12,7 +12,7 @@ export const status = writable("");
 export const refreshStatus = () => {
     setTimeout(() => {
         status.set("");
-    }, 3000);
+    }, 2000);
 };
 
 export const getBoards = async () => {
