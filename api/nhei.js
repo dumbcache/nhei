@@ -122,7 +122,7 @@ export const create = async (req, res, next) => {
             if (sectionStatus) {
                 status = "section present";
             } else {
-                section = { section, created, pins: [] };
+                section = { section, cover: "", created, pins: [] };
                 await nhei
                     .collection("boards")
                     .updateOne(

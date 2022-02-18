@@ -6,7 +6,10 @@
     export let location, navigate;
     let data = [];
     $: if ($boards.length !== 0) {
-        data = $boards.map((record) => record.board);
+        data = $boards.map((record) => ({
+            name: record.board,
+            cover: record.cover,
+        }));
         console.log(data);
     }
 </script>

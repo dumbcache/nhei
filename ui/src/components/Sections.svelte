@@ -11,7 +11,10 @@
     let pins = [];
     $: if ($boards.length !== 0) {
         board = $boards.filter((record) => record.board === board);
-        data = board[0].sections.map((record) => record.section);
+        data = board[0].sections.map((record) => ({
+            name: record.section,
+            cover: record.cover,
+        }));
         pins = board[0].pins;
         console.log(pins);
     }

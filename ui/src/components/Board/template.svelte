@@ -24,11 +24,11 @@
 
 <div class="wrapper">
     {#each data as item}
-        <div class="collection {item}" in:fade={{ duration: 300 }}>
+        <div class="collection {item.name}" in:fade={{ duration: 300 }}>
             <div
                 class="edit"
                 on:click={() => {
-                    name = item;
+                    name = item.name;
                     action = "edit";
                     overlay = false;
                 }}
@@ -38,17 +38,21 @@
             <div
                 class="delete"
                 on:click={() => {
-                    name = item;
+                    name = item.name;
                     action = "delete";
                     overlay = false;
                 }}
             >
                 <Delete />
             </div>
-            <Link to={item}>
+            <Link to={item.name}>
                 <div class="collection-card">
-                    <Empty />
-                    <h4>{item}</h4>
+                    {#if item.cover !== ""}
+                        <img src={item.cover} alt="cover" />
+                    {:else}
+                        <Empty />
+                    {/if}
+                    <h4>{item.name}</h4>
                 </div>
             </Link>
         </div>
