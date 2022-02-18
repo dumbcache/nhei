@@ -39,7 +39,7 @@
         {/if}
         {#if sectionsCount}
             <p>Sections : {sectionsCount}</p>
-        {/if}{#if pinsCount}
+        {/if}{#if pinsCount >= 0}
             <p>Pins : {pinsCount}</p>
         {/if}
         <div class="toolbar">

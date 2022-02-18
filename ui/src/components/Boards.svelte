@@ -5,18 +5,23 @@
 
     export let location, navigate;
     let data = [];
+    let count = 0;
     $: if ($boards.length !== 0) {
         data = $boards.map((record) => ({
             name: record.board,
             cover: record.cover,
             position: record.position,
+            total: record.total,
         }));
         console.log(data);
+        count = data
+            .map((record) => record.total)
+            .reduce((prev, cur) => prev + cur, 0);
     }
 </script>
 
 <div class="board-wrapper">
-    <Navigation boardsCount={data.length} pinsCount={200} />
+    <Navigation boardsCount={data.length} pinsCount={count} />
     {#if data.length !== 0}
         <CollectionCard {data} type="board" />
     {:else}

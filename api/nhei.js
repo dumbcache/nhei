@@ -113,6 +113,7 @@ export const create = async (req, res, next) => {
                 created,
                 sections: [],
                 pins: [],
+                total: 0,
             });
             status = "Board created";
         }
@@ -122,7 +123,7 @@ export const create = async (req, res, next) => {
             if (sectionStatus) {
                 status = "section present";
             } else {
-                section = { section, cover: "", created, pins: [] };
+                section = { section, cover: "", created, pins: [], total: 0 };
                 await nhei
                     .collection("boards")
                     .updateOne(
@@ -255,7 +256,11 @@ export const add = async (req, res, next) => {
         let { id, doujin, addData } = req.body;
         let status = `saved successfully`;
         let inserted;
-
+        let data = {
+            id: id,
+            cover: addData.cover,
+            favourites: addData.favourites,
+        };
         let present = await nhei.collection("doujins").findOne({ id: id });
         if (present === null) {
             await nhei.collection("doujins").insertOne(doujin);
@@ -269,20 +274,36 @@ export const add = async (req, res, next) => {
                 },
                 {
                     $addToSet: {
-                        "sections.$.pins": {
-                            id: id,
-                            cover: addData.cover,
-                        },
+                        "sections.$.pins": data,
+                    },
+                    $inc: {
+                        "sections.$.total": 1,
                     },
                 }
             );
+            if (inserted.modifiedCount === 1) {
+                await nhei
+                    .collection("boards")
+                    .updateOne(
+                        { board: addData.board },
+                        { $inc: { total: 1 } }
+                    );
+            }
         } else {
             inserted = await nhei.collection("boards").updateOne(
                 {
                     board: addData.board,
                 },
-                { $addToSet: { pins: { id: id, cover: addData.cover } } }
+                { $addToSet: { pins: data } }
             );
+            if (inserted.modifiedCount === 1) {
+                await nhei
+                    .collection("boards")
+                    .updateOne(
+                        { board: addData.board },
+                        { $inc: { total: 1 } }
+                    );
+            }
         }
         if (inserted.modifiedCount === 0) {
             status = "already present";

@@ -60,7 +60,10 @@
                             style:background-image="url('/images/empty.svg')"
                         />
                     {/if}
-                    <h4>{item.name}</h4>
+                    <div class="data">
+                        <h4>{item.name}</h4>
+                        <p>pins : {item.total}</p>
+                    </div>
                 </div>
             </Link>
         </div>
@@ -181,6 +184,9 @@
         }
         h4 {
             font-size: smaller;
+        }
+        p {
+            font-size: x-small;
         }
     }
 </style>
