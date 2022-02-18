@@ -1,6 +1,6 @@
 <script>
     import Section from "./Board/template.svelte";
-    import { boards } from "../scripts/stores";
+    import { activeData, boards, defaultActiveData } from "../scripts/stores";
     import Navigation from "./Navigation.svelte";
     import Pin from "./pins/Card.svelte";
 
@@ -19,6 +19,8 @@
             total: record.total,
         }));
         console.log(data);
+        $activeData = data;
+        $defaultActiveData = data;
         pins = board[0].pins;
         console.log(pins);
     }

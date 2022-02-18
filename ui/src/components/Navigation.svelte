@@ -59,7 +59,7 @@
             >
             {#if toggleSort}
                 <div class="sort">
-                    <Sort on:sort />
+                    <Sort />
                 </div>
             {/if}
         </div>

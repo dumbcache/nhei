@@ -1,18 +1,23 @@
 <script>
-    import { createEventDispatcher } from "svelte";
+    import { activeData, defaultActiveData } from "../scripts/stores";
 
-    const dispatch = createEventDispatcher();
-    const sendDispatch = (type) => {
-        dispatch("sort", {
-            type,
-        });
+    const sortData = (type) => {
+        if (type === "id") {
+            $activeData = $activeData.sort((a, b) => a.id - b.id);
+        } else if (type === "favourites") {
+            $activeData = $activeData.sort(
+                (a, b) => a.favourites - b.favourites
+            );
+        } else if (type === "new") {
+            $activeData = [...$defaultActiveData].reverse();
+        }
     };
-    const types = ["default", "old", "favourites", "id"];
+    const types = ["new", "favourites", "id"];
 </script>
 
 <div class="sort-wrapper">
     {#each types as type}
-        <div on:click={() => sendDispatch(type)}>{type}</div>
+        <div on:click={() => sortData(type)}>{type}</div>
     {/each}
 </div>
 

@@ -8,6 +8,8 @@ export const doujin = writable();
 export const boards = writable([]);
 export const pins = writable();
 export const status = writable("");
+export const activeData = writable([]);
+export const defaultActiveData = writable([]);
 
 export const refreshStatus = () => {
     setTimeout(() => {

@@ -1,5 +1,9 @@
 <script>
-    import { boards } from "../scripts/stores.js";
+    import {
+        activeData,
+        boards,
+        defaultActiveData,
+    } from "../scripts/stores.js";
     import Pin from "./pins/Card.svelte";
     import Navigation from "./Navigation.svelte";
 
@@ -7,21 +11,21 @@
     let path = location.pathname.split("/");
     let section = decodeURI(path.pop().trim());
     let board = decodeURI(path.pop().trim());
-    let pins = [];
 
     $: if ($boards.length !== 0) {
         let data = $boards.filter((record) => record.board === board);
         data = data[0].sections.filter((record) => record.section === section);
-        pins = data[0].pins;
+        $activeData = [...data[0].pins];
+        $defaultActiveData = [...data[0].pins];
         console.log("board", board);
     }
 </script>
 
 <div class="pins-wrapper">
-    <Navigation pinsCount={pins.length} pin="pin" />
+    <Navigation pinsCount={$activeData.length} pin="pin" />
     <div class="body">
-        {#if pins.length !== 0}
-            {#each pins as pin (pin.id)}
+        {#if $activeData.length !== 0}
+            {#each $activeData as pin (pin.id)}
                 <div class="pin"><Pin {board} {section} {pin} /></div>
             {/each}
         {:else}
@@ -41,6 +45,7 @@
     .pin {
         width: 10rem;
         padding: 0.2rem;
+        cursor: pointer;
     }
 
     h4,

@@ -1,6 +1,6 @@
 <script>
     import CollectionCard from "./Board/template.svelte";
-    import { boards } from "../scripts/stores";
+    import { activeData, boards, defaultActiveData } from "../scripts/stores";
     import Navigation from "./Navigation.svelte";
 
     export let location, navigate;
@@ -13,6 +13,8 @@
             position: record.position,
             total: record.total,
         }));
+        $activeData = data;
+        $defaultActiveData = data;
         console.log(data);
         count = data
             .map((record) => record.total)
@@ -21,7 +23,7 @@
 </script>
 
 <div class="board-wrapper">
-    <Navigation boardsCount={data.length} pinsCount={count} on:sort />
+    <Navigation boardsCount={data.length} pinsCount={count} />
     {#if data.length !== 0}
         <CollectionCard {data} type="board" />
     {:else}

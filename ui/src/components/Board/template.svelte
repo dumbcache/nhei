@@ -5,6 +5,7 @@
     import Edit from "../icons/Edit.svelte";
     import DeleteAction from "./Delete.svelte";
     import Delete from "../icons/Delete.svelte";
+    import { activeData } from "../../scripts/stores";
 
     export let data, type, parent;
     let action, name, cover, position;
@@ -21,7 +22,7 @@
 </script>
 
 <div class="wrapper">
-    {#each data as item}
+    {#each $activeData as item}
         <!-- {console.log(item.cover)} -->
         <div class="collection {item.name}" in:fade={{ duration: 300 }}>
             <div
