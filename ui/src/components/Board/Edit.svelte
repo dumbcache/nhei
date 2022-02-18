@@ -44,17 +44,14 @@
 
 <div class="wrapper" transition:fade={{ duration: 300 }}>
     <form class="form" on:submit|preventDefault={edit}>
-        <div class="cover" on:click={getCovers}>
-            {#if previousCover}
-                <img
-                    src={previousCover}
-                    alt=""
-                    width="100%"
-                    height="200px"
-                    style="object-fit:contain;border:1px solid white;border-radius:5px;"
-                />
-            {:else}
-                <Empty />
+        <div
+            class="cover"
+            on:click={getCovers}
+            style="background-image: url({previousCover});"
+            style:background-position="center"
+        >
+            {#if !previousCover}
+                <img src="/images/empty.svg" alt="" />
             {/if}
         </div>
         <input
@@ -105,6 +102,12 @@
     }
     .form * {
         margin: 0.5rem 0;
+    }
+    .cover {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+        background-size: cover;
     }
     .cover:hover {
         cursor: pointer;

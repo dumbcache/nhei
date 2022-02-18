@@ -5,7 +5,6 @@
     import Edit from "../icons/Edit.svelte";
     import DeleteAction from "./Delete.svelte";
     import Delete from "../icons/Delete.svelte";
-    import Empty from "../icons/Empty.svelte";
 
     export let data, type, parent;
     let action, name, cover;
@@ -48,15 +47,16 @@
             <Link to={item.name}>
                 <div class="collection-card">
                     {#if item.cover !== ""}
-                        <img
-                            src={item.cover}
-                            alt="cover"
-                            width="200px"
-                            height="200px"
-                            style="object-fit: cover;"
+                        <div
+                            class="cover"
+                            style:background-image="url({item.cover})"
+                            style:background-position="center"
                         />
                     {:else}
-                        <Empty />
+                        <div
+                            class="cover"
+                            style:background-image="url('images/empty.svg')"
+                        />
                     {/if}
                     <h4>{item.name}</h4>
                 </div>
@@ -103,10 +103,16 @@
         display: flex;
         flex-flow: column;
         align-items: center;
+        background-color: #222;
+        border-radius: 10px;
     }
-    .collection-card :global(svg) {
+    .cover {
         width: 100%;
+        height: 200px;
+        background-size: cover;
+        background-position: center;
     }
+
     .collection-card:hover {
         cursor: pointer;
     }
@@ -157,7 +163,7 @@
 
     @media screen and (max-width: 600px) {
         .collection-card {
-            width: 45vw;
+            width: 150px;
         }
         .edit,
         .delete {
@@ -165,6 +171,12 @@
         }
         .delete {
             top: 40px;
+        }
+        .cover {
+            height: 120px;
+        }
+        h4 {
+            font-size: smaller;
         }
     }
 </style>
