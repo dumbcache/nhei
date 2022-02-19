@@ -221,7 +221,7 @@ export const remove = async (req, res, next) => {
 
 export const deletePin = async (req, res, next) => {
     let { id, board, section } = req.body;
-    let status;
+    let status = "deleted";
     // console.log(req.body);
     let nhei = await connect();
     if (section) {
@@ -230,17 +230,28 @@ export const deletePin = async (req, res, next) => {
                 board: board,
                 "sections.section": section,
             },
-            { $pull: { "sections.$.pins": { id: id } } }
+            {
+                $pull: { "sections.$.pins": { id: id } },
+                $inc: {
+                    "sections.$.total": -1,
+                },
+            }
         );
         if (deleted.modifiedCount === 1) {
-            status = `deleted`;
+            await nhei
+                .collection("boards")
+                .updateOne({ board }, { $inc: { total: -1 } });
         }
         console.log(deleted);
     } else {
         let deleted = await nhei
             .collection("boards")
             .updateOne({ board: board }, { $pull: { pins: { id: id } } });
-        status = `deleted`;
+        if (deleted.modifiedCount === 1) {
+            await nhei
+                .collection("boards")
+                .updateOne({ board }, { $inc: { total: -1 } });
+        }
         console.log(deleted);
     }
     res.send({ status });

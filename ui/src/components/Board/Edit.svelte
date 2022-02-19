@@ -115,9 +115,9 @@
         border-radius: 0.5rem;
         background-color: #000;
         position: fixed;
-        top: 50%;
+        top: 30%;
         left: 50%;
-        transform: translate(-50%, -50%);
+        transform: translate(-50%, -40%);
     }
     .form > * {
         margin: 0.5rem 0;
@@ -129,8 +129,8 @@
     .cover {
         width: 210px;
         height: 180px;
-        object-fit: cover;
         background-size: cover;
+        margin: auto;
     }
     .cover:hover {
         cursor: pointer;
@@ -169,11 +169,13 @@
         z-index: 1;
         background-color: #333;
         overflow-y: scroll;
+        padding: 1rem;
         /* margin-bottom: 100px; */
     }
     .cover-list img {
         cursor: pointer;
-        width: 25%;
+        width: 10rem;
+        border-radius: 10px;
     }
     @media screen and (max-width: 600px) {
         .form {
