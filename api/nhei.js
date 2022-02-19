@@ -341,10 +341,13 @@ export const add = async (req, res, next) => {
 
 export const isPresent = async (id) => {
     let nhei = await connect();
-    let { copy } = await nhei
+    let copy = await nhei
         .collection("doujins")
         .findOne({ id: +id }, { copy: 1 });
-    if (copy === 0 || copy === null) {
+    if (copy === null) {
+        return false;
+    }
+    if (copy.copy === 0) {
         return false;
     }
     return true;
@@ -401,7 +404,7 @@ export const searchDoujin = async (req, res, next) => {
         let api = new API();
         let request = await api.fetchDoujin(id);
 
-        let present = isPresent(id);
+        let present = await isPresent(id);
         console.log(`fetching doujin info of ${id}`);
         /**
          * Initiating new nhentai api instance.
