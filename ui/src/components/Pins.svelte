@@ -1,8 +1,8 @@
 <script>
     import {
-        activeData,
+        activePinData,
         boards,
-        defaultActiveData,
+        defaultActivePinData,
     } from "../scripts/stores.js";
     import Pin from "./pins/Card.svelte";
     import Navigation from "./Navigation.svelte";
@@ -15,17 +15,17 @@
     $: if ($boards.length !== 0) {
         let data = $boards.filter((record) => record.board === board);
         data = data[0].sections.filter((record) => record.section === section);
-        $activeData = [...data[0].pins].reverse();
-        $defaultActiveData = [...data[0].pins].reverse();
+        $activePinData = [...data[0].pins].reverse();
+        $defaultActivePinData = [...data[0].pins].reverse();
         console.log("board", board);
     }
 </script>
 
 <div class="pins-wrapper">
-    <Navigation pinsCount={$activeData.length} pin="pin" />
+    <Navigation pinsCount={$activePinData.length} pin="pin" />
     <div class="body">
-        {#if $activeData.length !== 0}
-            {#each $activeData as pin (pin.id)}
+        {#if $activePinData.length !== 0}
+            {#each $activePinData as pin (pin.id)}
                 <div class="pin"><Pin {board} {section} {pin} /></div>
             {/each}
         {:else}

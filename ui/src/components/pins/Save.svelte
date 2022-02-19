@@ -9,7 +9,7 @@
     } from "../../scripts/stores";
     import { createEventDispatcher } from "svelte";
 
-    export let optionalCover, id;
+    export let optionalCover, id, favourites;
     let dispatch = createEventDispatcher();
     let sendDispatch = () => {
         dispatch("recieve");
@@ -37,6 +37,7 @@
             board: selectedBoard,
             section: selectedSection,
             cover: optionalCover,
+            favourites,
         };
         sendDispatch();
         let response = await fetch("http://localhost:5000/add", {

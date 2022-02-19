@@ -56,7 +56,12 @@
         }}
     />
     {#if action === "save"}
-        <Save optionalCover={pin.cover} id={pin.id} on:recieve={toggle} />
+        <Save
+            optionalCover={pin.cover}
+            id={pin.id}
+            favourites={pin.favourites}
+            on:recieve={toggle}
+        />
     {:else if action === "delete"}
         <DeleteAction id={pin.id} {board} {section} on:recieve={toggle} />
     {/if}

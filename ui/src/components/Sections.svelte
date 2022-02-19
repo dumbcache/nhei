@@ -1,6 +1,12 @@
 <script>
     import Section from "./Board/template.svelte";
-    import { activeData, boards, defaultActiveData } from "../scripts/stores";
+    import {
+        activeData,
+        boards,
+        defaultActiveData,
+        activePinData,
+        defaultActivePinData,
+    } from "../scripts/stores";
     import Navigation from "./Navigation.svelte";
     import Pin from "./pins/Card.svelte";
 
@@ -19,9 +25,11 @@
             total: record.total,
         }));
         console.log(data);
-        $activeData = data;
-        $defaultActiveData = data;
         pins = board[0].pins;
+        $activeData = [...data];
+        $defaultActiveData = [...data];
+        $activePinData = [...pins];
+        $defaultActivePinData = [...pins];
         console.log(pins);
     }
 </script>
@@ -30,9 +38,9 @@
     <Navigation sectionsCount={data.length} pinsCount={pins.length} {parent} />
     {#if data.length !== 0 || pins.length !== 0}
         <Section {data} type="section" {parent}>
-            {#if pins.length !== 0}
+            {#if $activePinData.length !== 0}
                 <div class="pins">
-                    {#each pins as pin}
+                    {#each $activePinData as pin}
                         <div class="pin"><Pin {pin} board={parent} /></div>
                     {/each}
                 </div>

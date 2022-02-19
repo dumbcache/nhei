@@ -1,18 +1,20 @@
 <script>
-    import { activeData, defaultActiveData } from "../scripts/stores";
+    import { activePinData, defaultActivePinData } from "../scripts/stores";
 
     const sortData = (type) => {
         if (type === "id") {
-            $activeData = $activeData.sort((a, b) => a.id - b.id);
+            $activePinData = $activePinData.sort((a, b) => a.id - b.id);
         } else if (type === "favourites") {
-            $activeData = $activeData.sort(
-                (a, b) => a.favourites - b.favourites
+            $activePinData = $activePinData.sort(
+                (a, b) => b.favourites - a.favourites
             );
         } else if (type === "old") {
-            $activeData = [...$defaultActiveData].reverse();
+            $activePinData = [...$defaultActivePinData].reverse();
+        } else if (type === "default") {
+            $activePinData = [...$defaultActivePinData];
         }
     };
-    const types = ["old", "favourites", "id"];
+    const types = ["default", "old", "favourites", "id"];
 </script>
 
 <div class="sort-wrapper">
