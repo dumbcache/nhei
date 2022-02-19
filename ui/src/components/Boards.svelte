@@ -13,8 +13,8 @@
             position: record.position,
             total: record.total,
         }));
-        $activeData = data;
-        $defaultActiveData = data;
+        $activeData = [...data];
+        $defaultActiveData = [...data];
         console.log(data);
         count = data
             .map((record) => record.total)
@@ -23,7 +23,7 @@
 </script>
 
 <div class="board-wrapper">
-    <Navigation boardsCount={data.length} pinsCount={count} />
+    <Navigation boardsCount={data.length} pinsCount={count} type="board" />
     {#if data.length !== 0}
         <CollectionCard {data} type="board" />
     {:else}

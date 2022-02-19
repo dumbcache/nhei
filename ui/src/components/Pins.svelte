@@ -22,7 +22,7 @@
 </script>
 
 <div class="pins-wrapper">
-    <Navigation pinsCount={$activePinData.length} pin="pin" />
+    <Navigation pinsCount={$activePinData.length} type="pin" pin="pin" />
     <div class="body">
         {#if $activePinData.length !== 0}
             {#each $activePinData as pin (pin.id)}

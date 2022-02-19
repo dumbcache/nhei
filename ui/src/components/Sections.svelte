@@ -28,14 +28,19 @@
         pins = board[0].pins;
         $activeData = [...data];
         $defaultActiveData = [...data];
-        $activePinData = [...pins];
-        $defaultActivePinData = [...pins];
+        $activePinData = [...pins].reverse();
+        $defaultActivePinData = [...pins].reverse();
         console.log(pins);
     }
 </script>
 
 <div class="section-wrapper">
-    <Navigation sectionsCount={data.length} pinsCount={pins.length} {parent} />
+    <Navigation
+        sectionsCount={data.length}
+        pinsCount={pins.length}
+        {parent}
+        type="section"
+    />
     {#if data.length !== 0 || pins.length !== 0}
         <Section {data} type="section" {parent}>
             {#if $activePinData.length !== 0}

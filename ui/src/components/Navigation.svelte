@@ -6,7 +6,7 @@
     import Sort from "./Sort.svelte";
     import { createEventDispatcher } from "svelte";
 
-    export let parent, pin;
+    export let parent, pin, type;
     export let boardsCount;
     export let sectionsCount;
     export let pinsCount;
@@ -59,7 +59,7 @@
             >
             {#if toggleSort}
                 <div class="sort">
-                    <Sort />
+                    <Sort {type} />
                 </div>
             {/if}
         </div>

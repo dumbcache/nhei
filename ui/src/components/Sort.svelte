@@ -1,5 +1,11 @@
 <script>
-    import { activePinData, defaultActivePinData } from "../scripts/stores";
+    import {
+        activeData,
+        defaultActiveData,
+        activePinData,
+        defaultActivePinData,
+    } from "../scripts/stores";
+    export let type;
 
     const sortData = (type) => {
         if (type === "id") {
@@ -8,13 +14,44 @@
             $activePinData = $activePinData.sort(
                 (a, b) => b.favourites - a.favourites
             );
+        } else if (type === "A-Z") {
+            $activeData = $activeData.sort((a, b) => {
+                a = a.name.toLowerCase();
+                b = b.name.toLowerCase();
+                if (a > b) {
+                    return 1;
+                } else if (a < b) {
+                    return -1;
+                } else {
+                    return 0;
+                }
+            });
+        } else if (type === "Z-A") {
+            $activeData = $activeData.sort((a, b) => {
+                a = a.name.toLowerCase();
+                b = b.name.toLowerCase();
+                if (a > b) {
+                    return -1;
+                } else if (a < b) {
+                    return 1;
+                } else {
+                    return 0;
+                }
+            });
         } else if (type === "old") {
             $activePinData = [...$defaultActivePinData].reverse();
-        } else if (type === "default") {
+            $activeData = [...$defaultActiveData].reverse();
+        } else {
             $activePinData = [...$defaultActivePinData];
+            $activeData = [...$defaultActiveData];
         }
     };
-    const types = ["default", "old", "favourites", "id"];
+    const sortTypes = {
+        board: ["default", "old", "A-Z", "Z-A"],
+        section: ["default", "old", "favourites", "id", "A-Z", "Z-A"],
+        pin: ["default", "old", "favourites", "id"],
+    };
+    let types = sortTypes[type];
 </script>
 
 <div class="sort-wrapper">
