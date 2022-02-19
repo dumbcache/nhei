@@ -7,6 +7,7 @@
     let present = false;
     let turnToggle = false;
     let toggleSave = false;
+    let readMode = false;
     $: optionalCover = $doujin ? $doujin.cover : undefined;
 
     const toggle = (id) => {
@@ -57,7 +58,9 @@
                 {/if}
                 <p><small>Pages:</small> {$doujin.count}</p>
                 <p><small>Favourites:</small> {$doujin.favourites}</p>
-                <button class="read">read</button>
+                <button class="read" on:click={() => (readMode = !readMode)}
+                    >read</button
+                >
             </div>
         </div>
         <div class="pages">
@@ -94,6 +97,25 @@
             }}
         />
     {/if}
+
+    {#if readMode}
+        <div class="read-mode">
+            {#each $doujin.pages as page (page.url)}
+                <div
+                    class="reading-page"
+                    on:click={() => {
+                        readMode = !readMode;
+                    }}
+                >
+                    <img
+                        src={page.url}
+                        alt={page.url}
+                        referrerpolicy="no-referrer"
+                    />
+                </div>
+            {/each}
+        </div>
+    {/if}
 </div>
 
 <style>
@@ -110,6 +132,21 @@
         border-radius: 5px;
         margin-left: 0.5rem;
     }
+    .read-mode {
+        position: absolute;
+        top: 0;
+        width: 100%;
+        background-color: #333;
+    }
+    .reading-page {
+        text-align: center;
+    }
+
+    .reading-page > img {
+        height: 100vh;
+        object-fit: contain;
+    }
+
     p {
         margin-left: 0.5rem;
     }
@@ -203,6 +240,15 @@
         .button-background {
             width: 30px;
             height: 30px;
+        }
+        .read-mode {
+            width: 100%;
+        }
+        .read-mode > .reading-page {
+            width: 100%;
+        }
+        .reading-page > img {
+            width: 100%;
         }
     }
 </style>
