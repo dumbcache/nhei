@@ -8,11 +8,11 @@
             $activeData = $activeData.sort(
                 (a, b) => a.favourites - b.favourites
             );
-        } else if (type === "new") {
+        } else if (type === "old") {
             $activeData = [...$defaultActiveData].reverse();
         }
     };
-    const types = ["new", "favourites", "id"];
+    const types = ["old", "favourites", "id"];
 </script>
 
 <div class="sort-wrapper">

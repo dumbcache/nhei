@@ -15,8 +15,8 @@
     $: if ($boards.length !== 0) {
         let data = $boards.filter((record) => record.board === board);
         data = data[0].sections.filter((record) => record.section === section);
-        $activeData = [...data[0].pins];
-        $defaultActiveData = [...data[0].pins];
+        $activeData = [...data[0].pins].reverse();
+        $defaultActiveData = [...data[0].pins].reverse();
         console.log("board", board);
     }
 </script>

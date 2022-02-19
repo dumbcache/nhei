@@ -23,7 +23,10 @@
 <div class="card-wrapper" in:fly={{ y: 100, delay: 100 }}>
     <div class="cover" on:click={invoke}>
         <img src={pin.cover} alt="cover" referrerpolicy="no-referrer" />
-        <p class="id"><small>#</small>{pin.id}</p>
+        <div class="details">
+            <p class="id"><small>#</small>{pin.id}</p>
+            <p class="fav"><small>&#10084;</small>{pin.favourites}</p>
+        </div>
     </div>
 
     <div
@@ -69,8 +72,14 @@
         width: 100%;
         border-radius: 5px;
     }
-    small {
+    .id > small {
         opacity: 0.6;
+        user-select: none;
+        padding-right: 0.1rem;
+    }
+    .fav > small {
+        color: red;
+        padding-right: 0.1rem;
         user-select: none;
     }
 
@@ -80,6 +89,10 @@
     p {
         font-size: x-small;
         text-align: center;
+    }
+    .details {
+        display: flex;
+        justify-content: space-evenly;
     }
     .save,
     .delete {
@@ -113,6 +126,9 @@
         }
         .delete {
             top: 40px;
+        }
+        p {
+            font-size: xx-small;
         }
     }
 </style>
