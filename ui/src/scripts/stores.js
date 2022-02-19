@@ -5,6 +5,7 @@ export const searchValue = writable("");
 export const activeCollection = writable();
 export const activeSection = writable();
 export const doujin = writable();
+export const doujinPresent = writable();
 export const boards = writable([]);
 export const pins = writable();
 export const status = writable("");
@@ -44,6 +45,7 @@ export const getDoujin = async (searchId) => {
             id: searchId,
         }),
     });
-    let response = await request.json();
-    doujin.set(response);
+    let { data, present } = await request.json();
+    doujin.set(data);
+    doujinPresent.set(present);
 };

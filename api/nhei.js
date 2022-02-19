@@ -339,6 +339,17 @@ export const add = async (req, res, next) => {
     }
 };
 
+export const isPresent = async (id) => {
+    let nhei = await connect();
+    let { copy } = await nhei
+        .collection("doujins")
+        .findOne({ id: +id }, { copy: 1 });
+    if (copy === 0 || copy === null) {
+        return false;
+    }
+    return true;
+};
+
 const addToThumbs = async (nhei, id, cover) => {
     let found = await nhei.collection("thumbs").findOne({ id, cover });
     if (found === null) {
@@ -365,11 +376,12 @@ export const getFromDoujinSearchCache = async (req, res, next) => {
     /**
      * Retrieving the cached doujin data if available
      */
-    redis.get(id, (err, data) => {
+    redis.get(id, async (err, data) => {
         if (err) throw err;
         if (data !== null) {
             console.log(`fetching ${id} from doujinSearchCache`);
-            res.send(data);
+            let present = await isPresent(id);
+            res.send({ data: JSON.parse(data), present });
             console.log(`fetching ${id} completed`);
         } else {
             next();
@@ -386,14 +398,16 @@ export const searchDoujin = async (req, res, next) => {
          * storing id from request body into local variable
          */
         let { id } = req.body;
+        let api = new API();
+        let request = await api.fetchDoujin(id);
+
+        let present = isPresent(id);
         console.log(`fetching doujin info of ${id}`);
         /**
          * Initiating new nhentai api instance.
          * Fetching the data and storing in new object.
          */
-        let api = new API();
-        let request = await api.fetchDoujin(id);
-        let doujin = {
+        let data = {
             id: request.id,
             url: request.url,
             cover: request.thumbnail.url,
@@ -410,9 +424,9 @@ export const searchDoujin = async (req, res, next) => {
          * Caching the retrived doujin data into the redia database.
          */
         console.log(`caching doujin ${id}`);
-        redis.set(id, JSON.stringify(doujin));
+        redis.set(id, JSON.stringify(data));
         console.log(`caching ${id} completed`);
-        res.send(doujin);
+        res.send({ data, present });
         return;
     } catch (err) {
         console.log(err);

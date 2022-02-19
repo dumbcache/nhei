@@ -1,15 +1,13 @@
 <script>
     import { navigate } from "svelte-navigator";
-    import { doujin } from "../scripts/stores";
+    import { doujin, doujinPresent } from "../scripts/stores";
     import SaveIcon from "./icons/Save.svelte";
     import SavedIcon from "./icons/Saved.svelte";
     import Add from "../components/Add.svelte";
-    let present = false;
     let turnToggle = false;
     let toggleSave = false;
     let readMode = false;
     $: optionalCover = $doujin ? $doujin.cover : undefined;
-
     const toggle = (id) => {
         turnToggle = !turnToggle;
         optionalCover = turnToggle ? id : $doujin.cover;
@@ -24,7 +22,7 @@
         <div class="data">
             <div class="cover-wrapper">
                 <div class="button-background" />
-                {#if !present}
+                {#if !$doujinPresent}
                     <div
                         class="save"
                         on:click={() => {
@@ -167,6 +165,9 @@
         position: absolute;
         right: 5px;
         top: 5px;
+    }
+    .saved :global(svg) {
+        fill: red;
     }
 
     .button-background {
