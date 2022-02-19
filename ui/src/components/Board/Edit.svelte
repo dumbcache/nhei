@@ -49,7 +49,7 @@
             <div
                 class="cover"
                 on:click={getCovers}
-                style:background-image="url('images/empty.svg')"
+                style:background-image="url('/images/empty.svg')"
                 style:background-position="center"
             />
         {:else}
