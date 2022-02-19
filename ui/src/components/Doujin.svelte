@@ -122,9 +122,7 @@
     .navigation {
         margin: 0.5rem;
     }
-    .card {
-        padding: 0.2rem;
-    }
+
     .read {
         background-color: #f00;
         color: black;
@@ -138,13 +136,17 @@
         width: 100%;
         background-color: #333;
     }
+    .reading-page::-webkit-scrollbar {
+        display: none;
+    }
     .reading-page {
         text-align: center;
     }
 
     .reading-page > img {
-        height: 100vh;
-        object-fit: contain;
+        /* height: 100vh; */
+        max-width: 600px;
+        /* object-fit: cover; */
     }
 
     p {
@@ -180,6 +182,9 @@
         margin-left: auto;
         border-radius: 10px;
     }
+    .cover-wrapper {
+        max-width: 400px;
+    }
     .data {
         display: flex;
         flex-flow: row-reverse;
@@ -194,7 +199,7 @@
     }
 
     .page {
-        width: 200px;
+        width: 150px;
         position: relative;
     }
     .page > img {
@@ -224,7 +229,7 @@
         }
 
         .page {
-            flex-basis: 100%;
+            width: 33%;
         }
         .card {
             margin-bottom: 130px;
@@ -241,12 +246,7 @@
             width: 30px;
             height: 30px;
         }
-        .read-mode {
-            width: 100%;
-        }
-        .read-mode > .reading-page {
-            width: 100%;
-        }
+
         .reading-page > img {
             width: 100%;
         }
