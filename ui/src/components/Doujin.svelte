@@ -57,6 +57,7 @@
                 {/if}
                 <p><small>Pages:</small> {$doujin.count}</p>
                 <p><small>Favourites:</small> {$doujin.favourites}</p>
+                <button class="read">read</button>
             </div>
         </div>
         <div class="pages">
@@ -102,7 +103,13 @@
     .card {
         padding: 0.2rem;
     }
-
+    .read {
+        background-color: #f00;
+        color: black;
+        padding: 0.3rem;
+        border-radius: 5px;
+        margin-left: 0.5rem;
+    }
     p {
         margin-left: 0.5rem;
     }
@@ -146,6 +153,7 @@
         display: flex;
         flex-flow: row wrap;
         justify-content: space-around;
+        margin-top: 1rem;
     }
 
     .page {
