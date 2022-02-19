@@ -241,6 +241,9 @@ export const deletePin = async (req, res, next) => {
             await nhei
                 .collection("boards")
                 .updateOne({ board }, { $inc: { total: -1 } });
+            await nhei
+                .collection("doujins")
+                .updateOne({ id: id }, { $inc: { copy: -1 } });
         }
         console.log(deleted);
     } else {
@@ -251,6 +254,9 @@ export const deletePin = async (req, res, next) => {
             await nhei
                 .collection("boards")
                 .updateOne({ board }, { $inc: { total: -1 } });
+            await nhei
+                .collection("doujins")
+                .updateOne({ id: id }, { $inc: { copy: -1 } });
         }
         console.log(deleted);
     }
@@ -299,6 +305,9 @@ export const add = async (req, res, next) => {
                         { board: addData.board },
                         { $inc: { total: 1 } }
                     );
+                await nhei
+                    .collection("doujins")
+                    .updateOne({ id: id }, { $inc: { copy: 1 } });
             }
         } else {
             inserted = await nhei.collection("boards").updateOne(
@@ -314,6 +323,9 @@ export const add = async (req, res, next) => {
                         { board: addData.board },
                         { $inc: { total: 1 } }
                     );
+                await nhei
+                    .collection("doujins")
+                    .updateOne({ id: id }, { $inc: { copy: 1 } });
             }
         }
         if (inserted.modifiedCount === 0) {
@@ -392,6 +404,7 @@ export const searchDoujin = async (req, res, next) => {
             pages: request.pages,
             count: request.length,
             favourites: request.favorites,
+            copy: 0,
         };
         /**
          * Caching the retrived doujin data into the redia database.
