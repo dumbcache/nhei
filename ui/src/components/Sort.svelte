@@ -9,7 +9,7 @@
 
     const sortData = (type) => {
         if (type === "id") {
-            $activePinData = $activePinData.sort((a, b) => a.id - b.id);
+            $activePinData = $activePinData.sort((a, b) => b.id - a.id);
         } else if (type === "favourites") {
             $activePinData = $activePinData.sort(
                 (a, b) => b.favourites - a.favourites
