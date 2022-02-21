@@ -6,6 +6,7 @@
         boards as collections,
         status,
         refreshStatus,
+        doujinPresent,
     } from "../scripts/stores";
     import { createEventDispatcher } from "svelte";
 
@@ -51,6 +52,7 @@
         });
         $status = await response.json();
         refreshStatus();
+        $doujinPresent = true;
         console.log($status);
     };
 </script>
