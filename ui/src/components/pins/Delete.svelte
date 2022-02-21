@@ -2,7 +2,7 @@
     import { createEventDispatcher } from "svelte";
     import { fade } from "svelte/transition";
 
-    import { refreshStatus, status } from "../../scripts/stores";
+    import { getBoards, refreshStatus, status } from "../../scripts/stores";
     import Ok from "../icons/Ok.svelte";
     export let id, section, board;
 
@@ -18,6 +18,7 @@
         dispatch("recieve");
         $status = await response.json();
         refreshStatus();
+        getBoards();
     };
 </script>
 

@@ -1,7 +1,7 @@
 <script>
     import { fade } from "svelte/transition";
     import { onMount, createEventDispatcher } from "svelte";
-    import { status, refreshStatus } from "../../scripts/stores";
+    import { status, refreshStatus, getBoards } from "../../scripts/stores";
     import Ok from "../icons/Ok.svelte";
 
     export let name, type, parent, cover, position;
@@ -29,6 +29,7 @@
         });
         $status = await response.json();
         refreshStatus();
+        getBoards();
     };
     onMount(() => {
         ref.focus();

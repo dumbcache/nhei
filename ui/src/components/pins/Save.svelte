@@ -6,6 +6,7 @@
         boards as collections,
         status,
         refreshStatus,
+        getBoards,
     } from "../../scripts/stores";
     import { createEventDispatcher } from "svelte";
 
@@ -50,6 +51,7 @@
         });
         $status = await response.json();
         refreshStatus();
+        getBoards();
         console.log($status);
     };
 </script>
