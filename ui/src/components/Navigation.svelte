@@ -4,7 +4,6 @@
     import Slider from "./icons/Slider.svelte";
     import Create from "./Create.svelte";
     import Sort from "./Sort.svelte";
-    import { createEventDispatcher } from "svelte";
 
     export let parent, pin, type;
     export let boardsCount;

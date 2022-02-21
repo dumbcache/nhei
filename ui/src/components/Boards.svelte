@@ -25,7 +25,7 @@
 <div class="board-wrapper">
     <Navigation boardsCount={data.length} pinsCount={count} type="board" />
     {#if data.length !== 0}
-        <CollectionCard {data} type="board" />
+        <CollectionCard {$activeData} type="board" />
     {:else}
         <h4>Boards</h4>
         <p class="alert">No Data Found</p>
