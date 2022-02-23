@@ -14,9 +14,14 @@ import {
     deletePin,
     getThumbs,
 } from "./nhei.js";
+import { backup } from "./backup.js";
 
 let app = express();
 let port = 80;
+
+let doBackup = setInterval(() => {
+    backup();
+}, 43200000);
 
 app.use(cors());
 app.use(bodyParser.json());

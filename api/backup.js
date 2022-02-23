@@ -21,19 +21,19 @@ auth.authorize((err) => {
 
 const drive = google.drive({ version: "v3", auth: auth });
 
-export const backupData = async () => {
+export const backup = async () => {
     drive.files.list(
         { q: "name contains 'json'", fields: "files(id,name)" },
 
         (err, res) => {
             if (err) return console.log("The API returned an error: " + err);
             const files = res.data.files;
-            backup(files);
+            backupData(files);
         }
     );
 };
 
-export const updateBackupFiles = (id, media) => {
+const updateBackupFiles = (id, media) => {
     drive.files.update({ fileId: id, media: media }, (err, res) => {
         if (err) {
             console.log(err);
@@ -43,7 +43,7 @@ export const updateBackupFiles = (id, media) => {
     });
 };
 
-const backup = async (files) => {
+const backupData = async (files) => {
     const { boardData, doujinData } = await getBackup();
     let boardMedia = {
         mimeType: "application/json",

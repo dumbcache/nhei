@@ -1,16 +1,4 @@
 services:
-    ui:
-        build: ./ui
-        networks:
-            - frontend
-            - middleware
-        volumes:
-            - ./ui:/home/app
-        ports:
-            - 8080:80
-        command: yarn dev
-        profiles:
-            - production
     api:
         build:
             context: ./api
@@ -20,7 +8,6 @@ services:
         command: npm start
         networks:
             - backend
-            - middleware
         ports:
             - 5000:80
     mongo:
@@ -49,6 +36,4 @@ volumes:
         name: nhei_redis
 
 networks:
-    frontend:
     backend:
-    middleware:
