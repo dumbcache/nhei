@@ -1,7 +1,7 @@
 import { MongoClient } from "mongodb";
 import Redis from "ioredis";
 import { API } from "nhentai";
-
+import "dotenv/config";
 /**
  * Creating new database instance
  */

@@ -22,12 +22,12 @@ export const refreshStatus = () => {
 };
 
 export const getBoards = async () => {
-    let response = await fetch("http://localhost:5000/");
+    let response = await fetch("http://localhost:3000/");
     boards.set(await response.json());
 };
 
 export const getPin = async (id) => {
-    let response = await fetch("http://localhost:5000/doujin", {
+    let response = await fetch("http://localhost:3000/doujin", {
         method: "POST",
         headers: { "Content-type": "application/json" },
         body: JSON.stringify({
@@ -39,7 +39,7 @@ export const getPin = async (id) => {
 };
 
 export const getDoujin = async (searchId) => {
-    let request = await fetch(`http://localhost:5000/`, {
+    let request = await fetch(`http://localhost:3000/`, {
         method: "POST",
         headers: { "Content-type": "application/json" },
         body: JSON.stringify({
