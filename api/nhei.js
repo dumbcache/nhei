@@ -7,12 +7,11 @@ import { API } from "nhentai";
  */
 // const redis = new Redis("redis://:nhei@redis:6379");
 const redis = new Redis({
-    port: 17888,
-    host: "redis-17888.c252.ap-southeast-1-1.ec2.cloud.redislabs.com",
-    password: "Je9oHqnZqtZz57hDoC9RVwVIpktNkG6F",
+    port: process.env.REDIS_PORT,
+    host: process.env.REDIS_HOST,
+    password: process.env.REDIS_PASS,
 });
-const url =
-    "mongodb+srv://nhei:nhei4658@cluster0.m6dqx.mongodb.net/nhei?retryWrites=true&w=majority";
+const url = process.env.MONGO_CONNECTION;
 
 let client = new MongoClient(url);
 
