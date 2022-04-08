@@ -15,10 +15,12 @@ import {
     getThumbs,
 } from "./nhei.js";
 import { backup } from "./backup.js";
+import "dotenv/config";
 
 let app = express();
-let port = 80;
+let port = 3000;
 
+require("dotenv").config();
 let doBackup = setInterval(() => {
     backup();
 }, 43200000);

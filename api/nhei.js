@@ -12,7 +12,6 @@ const redis = new Redis({
     password: process.env.REDIS_PASS,
 });
 const url = process.env.MONGO_CONNECTION;
-
 let client = new MongoClient(url);
 
 export const connect = async () => {
