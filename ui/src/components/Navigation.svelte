@@ -1,21 +1,18 @@
 <script>
     import { navigate } from "svelte-navigator";
-    import Add from "./icons/Add.svelte";
-    import Slider from "./icons/Slider.svelte";
+    import { add, slider } from "./Icons.svelte";
     import Create from "./Create.svelte";
     import Sort from "./Sort.svelte";
 
-    export let parent, pin, type;
-    export let boardsCount;
-    export let sectionsCount;
-    export let pinsCount;
+    export let parent, pin, type, boardsCount, sectionsCount, pinsCount;
+
     let overlay = true;
+    let toggleSort = false;
     let action = "";
     let searchValue;
-    let toggleSort = false;
     console.log(location);
 
-    const showStatus = (e) => {
+    const showStatus = () => {
         overlay = true;
         action = "";
     };
@@ -50,11 +47,11 @@
                     on:click={() => {
                         overlay = false;
                         action = "add";
-                    }}><Add /></button
+                    }}>{@html add()}</button
                 >
             {/if}
             <button on:click={() => (toggleSort = !toggleSort)}
-                ><Slider /></button
+                >{@html slider()}</button
             >
             {#if toggleSort}
                 <div class="sort">

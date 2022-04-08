@@ -2,7 +2,7 @@
     import { fade } from "svelte/transition";
 </script>
 
-<h4 transition:fade={{ duration: 300 }}>Profile</h4>
+<h4 transition:fade={{ duration: 200 }}>Profile</h4>
 
 <style>
     h4 {

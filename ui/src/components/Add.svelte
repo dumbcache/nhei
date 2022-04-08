@@ -1,5 +1,5 @@
 <script>
-    import Ok from "./icons/Ok.svelte";
+    import { ok } from "./Icons.svelte";
     import { fade } from "svelte/transition";
     import {
         doujin,
@@ -99,7 +99,7 @@
             {/each}
         </select>
 
-        <button class="ok" type="submit" {disabled}><Ok /></button>
+        <button class="ok" type="submit" {disabled}>{@html ok()}</button>
     </form>
 </div>
 

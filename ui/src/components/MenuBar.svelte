@@ -4,21 +4,15 @@
     import { Link } from "svelte-navigator";
 
     let menuList = [
-        {
-            name: "profile",
-            src: "/images/profile.svg",
-            link: "/profile",
-        },
+        { name: "home", src: "/images/home.svg", link: "/" },
         {
             name: "collections",
             src: "/images/collections.svg",
             link: "/boards",
         },
-        { name: "home", src: "/images/home.svg", link: "/" },
-        // { name: "add", src: "/images/add.svg", link: "/add" },
     ];
 
-    const dispatch = new createEventDispatcher();
+    const dispatch = createEventDispatcher();
     const add = () => {
         dispatch("recieve");
     };
@@ -27,21 +21,21 @@
 <div class="menubar-wrapper">
     {#each menuList as item (item)}
         <Link to={item.link}
-            ><div
-                class="link {item.name}"
-                value={item.name}
-                on:click={item.onclick}
-            >
+            ><div class="link {item.name}" value={item.name}>
                 <img src={item.src} alt={item.name} />
                 <p class="button-tag">
                     {item.name}
                 </p>
-            </div></Link
-        >
+            </div>
+        </Link>
     {/each}
     <div class="link add" on:click={add}>
         <img src="/images/add.svg" alt="add" />
         <p class="button-tag">add</p>
+    </div>
+    <div class="link profile">
+        <img src="/images/profile.svg" alt="profile" />
+        <p class="button-tag">profile</p>
     </div>
 </div>
 

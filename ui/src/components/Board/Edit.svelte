@@ -2,7 +2,7 @@
     import { fade } from "svelte/transition";
     import { onMount, createEventDispatcher } from "svelte";
     import { status, refreshStatus, getBoards } from "../../scripts/stores";
-    import Ok from "../icons/Ok.svelte";
+    import { ok } from "../Icons.svelte";
 
     export let name, type, parent, cover, position;
     let previous = name;
@@ -86,7 +86,7 @@
             disabled={(previous === name.trim() || name.trim() === "") &&
                 previousCover === cover &&
                 position === previousPosition}
-            type="submit"><Ok /></button
+            type="submit">{@html ok()}</button
         >
     </form>
 </div>

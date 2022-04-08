@@ -3,7 +3,7 @@
     import { fade } from "svelte/transition";
 
     import { getBoards, refreshStatus, status } from "../../scripts/stores";
-    import Ok from "../icons/Ok.svelte";
+    import { ok } from "../Icons.svelte";
     export let id, section, board;
 
     let dispatch = createEventDispatcher();
@@ -25,7 +25,7 @@
 <div class="wrapper" transition:fade={{ duration: 300 }}>
     <div>
         <p>You sure?</p>
-        <button on:click={action}><Ok /></button>
+        <button on:click={action}>{@html ok()}</button>
     </div>
 </div>
 

@@ -2,6 +2,7 @@
     import CollectionCard from "./Board/template.svelte";
     import { activeData, boards, defaultActiveData } from "../scripts/stores";
     import Navigation from "./Navigation.svelte";
+    import { fade } from "svelte/transition";
 
     export let location, navigate;
     let data = [];
@@ -22,10 +23,10 @@
     }
 </script>
 
-<div class="board-wrapper">
+<div class="board-wrapper" in:fade={{ duration: 200 }}>
     <Navigation boardsCount={data.length} pinsCount={count} type="board" />
     {#if data.length !== 0}
-        <CollectionCard {$activeData} type="board" />
+        <CollectionCard type="board" />
     {:else}
         <h4>Boards</h4>
         <p class="alert">No Data Found</p>

@@ -2,9 +2,8 @@
     import { fade } from "svelte/transition";
     import { Link } from "svelte-navigator";
     import EditAction from "./Edit.svelte";
-    import Edit from "../icons/Edit.svelte";
+    import { edit, del } from "../Icons.svelte";
     import DeleteAction from "./Delete.svelte";
-    import Delete from "../icons/Delete.svelte";
     import { activeData } from "../../scripts/stores";
 
     export let data, type, parent;
@@ -21,7 +20,7 @@
     };
 </script>
 
-<div class="wrapper">
+<div class="wrapper-template">
     {#each $activeData as item}
         <!-- {console.log(item.cover)} -->
         <div class="collection {item.name}" in:fade={{ duration: 300 }}>
@@ -35,7 +34,7 @@
                     overlay = false;
                 }}
             >
-                <Edit />
+                {@html edit()}
             </div>
             <div
                 class="delete"
@@ -45,7 +44,7 @@
                     overlay = false;
                 }}
             >
-                <Delete />
+                {@html del()}
             </div>
             <Link to={item.name}>
                 <div class="collection-card">
@@ -132,12 +131,13 @@
         color: inherit;
     }
 
-    .wrapper {
+    .wrapper-template {
         /* position: relative; */
         display: flex;
         flex-flow: row wrap;
         justify-content: center;
         gap: 1rem;
+        margin-bottom: 2rem;
     }
     .collection {
         position: relative;
@@ -168,6 +168,15 @@
     .overlay,
     .action {
         z-index: 1;
+    }
+    .data {
+        width: 100%;
+        display: flex;
+        flex-flow: column;
+        align-items: center;
+    }
+    p {
+        font-size: x-small;
     }
 
     @media screen and (max-width: 600px) {

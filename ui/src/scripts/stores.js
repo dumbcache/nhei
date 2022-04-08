@@ -1,14 +1,15 @@
 import { writable } from "svelte/store";
 
-export const navHistory = writable({});
 export const searchValue = writable("");
-export const activeCollection = writable();
-export const activeSection = writable();
+
 export const doujin = writable();
-export const doujinPresent = writable();
+
 export const boards = writable([]);
-export const pins = writable();
+
+export const doujinPresent = writable();
+
 export const status = writable("");
+
 export const activeData = writable([]);
 export const defaultActiveData = writable([]);
 export const activePinData = writable([]);

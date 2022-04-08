@@ -1,8 +1,7 @@
 <script>
-    import Ok from "../icons/Ok.svelte";
+    import { ok } from "../Icons.svelte";
     import { fade } from "svelte/transition";
     import {
-        doujin,
         boards as collections,
         status,
         refreshStatus,
@@ -100,7 +99,7 @@
             {/each}
         </select>
 
-        <button class="ok" type="submit"><Ok /></button>
+        <button class="ok" type="submit">{@html ok()}</button>
     </form>
 </div>
 

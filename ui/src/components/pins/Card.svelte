@@ -2,8 +2,7 @@
     import { fly, fade } from "svelte/transition";
     import DeleteAction from "./Delete.svelte";
     import Save from "./Save.svelte";
-    import Saved from "../icons/Saved.svelte";
-    import Delete from "../icons/Delete.svelte";
+    import { saved, del } from "../Icons.svelte";
     import { getPin } from "../../scripts/stores";
     import { navigate } from "svelte-navigator";
 
@@ -36,7 +35,7 @@
             overlay = !overlay;
         }}
     >
-        <Saved />
+        {@html saved()}
     </div>
     <div
         class="delete"
@@ -45,7 +44,7 @@
             overlay = !overlay;
         }}
     >
-        <Delete />
+        {@html del()}
     </div>
     <div
         class="overlay"

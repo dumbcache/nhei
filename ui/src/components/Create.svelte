@@ -1,12 +1,14 @@
 <script>
     import { onMount, createEventDispatcher } from "svelte";
     import { getBoards, refreshStatus, status } from "../scripts/stores";
-    import Ok from "./icons/Ok.svelte";
+    import { ok } from "./Icons.svelte";
     import { fade } from "svelte/transition";
 
     export let parent, external;
+
     let disabled = parent ? true : false;
     disabled = external ? false : disabled;
+
     $: console.log(disabled);
     let board = parent ? parent : "";
     let section = "";
@@ -62,7 +64,7 @@
             />
         {/if}
         <button class="ok" disabled={board.trim() === ""} type="submit"
-            ><Ok /></button
+            >{@html ok()}</button
         >
     </form>
 </div>

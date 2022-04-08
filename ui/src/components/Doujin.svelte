@@ -1,8 +1,7 @@
 <script>
     import { navigate } from "svelte-navigator";
     import { doujin, doujinPresent } from "../scripts/stores";
-    import SaveIcon from "./icons/Save.svelte";
-    import SavedIcon from "./icons/Saved.svelte";
+    import { save, saved } from "./Icons.svelte";
     import Add from "../components/Add.svelte";
     let turnToggle = false;
     let toggleSave = false;
@@ -29,10 +28,10 @@
                             toggleSave = !toggleSave;
                         }}
                     >
-                        <SaveIcon />
+                        {@html save()}
                     </div>
                 {:else}
-                    <div class="saved"><SavedIcon /></div>
+                    <div class="saved">{@html saved()}</div>
                 {/if}
                 <a href={$doujin.url} target="_blank"
                     ><img
@@ -40,7 +39,6 @@
                         src={$doujin.cover}
                         alt="doujin_image"
                         referrerpolicy="no-referrer"
-                        loading="lazy"
                     /></a
                 >
             </div>
@@ -75,6 +73,7 @@
                         alt={page.url}
                         width="100%"
                         referrerpolicy="no-referrer"
+                        loading="lazy"
                     />
                     <div
                         class="overlay"

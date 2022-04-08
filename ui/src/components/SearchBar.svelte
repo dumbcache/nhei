@@ -1,5 +1,5 @@
 <script>
-    import Search from "./icons/Search.svelte";
+    import { search } from "./Icons.svelte";
     import { searchValue, getDoujin } from "../scripts/stores.js";
     import { navigate } from "svelte-navigator";
     $: disabled = $searchValue.trim().length === 0;
@@ -18,7 +18,7 @@
             bind:value={$searchValue}
         />
         <button class="search-button" {disabled} type="submit"
-            ><Search /></button
+            >{@html search()}</button
         >
     </div>
 </form>

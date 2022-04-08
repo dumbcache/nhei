@@ -1,7 +1,7 @@
 <script>
     import { fade } from "svelte/transition";
     import { createEventDispatcher } from "svelte";
-    import Ok from "../icons/Ok.svelte";
+    import { ok } from "../Icons.svelte";
     import { status, refreshStatus, getBoards } from "../../scripts/stores";
 
     export let name, parent, type;
@@ -40,7 +40,7 @@
                 on:click={() => {
                     prev = !prev;
                     follow = !follow;
-                }}><Ok /></button
+                }}>{@html ok()}</button
             >
         </div>
         <div class:follow>
@@ -52,7 +52,7 @@
                 bind:value
                 autocomplete="off"
             />
-            <button type="submit" {disabled}><Ok /></button>
+            <button type="submit" {disabled}>{@html ok()}</button>
         </div>
     </form>
 </div>

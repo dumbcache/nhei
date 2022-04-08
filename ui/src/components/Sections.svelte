@@ -79,7 +79,6 @@
         display: flex;
         flex-flow: wrap;
         margin: 0.5rem;
-        margin-top: 2rem;
         justify-content: center;
     }
     .pin {
