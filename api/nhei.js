@@ -5,8 +5,14 @@ import { API } from "nhentai";
 /**
  * Creating new database instance
  */
-const redis = new Redis("redis://:nhei@redis:6379");
-const url = "mongodb://nhei:nhei@mongo:27017";
+// const redis = new Redis("redis://:nhei@redis:6379");
+const redis = new Redis({
+    port: 17888,
+    host: "redis-17888.c252.ap-southeast-1-1.ec2.cloud.redislabs.com",
+    password: "Je9oHqnZqtZz57hDoC9RVwVIpktNkG6F",
+});
+const url =
+    "mongodb+srv://nhei:nhei4658@cluster0.m6dqx.mongodb.net/nhei?retryWrites=true&w=majority";
 
 let client = new MongoClient(url);
 
@@ -340,10 +346,12 @@ export const add = async (req, res, next) => {
 };
 
 export const isPresent = async (id) => {
+    console.log(id);
     let nhei = await connect();
     let copy = await nhei
         .collection("doujins")
         .findOne({ id: +id }, { copy: 1 });
+    console.log(copy);
     if (copy === null) {
         return false;
     }
