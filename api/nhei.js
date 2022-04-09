@@ -12,12 +12,14 @@ const redis = new Redis({
     password: process.env.REDIS_PASS,
 });
 const url = process.env.MONGO_CONNECTION;
+// const url = "mongodb://nhei:nhei@mongo:27017";
+
 let client = new MongoClient(url);
 
 export const connect = async () => {
     try {
         await client.connect();
-        return client.db("nhei");
+        return client.db("nheidev");
     } catch (error) {
         console.log("error while connecting");
     }
