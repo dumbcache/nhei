@@ -63,15 +63,23 @@
 <style>
     .sort-wrapper {
         width: max-content;
+
         background-color: #666;
         /* color: black; */
         box-shadow: 0px 0px 10px black;
     }
     .sort-wrapper div {
         padding: 0.2rem;
+        user-select: none;
     }
     .sort-wrapper div:hover {
         cursor: pointer;
         background-color: #222;
+    }
+
+    @media screen and (max-width: 600px) {
+        .sort-wrapper {
+            width: 100px;
+        }
     }
 </style>

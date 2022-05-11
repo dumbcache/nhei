@@ -18,7 +18,7 @@
     };
 </script>
 
-<div class="navigation-wrapper">
+<nav class="navigation-wrapper">
     <div class="navbar">
         <button on:click={() => navigate(-1)}>{"< back"}</button>
     </div>
@@ -71,7 +71,7 @@
     {#if action === "add"}
         <Create on:recieve={showStatus} {parent} />
     {/if}
-</div>
+</nav>
 
 <style>
     .navigation-wrapper {

@@ -18,7 +18,7 @@
     };
 </script>
 
-<div class="menubar-wrapper">
+<nav class="menubar-wrapper">
     {#each menuList as item (item)}
         <Link to={item.link}
             ><div class="link {item.name}" value={item.name}>
@@ -37,7 +37,7 @@
         <img src="/images/profile.svg" alt="profile" />
         <p class="button-tag">profile</p>
     </div>
-</div>
+</nav>
 
 <style>
     .menubar-wrapper {

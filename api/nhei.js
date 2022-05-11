@@ -410,6 +410,7 @@ export const searchDoujin = async (req, res, next) => {
          */
         let { id } = req.body;
         let api = new API();
+        api.fetchHomepage;
         let request = await api.fetchDoujin(id);
 
         let present = await isPresent(id);
