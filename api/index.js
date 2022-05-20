@@ -12,14 +12,13 @@ import {
     deletePin,
     getThumbs,
 } from "./nhei.js";
-import { getDoujin } from "./mongo.js";
-import { getFromDoujinCache } from "./redis.js";
-import { backup } from "./backup.js";
 
 import {
     searchHandler,
     getSectionsHandler,
     getBoardsHandler,
+    getDoujinHandler,
+    searchCacheHandler,
 } from "./handlers.js";
 
 let app = express();
@@ -32,13 +31,12 @@ let port = 3000;
 app.use(cors());
 app.use(bodyParser.json());
 
-app.post("/search", searchHandler);
+app.post("/search", searchCacheHandler, searchHandler);
 
 app.get("/boards", getBoardsHandler);
 app.post("/sections", getSectionsHandler);
+app.post("/doujin", getDoujinHandler);
 
-app.post("/doujin", getFromDoujinCache, getDoujin);
-app.post("/", getFromDoujinSearchCache, searchDoujin);
 app.post("/add", add);
 app.post("/create", create);
 app.post("/edit", edit);

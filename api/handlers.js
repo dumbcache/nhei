@@ -1,5 +1,18 @@
 import { getBoards, getDoujin } from "./mongo.js";
 import { fetchDoujinFromAPI, searchFromAPI } from "./nhei.js";
+import { getFromCache, setToCache } from "./redis.js";
+
+export const searchCacheHandler = async (req, res, next) => {
+    try {
+        let { q } = req.body;
+        if (isNaN(Number(q))) next();
+        let doujin = getFromCache(Number(q));
+        doujin ?? next();
+    } catch (error) {
+        console.log(error);
+        next();
+    }
+};
 
 export const searchHandler = async (req, res) => {
     try {
@@ -39,7 +52,7 @@ export const getSectionsHandler = async (req, res) => {
     }
 };
 
-export const getDoujinHandler = async (req, res, next) => {
+export const getDoujinHandler = async (req, res) => {
     try {
         let { id } = req.body;
         let doujin;
@@ -49,12 +62,43 @@ export const getDoujinHandler = async (req, res, next) => {
             res.status(200).send(doujin);
         }
         doujin = fetchDoujinFromAPI(id);
-        // console.log(`caching doujin ${id} to redis `);
-        // redis.set(id, JSON.stringify(data));
-        // console.log(`caching ${id} completed`);
+        // setToCache(id, JSON.stringify(data));
         res.status(200).send(doujin);
     } catch (error) {
         console.log(error);
-        res.sendStatus(503);
+        res.sendStatus(500);
+    }
+};
+
+export const createHandler = async (req, res) => {
+    try {
+        let { board, section } = req.body;
+        let status = createBoard(board);
+        if (!section) return status;
+        if (status === "present") status = createSection(board, section);
+        res.status(200).send(status);
+    } catch (error) {
+        console.log(`error while creating boards`);
+        throw error;
+    }
+};
+export const createBoardHandler = async (req, res) => {
+    try {
+        let { board } = req.body;
+        let status = createBoard(board);
+        res.status(200).send(status);
+    } catch (error) {
+        console.log(`error while creating boards`);
+        throw error;
+    }
+};
+export const createsectionHandler = async (req, res) => {
+    try {
+        let { board, section } = req.body;
+        let status = createSection(board, section);
+        res.status(200).send(status);
+    } catch (error) {
+        console.log(`error while creating boards`);
+        throw error;
     }
 };

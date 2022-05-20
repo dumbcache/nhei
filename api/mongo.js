@@ -1,4 +1,5 @@
 import { MongoClient } from "mongodb";
+import { Board, Section } from "./types.js";
 
 const client = new MongoClient("mongodb://localhost:27017");
 
@@ -49,6 +50,7 @@ export const getSections = async (board) => {
         close();
     }
 };
+
 export const getDoujin = async (id) => {
     try {
         let db = await connect();
@@ -59,5 +61,71 @@ export const getDoujin = async (id) => {
         throw error;
     } finally {
         close();
+    }
+};
+
+export const isBoardPresent = async (mongo, board) => {
+    let found = await mongo
+        .collection("nhei")
+        .findOne({ "boards.name": board });
+    if (found !== null) {
+        return true;
+    } else {
+        return false;
+    }
+};
+
+export const isSectionPresent = async (mongo, board, section) => {
+    let found = await mongo
+        .collection("nhei")
+        .findOne({ "sections.name": section, "sections.board": board });
+    console.log(found);
+    if (found !== null) {
+        return true;
+    } else {
+        return false;
+    }
+};
+
+export const createBoard = async (board) => {
+    try {
+        let mongo = await connect(),
+            boardName = board.trim();
+        if (!boardName) return "board name is empty";
+        let boardPresent = await isBoardPresent(boardName);
+        if (boardPresent) return "present";
+        let newBoard = new Board(boardName);
+        await mongo
+            .collection("nhei")
+            .updateOne({ user: "nhei" }, { $addToSet: { boards: newBoard } });
+        return "created";
+    } catch (error) {
+        console.log("error while creating board in mongo");
+        throw error;
+    }
+};
+export const createSection = async (board, section) => {
+    try {
+        let mongo = await connect(),
+            boardName = board.trim(),
+            sectionName = section.trim();
+        if (!sectionName) return "section name is empty";
+        let sectionPresent = await isSectionPresent(
+            mongo,
+            boardName,
+            sectionName
+        );
+        if (sectionPresent) return "present";
+        let newSection = new Section(boardName, sectionName);
+        await mongo
+            .collection("nhei")
+            .updateOne(
+                { user: "nhei" },
+                { $addToSet: { sections: newSection } }
+            );
+        return "created";
+    } catch (error) {
+        console.log("error while creating section in mongo");
+        throw error;
     }
 };

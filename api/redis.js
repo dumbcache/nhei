@@ -2,20 +2,26 @@ import Redis from "ioredis";
 
 const redis = new Redis("redis://localhost:6379");
 
-export const getFromDoujinCache = async (req, res, next) => {
+export const getFromCache = async (id) => {
     try {
-        let { id } = req.body;
-
-        redis.get(id, (err, data) => {
-            if (err) throw err;
-            if (data === null) next();
+        redis.get(id, (error, data) => {
+            if (error) throw error;
+            if (data === null) return null;
 
             console.log(`fetching doujin ${id} from doujinCache`);
-            res.send(data);
-            console.log(`fetch ${id} completed`);
+            return data;
         });
     } catch (error) {
-        console.log(error);
-        next();
+        console.log(`error while fetching ${id} from redis`);
+        throw error;
+    }
+};
+export const setToCache = async (id, data) => {
+    try {
+        console.log(`caching doujin ${id} to redis `);
+        redis.set(id, JSON.stringify(data));
+        console.log(`caching ${id} completed`);
+    } catch (error) {
+        console.log(`error while caching ${id} to redis`, error);
     }
 };
