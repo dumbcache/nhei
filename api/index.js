@@ -1,7 +1,7 @@
 import express from "express";
 import cors from "cors";
 import bodyParser from "body-parser";
-import { edit, remove, add, deletePin, getThumbs } from "./nhei.js";
+import { edit, getThumbs } from "./nhei.js";
 
 import {
     searchHandler,
@@ -11,7 +11,13 @@ import {
     searchCacheHandler,
     createHandler,
     createBoardHandler,
-    createsectionHandler,
+    createSectionHandler,
+    deleteBoardHandler,
+    deleteSectionHandler,
+    createPinHandler,
+    deletePinHandler,
+    editSectionHandler,
+    editBoardHandler,
 } from "./handlers.js";
 
 let app = express();
@@ -25,18 +31,23 @@ app.use(cors());
 app.use(bodyParser.json());
 
 app.post("/search", searchCacheHandler, searchHandler);
-
-app.get("/boards", getBoardsHandler);
-app.post("/boards/create", createBoardHandler);
-app.post("/sections", getSectionsHandler);
-app.post("/sections/create", createsectionHandler);
 app.post("/doujin", getDoujinHandler);
 app.post("/create", createHandler);
 
-app.post("/add", add);
+app.get("/boards", getBoardsHandler);
+app.post("/boards/create", createBoardHandler);
+app.delete("/boards/delete", deleteBoardHandler);
+app.patch("/boards/edit", editBoardHandler);
+
+app.post("/sections", getSectionsHandler);
+app.post("/sections/create", createSectionHandler);
+app.delete("/sections/delete", deleteSectionHandler);
+app.patch("/sections/edit", editSectionHandler);
+
+app.put("/pins/delete", deletePinHandler);
+app.post("pins/add", createPinHandler);
+
 app.post("/edit", edit);
-app.post("/delete", remove);
-app.put("/delete", deletePin);
 app.get("/thumbs", getThumbs);
 
 app.listen(port, () => console.log(`listening at port ${port}`));

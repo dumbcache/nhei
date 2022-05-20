@@ -3,6 +3,7 @@ import { fetchDoujinFromAPI } from "./nhei.js";
 import { Board, Section } from "./types.js";
 
 const client = new MongoClient("mongodb://localhost:27017");
+// const url = "mongodb://nhei:nhei@mongo:27017";
 
 export const connect = async () => {
     try {
@@ -41,7 +42,9 @@ export const getBoards = async () => {
 export const getSections = async (board) => {
     try {
         let db = await connect();
-        let cursor = db.collection("nhei").find({ "sections.board": board });
+        let cursor = db
+            .collection("nhei")
+            .find({ "sections.board": board }, { sections: 1 });
         let sections = await cursor.toArray();
         return sections;
     } catch (error) {
@@ -184,6 +187,60 @@ export const addDoujin = async (doujin, id) => {
         return;
     } catch (error) {
         console.log(error);
+    } finally {
+        close();
+    }
+};
+
+export const editBoard = async (oldBoard, newBoard) => {
+    try {
+        let mongo = await connect(),
+            oldBoardName = oldBoard.trim(),
+            newBoardName = newBoard.trim();
+        if (!oldBoardName || !newBoardName) return "board name is empty";
+        await mongo
+            .collection("nhei")
+            .updateOne(
+                { "boards.name": oldBoardName },
+                { $set: { "boards.name": newBoardName } }
+            );
+        return "created";
+    } catch (error) {
+        console.log("error while editing board in mongo");
+        throw error;
+    } finally {
+        close();
+    }
+};
+export const editSection = async (
+    oldBoard,
+    newBoard,
+    oldSection,
+    newSection
+) => {
+    try {
+        let mongo = await connect(),
+            oldBoardName = oldBoard.trim(),
+            oldSectionName = oldSection.trim(),
+            newBoardName = newBoard.trim(),
+            newSectionName = newSection.trim();
+        if (!oldSectionName || !newSectionName) return "board name is empty";
+        await mongo.collection("nhei").updateOne(
+            {
+                "sections.name": oldSectionName,
+                "sections.board": oldBoardName,
+            },
+            {
+                $set: {
+                    "sections.name": newSectionName,
+                    "sections.board": newBoardName,
+                },
+            }
+        );
+        return "success";
+    } catch (error) {
+        console.log("error while editing section in mongo");
+        throw error;
     } finally {
         close();
     }
