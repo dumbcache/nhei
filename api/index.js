@@ -10,6 +10,8 @@ import {
     getDoujinHandler,
     searchCacheHandler,
     createHandler,
+    createBoardHandler,
+    createsectionHandler,
 } from "./handlers.js";
 
 let app = express();
@@ -25,11 +27,13 @@ app.use(bodyParser.json());
 app.post("/search", searchCacheHandler, searchHandler);
 
 app.get("/boards", getBoardsHandler);
+app.post("/boards/create", createBoardHandler);
 app.post("/sections", getSectionsHandler);
+app.post("/sections/create", createsectionHandler);
 app.post("/doujin", getDoujinHandler);
 
-app.post("/add", add);
 app.post("/create", createHandler);
+app.post("/add", add);
 app.post("/edit", edit);
 app.post("/delete", remove);
 app.put("/delete", deletePin);
