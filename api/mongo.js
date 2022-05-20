@@ -87,6 +87,15 @@ export const isSectionPresent = async (mongo, board, section) => {
     }
 };
 
+export const isDoujinPresent = async (mongo, id) => {
+    let found = await mongo.collection("doujins").findOne({ id: id });
+    if (found !== null) {
+        return true;
+    } else {
+        return false;
+    }
+};
+
 export const createBoard = async (board) => {
     try {
         let mongo = await connect(),
@@ -127,5 +136,99 @@ export const createSection = async (board, section) => {
     } catch (error) {
         console.log("error while creating section in mongo");
         throw error;
+    }
+};
+
+export const addDoujn = async (mongo, board, section, id) => {
+    let pin;
+    if (!section) {
+        mongo.collection("doujins").updateOne(
+            { "boards.name": board },
+            {
+                $addToSet: { "boards.pins": pin },
+            }
+        );
+    }
+};
+
+export const add = async (board, section, id) => {
+    try {
+        let mongo = await connect();
+        if (isDoujinPresent(id)) {
+            mongo.collection("doujins").updateOne(
+                { id: id },
+                {
+                    $inc: {
+                        copies: 1,
+                    },
+                }
+            );
+        }
+        let { id, doujin, addData } = req.body;
+        let status = `saved successfully`;
+        let inserted;
+        let data = {
+            id: id,
+            cover: addData.cover,
+            favourites: addData.favourites,
+        };
+        let present = await nhei.collection("doujins").findOne({ id: id });
+        if (present === null) {
+            await nhei.collection("doujins").insertOne(doujin);
+        }
+
+        if (addData.section) {
+            inserted = await nhei.collection("boards").updateOne(
+                {
+                    board: addData.board,
+                    "sections.section": addData.section,
+                },
+                {
+                    $addToSet: {
+                        "sections.$.pins": data,
+                    },
+                    $inc: {
+                        "sections.$.total": 1,
+                    },
+                }
+            );
+            if (inserted.modifiedCount === 1) {
+                await nhei
+                    .collection("boards")
+                    .updateOne(
+                        { board: addData.board },
+                        { $inc: { total: 1 } }
+                    );
+                await nhei
+                    .collection("doujins")
+                    .updateOne({ id: id }, { $inc: { copy: 1 } });
+            }
+        } else {
+            inserted = await nhei.collection("boards").updateOne(
+                {
+                    board: addData.board,
+                },
+                { $addToSet: { pins: data } }
+            );
+            if (inserted.modifiedCount === 1) {
+                await nhei
+                    .collection("boards")
+                    .updateOne(
+                        { board: addData.board },
+                        { $inc: { total: 1 } }
+                    );
+                await nhei
+                    .collection("doujins")
+                    .updateOne({ id: id }, { $inc: { copy: 1 } });
+            }
+        }
+        if (inserted.modifiedCount === 0) {
+            status = "already present";
+        }
+        console.log("hell");
+        addToThumbs(nhei, id, addData.cover);
+        res.send({ status });
+    } catch (error) {
+        console.log(error);
     }
 };

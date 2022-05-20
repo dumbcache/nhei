@@ -1,7 +1,8 @@
-export function Pin(id, favourites, creationDate) {
+export function Pin(id, favourites, creationDate, cover) {
     this.id = id;
     this.favourites = favourites;
     this.creationDate = creationDate;
+    this.cover = cover;
 }
 
 export function Section(board, section) {

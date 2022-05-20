@@ -21,10 +21,11 @@ export const searchHandler = async (req, res) => {
         console.log(typeof q);
         if (isNaN(Number(q))) {
             data = await searchFromAPI(q);
+            res.status(200).send(data);
         } else {
             data = await fetchDoujinFromAPI(Number(q));
+            res.status(200).send([data.doujin]);
         }
-        res.status(200).send(data);
     } catch (error) {
         console.log(error);
         res.sendStatus(500);
@@ -61,9 +62,9 @@ export const getDoujinHandler = async (req, res) => {
             console.log("doujin exists");
             res.status(200).send(doujin);
         }
-        doujin = fetchDoujinFromAPI(id);
+        let data = fetchDoujinFromAPI(id);
         // setToCache(id, JSON.stringify(data));
-        res.status(200).send(doujin);
+        res.status(200).send([data.doujin]);
     } catch (error) {
         console.log(error);
         res.sendStatus(500);

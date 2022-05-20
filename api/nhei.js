@@ -1,6 +1,7 @@
 import { API } from "nhentai";
 import "dotenv/config";
 import { connect, close } from "./mongo.js";
+import { Pin } from "./types.js";
 /**
  * Creating new database instance
  */
@@ -152,78 +153,6 @@ export const deletePin = async (req, res, next) => {
  * Adding doujin data to respective board and section
  */
 
-export const add = async (req, res, next) => {
-    try {
-        let nhei = await connect();
-        let { id, doujin, addData } = req.body;
-        let status = `saved successfully`;
-        let inserted;
-        let data = {
-            id: id,
-            cover: addData.cover,
-            favourites: addData.favourites,
-        };
-        let present = await nhei.collection("doujins").findOne({ id: id });
-        if (present === null) {
-            await nhei.collection("doujins").insertOne(doujin);
-        }
-
-        if (addData.section) {
-            inserted = await nhei.collection("boards").updateOne(
-                {
-                    board: addData.board,
-                    "sections.section": addData.section,
-                },
-                {
-                    $addToSet: {
-                        "sections.$.pins": data,
-                    },
-                    $inc: {
-                        "sections.$.total": 1,
-                    },
-                }
-            );
-            if (inserted.modifiedCount === 1) {
-                await nhei
-                    .collection("boards")
-                    .updateOne(
-                        { board: addData.board },
-                        { $inc: { total: 1 } }
-                    );
-                await nhei
-                    .collection("doujins")
-                    .updateOne({ id: id }, { $inc: { copy: 1 } });
-            }
-        } else {
-            inserted = await nhei.collection("boards").updateOne(
-                {
-                    board: addData.board,
-                },
-                { $addToSet: { pins: data } }
-            );
-            if (inserted.modifiedCount === 1) {
-                await nhei
-                    .collection("boards")
-                    .updateOne(
-                        { board: addData.board },
-                        { $inc: { total: 1 } }
-                    );
-                await nhei
-                    .collection("doujins")
-                    .updateOne({ id: id }, { $inc: { copy: 1 } });
-            }
-        }
-        if (inserted.modifiedCount === 0) {
-            status = "already present";
-        }
-        console.log("hell");
-        addToThumbs(nhei, id, addData.cover);
-        res.send({ status });
-    } catch (error) {
-        console.log(error);
-    }
-};
-
 export const isPresent = async (id) => {
     console.log(id);
     let nhei = await connect();
@@ -271,7 +200,14 @@ export const fetchDoujinFromAPI = async (id) => {
     delete doujin.raw;
     delete doujin.scanlator;
     doujin.tags = doujin.tags.all;
-    return [doujin];
+    doujin.copies = 1;
+    let pin = new Pin(
+        doujin.id,
+        doujin.favorites,
+        doujin.uploadTimestamp,
+        doujin.cover
+    );
+    return { doujin, pin };
 };
 
 export const searchFromAPI = async (q) => {
