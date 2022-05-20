@@ -410,11 +410,22 @@ export const getBackup = async () => {
     return { boardData: boards, doujinData: doujins };
 };
 
-export const fetchDoujin = async (id) => {
+export const fetchDoujinFromAPI = async (id) => {
     let api = new API();
     let doujin = await api.fetchDoujin(id);
     delete doujin.raw;
     delete doujin.scanlator;
-    return doujin;
+    doujin.tags = doujin.tags.all;
+    return [doujin];
 };
-fetchDoujin(373744);
+
+export const searchFromAPI = async (q) => {
+    let api = new API();
+    let res = await api.search(q, 0, "popular");
+    res.doujins.forEach((doujin) => {
+        delete doujin.raw;
+        delete doujin.scanlator;
+        doujin.tags = doujin.tags.all;
+    });
+    return res.doujins;
+};
