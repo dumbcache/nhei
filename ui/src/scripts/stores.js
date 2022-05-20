@@ -38,15 +38,16 @@ export const getPin = async (id) => {
     // console.log("hell", await response.json());
 };
 
-export const getDoujin = async (searchId) => {
-    let request = await fetch(`http://localhost:3000/`, {
+export const getDoujin = async (query) => {
+    let request = await fetch(`http://localhost:3000/search`, {
         method: "POST",
         headers: { "Content-type": "application/json" },
         body: JSON.stringify({
-            id: searchId,
+            q: query,
         }),
     });
-    let { data, present } = await request.json();
+    console.log(await request.json());
+    // let { data, present } = await request.json();
     doujin.set(data);
     doujinPresent.set(present);
 };
