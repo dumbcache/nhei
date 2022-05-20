@@ -31,8 +31,8 @@ app.post("/boards/create", createBoardHandler);
 app.post("/sections", getSectionsHandler);
 app.post("/sections/create", createsectionHandler);
 app.post("/doujin", getDoujinHandler);
-
 app.post("/create", createHandler);
+
 app.post("/add", add);
 app.post("/edit", edit);
 app.post("/delete", remove);
