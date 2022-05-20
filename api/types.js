@@ -23,6 +23,9 @@ export function Board(name) {
 
 let mongo = {
     user: "nhei",
+    boardCount: 1,
+    sectionCount: 1,
+    pinCount: 1,
     boards: [
         {
             name: "konosuba",

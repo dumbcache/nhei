@@ -1,4 +1,11 @@
-import { getBoards, getDoujin } from "./mongo.js";
+import {
+    getBoards,
+    getDoujin,
+    createBoard,
+    createSection,
+    addDoujin,
+    addPin,
+} from "./mongo.js";
 import { fetchDoujinFromAPI, searchFromAPI } from "./nhei.js";
 import { getFromCache, setToCache } from "./redis.js";
 
@@ -76,8 +83,8 @@ export const createHandler = async (req, res) => {
         let { board, section } = req.body;
         let status = createBoard(board);
         if (!section) return status;
-        if (status === "present") status = createSection(board, section);
-        res.status(200).send(status);
+        status = createSection(board, section);
+        res.status(200).send({ status });
     } catch (error) {
         console.log(`error while creating boards`);
         throw error;
@@ -87,7 +94,7 @@ export const createBoardHandler = async (req, res) => {
     try {
         let { board } = req.body;
         let status = createBoard(board);
-        res.status(200).send(status);
+        res.status(200).send({ status });
     } catch (error) {
         console.log(`error while creating boards`);
         throw error;
@@ -97,9 +104,22 @@ export const createsectionHandler = async (req, res) => {
     try {
         let { board, section } = req.body;
         let status = createSection(board, section);
-        res.status(200).send(status);
+        res.status(200).send({ status });
     } catch (error) {
         console.log(`error while creating boards`);
         throw error;
+    }
+};
+
+export const createPinHandler = async (req, res) => {
+    try {
+        let { board, section, id } = req.body;
+        let { doujin, pin } = await fetchDoujinFromAPI(id);
+        let status = addPin(board.trim(), section.trim(), pin);
+        addDoujin(doujin, id);
+        res.status(200).send({ status });
+    } catch (error) {
+        console.log(error);
+        res.sendStatus(500);
     }
 };

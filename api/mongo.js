@@ -1,4 +1,5 @@
 import { MongoClient } from "mongodb";
+import { fetchDoujinFromAPI } from "./nhei.js";
 import { Board, Section } from "./types.js";
 
 const client = new MongoClient("mongodb://localhost:27017");
@@ -139,96 +140,132 @@ export const createSection = async (board, section) => {
     }
 };
 
-export const addDoujn = async (mongo, board, section, id) => {
-    let pin;
-    if (!section) {
+export const addPin = async (board, section, pin) => {
+    try {
+        let mongo = await connect();
+        if (!section) {
+            mongo.collection("doujins").updateOne(
+                { "boards.name": board },
+                {
+                    $addToSet: { "boards.pins": pin },
+                }
+            );
+        }
         mongo.collection("doujins").updateOne(
-            { "boards.name": board },
+            { "sections.name": section, "sections.board": board },
             {
-                $addToSet: { "boards.pins": pin },
+                $addToSet: { "sections.pins": pin },
             }
         );
+    } catch (error) {
+        console.log("error while adding pin");
+        throw error;
+    } finally {
+        close();
     }
 };
 
-export const add = async (board, section, id) => {
+export const addDoujin = async (doujin, id) => {
     try {
         let mongo = await connect();
+
         if (isDoujinPresent(id)) {
-            mongo.collection("doujins").updateOne(
-                { id: id },
+            await mongo.collection("doujins").updateOne(
+                { id: +id },
                 {
                     $inc: {
                         copies: 1,
                     },
                 }
             );
+            return;
         }
-        let { id, doujin, addData } = req.body;
-        let status = `saved successfully`;
-        let inserted;
-        let data = {
-            id: id,
-            cover: addData.cover,
-            favourites: addData.favourites,
-        };
-        let present = await nhei.collection("doujins").findOne({ id: id });
-        if (present === null) {
-            await nhei.collection("doujins").insertOne(doujin);
-        }
+        await mongo.collection("doujins").insertOne({ doujin });
+        return;
+    } catch (error) {
+        console.log(error);
+    } finally {
+        close();
+    }
+};
 
-        if (addData.section) {
-            inserted = await nhei.collection("boards").updateOne(
+export const deleteBoard = async (board) => {
+    try {
+        let mongo = await connect();
+        let deleted = await mongo.collection("nhei").updateOne(
+            { user: "nhei" },
+            {
+                $pull: { boards: { name: board } },
+                $inc: {
+                    boardCount: -1,
+                },
+            }
+        );
+        if (deleted.modifiedCount === 1) return "success";
+    } catch (error) {
+        console.log(`${error} error in edit`);
+    } finally {
+        client.close();
+    }
+};
+export const deleteSection = async (board, section) => {
+    try {
+        let mongo = await connect();
+        let deleted = await mongo.collection("nhei").updateOne(
+            { user: "nhei" },
+            {
+                $pull: { sections: { name: section, board: board } },
+                $inc: {
+                    "boards.sectionCount": -1,
+                },
+            }
+        );
+        if (deleted.modifiedCount === 1) return "success";
+    } catch (error) {
+        console.log(`${error} error in edit`);
+    } finally {
+        client.close();
+    }
+};
+
+export const deletePin = async (board, section, id) => {
+    try {
+        let mongo = await connect();
+        if (!section) {
+            let deleted = await mongo.collection("nhei").updateOne(
                 {
-                    board: addData.board,
-                    "sections.section": addData.section,
+                    "boards.name": board,
                 },
                 {
-                    $addToSet: {
-                        "sections.$.pins": data,
-                    },
+                    $pull: { "boards.pins": { id: id } },
                     $inc: {
-                        "sections.$.total": 1,
+                        "boards.pinCount": -1,
                     },
                 }
             );
-            if (inserted.modifiedCount === 1) {
-                await nhei
-                    .collection("boards")
-                    .updateOne(
-                        { board: addData.board },
-                        { $inc: { total: 1 } }
-                    );
-                await nhei
+            if (deleted.modifiedCount === 1) {
+                await mongo
                     .collection("doujins")
-                    .updateOne({ id: id }, { $inc: { copy: 1 } });
+                    .updateOne({ id: id }, { $inc: { copies: -1 } });
+                return "success";
             }
-        } else {
-            inserted = await nhei.collection("boards").updateOne(
-                {
-                    board: addData.board,
-                },
-                { $addToSet: { pins: data } }
+        }
+        let deleted = await mongo
+            .collection("boards")
+            .updateOne(
+                { "sections.name": section, "section.board": board },
+                { $pull: { "sections.pins": { id: id } } }
             );
-            if (inserted.modifiedCount === 1) {
-                await nhei
-                    .collection("boards")
-                    .updateOne(
-                        { board: addData.board },
-                        { $inc: { total: 1 } }
-                    );
-                await nhei
-                    .collection("doujins")
-                    .updateOne({ id: id }, { $inc: { copy: 1 } });
-            }
+        if (deleted.modifiedCount === 1) {
+            await mongo
+                .collection("doujins")
+                .updateOne({ id: id }, { $inc: { copies: -1 } });
+            return "success";
         }
-        if (inserted.modifiedCount === 0) {
-            status = "already present";
-        }
-        console.log("hell");
-        addToThumbs(nhei, id, addData.cover);
-        res.send({ status });
     } catch (error) {
-        console.log(error);
+        console.log("error while deleting pin");
+        throw error;
+    } finally {
+        close();
     }
 };
