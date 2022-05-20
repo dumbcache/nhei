@@ -1,37 +1,16 @@
-import { MongoClient } from "mongodb";
-import Redis from "ioredis";
 import { API } from "nhentai";
 import "dotenv/config";
+import { connect, close } from "./mongo.js";
 /**
  * Creating new database instance
  */
-// const redis = new Redis("redis://:nhei@redis:6379");
-const redis = new Redis({
-    port: process.env.REDIS_PORT,
-    host: process.env.REDIS_HOST,
-    password: process.env.REDIS_PASS,
-});
-const url = process.env.MONGO_CONNECTION;
+// const redis = new Redis({
+//     port: process.env.REDIS_PORT,
+//     host: process.env.REDIS_HOST,
+//     password: process.env.REDIS_PASS,
+// });
+// const url = process.env.MONGO_CONNECTION;
 // const url = "mongodb://nhei:nhei@mongo:27017";
-
-let client = new MongoClient(url);
-
-export const connect = async () => {
-    try {
-        await client.connect();
-        return client.db("nheidev");
-    } catch (error) {
-        console.log("error while connecting");
-    }
-};
-
-export const close = async () => {
-    try {
-        await client.close();
-    } catch (error) {
-        console.log("error while closing");
-    }
-};
 
 export const getBoards = async (req, res, next) => {
     try {
@@ -42,33 +21,9 @@ export const getBoards = async (req, res, next) => {
         res.send(boards);
         close();
     } catch (error) {
-        console.log(`${error} error in getBoards`);
+        console.log(`error in getBoards\n ${error}`);
+        res.send("");
     }
-};
-
-export const getDoujin = async (req, res, next) => {
-    let { id } = req.body;
-    let nhei = await connect();
-    let doujin = await nhei.collection("doujins").findOne({ id: id });
-    console.log(doujin);
-    console.log(`caching doujin ${id} `);
-    redis.set(id, JSON.stringify(doujin));
-    console.log(`caching ${id} completed`);
-    res.send(doujin);
-};
-
-export const getFromDoujinCache = async (req, res, next) => {
-    let { id } = req.body;
-    redis.get(id, (err, data) => {
-        if (err) throw err;
-        if (data !== null) {
-            console.log(`fetching doujin ${id} from doujinCache`);
-            res.send(data);
-            console.log(`fetch ${id} completed`);
-        } else {
-            next();
-        }
-    });
 };
 
 export const isBoardPresent = async (nhei, board) => {
@@ -408,11 +363,12 @@ export const searchDoujin = async (req, res, next) => {
         /**
          * storing id from request body into local variable
          */
-        let { id } = req.body;
+        // let { id } = req.body;
+        let id = 373744;
         let api = new API();
-        api.fetchHomepage;
         let request = await api.fetchDoujin(id);
-
+        console.log(request);
+        return;
         let present = await isPresent(id);
         console.log(`fetching doujin info of ${id}`);
         /**
@@ -453,3 +409,12 @@ export const getBackup = async () => {
     let doujins = await doujinCursor.toArray();
     return { boardData: boards, doujinData: doujins };
 };
+
+export const fetchDoujin = async (id) => {
+    let api = new API();
+    let doujin = await api.fetchDoujin(id);
+    delete doujin.raw;
+    delete doujin.scanlator;
+    return doujin;
+};
+fetchDoujin(373744);

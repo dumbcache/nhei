@@ -9,19 +9,19 @@ import {
     add,
     getFromDoujinSearchCache,
     searchDoujin,
-    getDoujin,
-    getFromDoujinCache,
     deletePin,
     getThumbs,
 } from "./nhei.js";
+import { getDoujin } from "./mongo.js";
+import { getFromDoujinCache } from "./redis.js";
 import { backup } from "./backup.js";
 
 let app = express();
 let port = 3000;
 
-let doBackup = setInterval(() => {
-    backup();
-}, 43200000);
+// let doBackup = setInterval(() => {
+//     backup();
+// }, 43200000);
 
 app.use(cors());
 app.use(bodyParser.json());
