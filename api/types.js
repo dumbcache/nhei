@@ -1,10 +1,10 @@
-function Pin(id, favourites, creationDate) {
+export function Pin(id, favourites, creationDate) {
     this.id = id;
     this.favourites = favourites;
     this.creationDate = creationDate;
 }
 
-function Section(board, section) {
+export function Section(board, section) {
     this.name = section;
     this.creationDate = Math.round(new Date().getTime() / 1000);
     this.pinCount = 0;
@@ -12,7 +12,7 @@ function Section(board, section) {
     this.pins = [];
 }
 
-function Board(name) {
+export function Board(name) {
     this.name = name;
     this.creationDate = Math.round(new Date().getTime() / 1000);
     this.sectionCount = 0;
