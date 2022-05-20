@@ -19,6 +19,7 @@ import {
     getBoardsHandler,
     getDoujinHandler,
     searchCacheHandler,
+    createHandler,
 } from "./handlers.js";
 
 let app = express();
@@ -38,7 +39,7 @@ app.post("/sections", getSectionsHandler);
 app.post("/doujin", getDoujinHandler);
 
 app.post("/add", add);
-app.post("/create", create);
+app.post("/create", createHandler);
 app.post("/edit", edit);
 app.post("/delete", remove);
 app.put("/delete", deletePin);
