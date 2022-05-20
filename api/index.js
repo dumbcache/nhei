@@ -35,7 +35,7 @@ app.use(bodyParser.json());
 app.post("/search", searchHandler);
 
 app.get("/boards", getBoardsHandler);
-app.get("/sections", getSectionsHandler);
+app.post("/sections", getSectionsHandler);
 
 app.post("/doujin", getFromDoujinCache, getDoujin);
 app.post("/", getFromDoujinSearchCache, searchDoujin);

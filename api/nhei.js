@@ -421,7 +421,7 @@ export const fetchDoujinFromAPI = async (id) => {
 
 export const searchFromAPI = async (q) => {
     let api = new API();
-    let res = await api.search(q, 0, "popular");
+    let res = await api.search(q, 1, "popular");
     res.doujins.forEach((doujin) => {
         delete doujin.raw;
         delete doujin.scanlator;
