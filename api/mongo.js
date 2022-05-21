@@ -188,7 +188,7 @@ export const addDoujin = async (doujin, id) => {
     } catch (error) {
         console.log(error);
     } finally {
-        close();
+        await close();
     }
 };
 
@@ -325,4 +325,28 @@ export const deletePin = async (board, section, id) => {
     } finally {
         close();
     }
+};
+export const addToThumbs = async (id, cover) => {
+    try {
+        let mongo = await connect();
+        let found = await mongo.collection("thumbs").findOne({ id, cover });
+        if (found === null) {
+            nhei.collection("thumbs").insertOne({ id, cover });
+            console.log("added to thumbs");
+        }
+    } catch (error) {
+        console.log("error while adding to thumbs");
+    } finally {
+        close();
+    }
+};
+
+export const getThumbs = async () => {
+    try {
+        let mongo = await connect();
+        let cursor = mongo.collection("thumbs").find({}, { cover: 1 });
+        let data = await cursor.toArray();
+        data = data.map((record) => record.cover);
+        return data;
+    } catch (error) {}
 };

@@ -1,7 +1,6 @@
 import express from "express";
 import cors from "cors";
 import bodyParser from "body-parser";
-import { edit, getThumbs } from "./nhei.js";
 
 import {
     searchHandler,
@@ -18,6 +17,7 @@ import {
     deletePinHandler,
     editSectionHandler,
     editBoardHandler,
+    thumbsHandler,
 } from "./handlers.js";
 
 let app = express();
@@ -33,6 +33,7 @@ app.use(bodyParser.json());
 app.post("/search", searchCacheHandler, searchHandler);
 app.post("/doujin", getDoujinHandler);
 app.post("/create", createHandler);
+app.get("/thumbs", thumbsHandler);
 
 app.get("/boards", getBoardsHandler);
 app.post("/boards/create", createBoardHandler);
@@ -46,8 +47,5 @@ app.patch("/sections/edit", editSectionHandler);
 
 app.put("/pins/delete", deletePinHandler);
 app.post("pins/add", createPinHandler);
-
-app.post("/edit", edit);
-app.get("/thumbs", getThumbs);
 
 app.listen(port, () => console.log(`listening at port ${port}`));

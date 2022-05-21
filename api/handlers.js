@@ -8,6 +8,8 @@ import {
     deleteBoard,
     deleteSection,
     deletePin,
+    addToThumbs,
+    getThumbs,
 } from "./mongo.js";
 import { fetchDoujinFromAPI, searchFromAPI } from "./nhei.js";
 import { getFromCache, setToCache } from "./redis.js";
@@ -116,10 +118,12 @@ export const createSectionHandler = async (req, res) => {
 
 export const createPinHandler = async (req, res) => {
     try {
-        let { board, section, id } = req.body;
+        let { board, section, id, cover } = req.body;
         let { doujin, pin } = await fetchDoujinFromAPI(id);
+        pin.cover = cover;
         let status = addPin(board.trim(), section.trim(), pin);
         addDoujin(doujin, id);
+        addToThumbs(id, cover);
         res.status(200).send({ status });
     } catch (error) {
         console.log(error);
@@ -174,6 +178,16 @@ export const deletePinHandler = async (req, res) => {
         let { board, section, id } = req.body;
         let status = deletePin(board.trim(), section.trim(), id);
         res.status(200).send({ status });
+    } catch (error) {
+        console.log(error);
+        res.sendStatus(500);
+    }
+};
+
+export const thumbsHandler = (req, res) => {
+    try {
+        let data = getThumbs();
+        res.status(200).send(data);
     } catch (error) {
         console.log(error);
         res.sendStatus(500);
