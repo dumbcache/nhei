@@ -26,28 +26,39 @@ export const getBackup = async () => {
 };
 
 export const fetchDoujinFromAPI = async (id) => {
-    let api = new API();
-    let doujin = await api.fetchDoujin(id);
-    delete doujin.raw;
-    delete doujin.scanlator;
-    doujin.tags = doujin.tags.all;
-    doujin.copies = 1;
-    let pin = new Pin(
-        doujin.id,
-        doujin.favorites,
-        doujin.uploadTimestamp,
-        doujin.cover
-    );
-    return { doujin, pin };
-};
-
-export const searchFromAPI = async (q) => {
-    let api = new API();
-    let res = await api.search(q, 1, "popular");
-    res.doujins.forEach((doujin) => {
+    try {
+        let api = new API();
+        let doujin = await api.fetchDoujin(id);
         delete doujin.raw;
         delete doujin.scanlator;
         doujin.tags = doujin.tags.all;
-    });
-    return res.doujins;
+        doujin.copies = 1;
+        let pin = new Pin(
+            doujin.id,
+            doujin.favorites,
+            doujin.uploadTimestamp,
+            doujin.cover
+        );
+        return { doujin, pin };
+    } catch (error) {
+        console.log("error while fetching doujin from api");
+        throw error;
+    }
+};
+
+export const searchFromAPI = async (q) => {
+    try {
+        let api = new API();
+        let res = await api.search(q, 1, "popular");
+        res.doujins.forEach((doujin) => {
+            delete doujin.raw;
+            delete doujin.scanlator;
+            doujin.tags = doujin.tags.all;
+        });
+        return res.doujins;
+    } catch (error) {
+        console.log("error while searching doujin from api");
+        // throw error;
+        return error;
+    }
 };
