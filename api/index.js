@@ -20,8 +20,8 @@ import {
     thumbsHandler,
 } from "./handlers.js";
 
-let app = express();
-let port = 3000;
+let app = express(),
+    port = 3000;
 
 // let doBackup = setInterval(() => {
 //     backup();
