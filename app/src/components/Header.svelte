@@ -1,42 +1,34 @@
 <script>
-    import {
-        home,
-        profile,
-        collections,
-        empty,
-        grid,
-        add,
-        refresh,
-        slider,
-        search,
-        saved,
-        save,
-        ok,
-        edit,
-        del,
-        cancel,
-    } from "./Icons.svelte";
+    import { navIcons } from "./Icons.svelte";
 </script>
 
-<header>
-    <nav>
-        {@html home()}
-        {@html profile()}
-        {@html collections()}
-        {@html empty()}
-        {@html grid()}
-        {@html add()}
-        {@html refresh()}
-        {@html slider()}
-        {@html search()}
-        {@html saved()}
-        {@html save()}
-        {@html ok()}
-        {@html del()}
-        {@html edit()}
-        {@html cancel()}
-    </nav>
-</header>
+<nav class="navbar">
+    {#each navIcons as icon}
+        <a href={`/${icon.name}`}>
+            {@html icon()}
+        </a>
+    {/each}
+</nav>
 
 <style>
+    .navbar {
+        width: 100%;
+        display: flex;
+        gap: 2rem;
+        flex-flow: column;
+    }
+    .navbar * {
+        width: 5rem;
+        padding: 0.5rem;
+    }
+    @media (max-width: 600px) {
+        .navbar {
+            flex-flow: row;
+            justify-content: space-evenly;
+        }
+        .navbar * {
+            width: 4rem;
+            padding: 0rem;
+        }
+    }
 </style>

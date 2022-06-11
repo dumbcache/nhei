@@ -7,6 +7,7 @@
     box-sizing: border-box;
     line-height: 1.5;
     -webkit-font-smoothing: antialiased;
+    scroll-behavior: smooth;
 }
 
 *,
@@ -49,7 +50,8 @@ a {
 }
 
 :root {
-    --color-primary: #111;
+    --color-primary: #333;
+    --color-header: #000;
     --icon-color: #9aa;
 }
 
@@ -59,6 +61,13 @@ body {
     font-size: 1.6rem;
     background-color: var(--color-primary);
     color: #fff;
+}
+.app {
+    height: 100%;
+}
+
+::-webkit-scrollbar {
+    display: none;
 }
 
 @media (max-width: 600px) {

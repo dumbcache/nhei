@@ -3,7 +3,48 @@
     import Header from "../components/Header.svelte";
 </script>
 
-<Header />
-<main>
-    <slot />
-</main>
+<div class="body">
+    <header class="header">
+        <Header />
+    </header>
+    <main class="main">
+        <slot />
+    </main>
+</div>
+
+<style>
+    .body {
+        display: flex;
+        height: 100%;
+    }
+    .header {
+        display: grid;
+        place-content: center;
+        width: 10%;
+        background-color: var(--color-header);
+    }
+    .main {
+        width: 90%;
+        height: 100%;
+        overflow: hidden;
+        overflow-y: scroll;
+        /* margin-bottom: 15%; */
+    }
+
+    @media (max-width: 600px) {
+        .body {
+            flex-flow: column;
+        }
+        .header {
+            position: fixed;
+            bottom: 0;
+            height: 10%;
+            width: 100%;
+        }
+        .main {
+            width: 100%;
+            height: 90%;
+            padding: 1rem;
+        }
+    }
+</style>
