@@ -1,8 +1,11 @@
 <script>
-    import { navIcons } from "./Icons.svelte";
+    import { home, navIcons } from "./Icons.svelte";
 </script>
 
 <nav class="navbar">
+    <a href="/">
+        {@html home()}
+    </a>
     {#each navIcons as icon}
         <a href={`/${icon.name}`}>
             {@html icon()}

@@ -186,5 +186,5 @@
     /></svg
 >`;
 
-    export const navIcons = [home, collections, add, search, profile];
+    export const navIcons = [collections, add, search, profile];
 </script>

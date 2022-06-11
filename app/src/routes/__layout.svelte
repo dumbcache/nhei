@@ -28,7 +28,7 @@
         height: 100%;
         overflow: hidden;
         overflow-y: scroll;
-        /* margin-bottom: 15%; */
+        padding: 1rem 2rem;
     }
 
     @media (max-width: 600px) {
@@ -37,7 +37,7 @@
         }
         .header {
             position: fixed;
-            bottom: 0;
+            bottom: 0rem;
             height: 10%;
             width: 100%;
         }
