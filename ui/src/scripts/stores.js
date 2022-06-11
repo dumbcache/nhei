@@ -39,12 +39,16 @@ export const getPin = async (id) => {
 };
 
 export const getDoujin = async (query) => {
-    let request = await fetch(`http://localhost:3000/search`, {
-        method: "POST",
-        headers: { "Content-type": "application/json" },
-        body: JSON.stringify({
-            q: query,
-        }),
+    // let request = await fetch(`http://localhost:3000/search`, {
+    //     method: "POST",
+    //     headers: { "Content-type": "application/json" },
+    //     body: JSON.stringify({
+    //         q: query,
+    //     }),
+    // });
+    let request = await fetch("https://nhentai.net/api/gallery/10", {
+        credentials: "include",
+        referrerPolicy: "no-referrer",
     });
     console.log(await request.json());
     // let { data, present } = await request.json();

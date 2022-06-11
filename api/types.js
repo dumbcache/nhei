@@ -57,10 +57,3 @@ let mongo = {
         },
     ],
 };
-
-function name(name) {
-    if (!name) {
-        console.log("herl");
-    }
-}
-name(undefined);

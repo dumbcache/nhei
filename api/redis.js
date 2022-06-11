@@ -1,6 +1,5 @@
 import Redis from "ioredis";
 
-const redis = new Redis("redis://localhost:6379");
 // const redis = new Redis({
 //     port: process.env.REDIS_PORT,
 //     host: process.env.REDIS_HOST,
@@ -9,6 +8,7 @@ const redis = new Redis("redis://localhost:6379");
 
 export const getFromCache = async (id) => {
     try {
+        const redis = new Redis("redis://localhost:6379");
         redis.get(id, (error, data) => {
             if (error) throw error;
             if (data === null) return null;
