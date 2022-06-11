@@ -21,7 +21,7 @@ import {
 } from "./handlers.js";
 
 let app = express(),
-    port = 3000;
+    port = 8080;
 
 // let doBackup = setInterval(() => {
 //     backup();
