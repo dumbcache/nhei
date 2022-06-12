@@ -1,15 +1,21 @@
-<h1 class="title">Nhei</h1>
+<div>
+    <h1 class="title">dCache</h1>
+</div>
 
 <style>
-    .title {
+    div {
         display: grid;
         height: 100%;
         place-content: center;
+    }
+    .title {
         font-size: 8rem;
         font-weight: 900;
-        background-image: linear-gradient(to right, #f0f, #50f);
+        background-image: linear-gradient(to right, #5dd, #5ff);
+        /* background-image: radial-gradient(#f0f, #50f); */
         -webkit-background-clip: text;
         background-clip: text;
         -webkit-text-fill-color: transparent;
+        user-select: none;
     }
 </style>

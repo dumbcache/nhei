@@ -1,5 +1,5 @@
 <script>
-    import Add from "../components/Add.svelte";
+    import Add from "$lib/components/Add.svelte";
 </script>
 
 <Add />
