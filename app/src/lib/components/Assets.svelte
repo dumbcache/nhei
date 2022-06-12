@@ -186,5 +186,26 @@
     /></svg
 >`;
 
-    export const navIcons = [collections, add, search, profile];
+    export const navAsstets = [
+        {
+            route: "/",
+            icon: home,
+        },
+        {
+            route: "nhei",
+            icon: collections,
+        },
+        {
+            route: "add",
+            icon: add,
+        },
+        {
+            route: "search",
+            icon: search,
+        },
+        {
+            route: "profile",
+            icon: profile,
+        },
+    ];
 </script>
