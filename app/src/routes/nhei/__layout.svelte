@@ -1,13 +1,17 @@
-<script>
-    // import Navigation from "../../components/Navigation.svelte";
-    import { browser } from "$app/env";
-    import { boards, fetchBoards } from "$lib/stores/boards.js";
-    (async () => {
-        console.log(await fetchBoards());
-        console.log($boards[0].boards);
-    })();
+<script context="module">
+    import { fetchBoards } from "$lib/scripts/stores.js";
+    export async function load({ fetch }) {
+        console.log("inside layout");
+        await fetchBoards();
+        return {
+            props: {},
+        };
+    }
 </script>
 
-<!-- <Navigation active={false} /> -->
+<script>
+    // import Navigation from "$lib/components/Navigation.svelte";
+</script>
+
+<!-- <Navigation /> -->
 <slot />
-<div>{$boards[0]}</div>

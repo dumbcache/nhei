@@ -1,5 +1,6 @@
 import {
     getBoards,
+    getSections,
     getDoujin,
     createBoard,
     createSection,
@@ -30,7 +31,7 @@ export const searchHandler = async (req, res) => {
     try {
         let { q } = req.body;
         let data;
-        console.log(typeof q);
+        console.log(req.body);
         if (isNaN(Number(q))) {
             data = await searchFromAPI(q);
             res.status(200).send(data);
@@ -57,6 +58,7 @@ export const getBoardsHandler = async (req, res) => {
 export const getSectionsHandler = async (req, res) => {
     try {
         let { board } = req.body;
+        console.log(req.body);
         let sections = await getSections(board);
         res.status(200).send(sections);
     } catch (error) {
@@ -67,6 +69,7 @@ export const getSectionsHandler = async (req, res) => {
 
 export const getDoujinHandler = async (req, res) => {
     try {
+        card.id;
         let { id } = req.body;
         let doujin;
         doujin = await getDoujin(id);

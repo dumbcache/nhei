@@ -1,5 +1,6 @@
-export function Pin(id, favourites, creationDate, cover) {
+export function Pin(id, m_id, favourites, creationDate, cover) {
     this.id = id;
+    this.m_id = m_id;
     this.favourites = favourites;
     this.creationDate = creationDate;
     this.cover = cover;
@@ -23,20 +24,21 @@ export function Board(name) {
 
 let mongo = {
     user: "nhei",
-    boardCount: 1,
-    sectionCount: 1,
-    pinCount: 1,
+    bCount: 1,
     boards: [
         {
             name: "konosuba",
-            creationDate: "1653044668",
-            sectionCount: "1",
-            pinCount: "1",
+            cover: "https://t.nhentai.net/galleries/2014946/thumb.jpg",
+            time: "1653044668",
+            sCount: "1",
+            pCount: "1",
             pins: [
                 {
                     id: "373744",
-                    favourites: "3737",
-                    creationDate: "1653044668",
+                    m_id: "2014946",
+                    cover: "cover",
+                    fav: "3737",
+                    time: "1653044668",
                 },
             ],
         },
@@ -44,14 +46,17 @@ let mongo = {
     sections: [
         {
             name: "aqua",
-            creationDate: "1653044668",
-            pinCount: "1",
+            cover: "https://t.nhentai.net/galleries/2014946/thumb.jpg",
+            time: "1653044668",
+            pCount: "1",
             board: "konosuba",
             pins: [
                 {
                     id: "373744",
-                    favourites: "3737",
-                    creationDate: "1653044668",
+                    m_id: "2014946",
+                    fav: "3737",
+                    cover: "1",
+                    time: "1653044668",
                 },
             ],
         },

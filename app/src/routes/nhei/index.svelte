@@ -1,13 +1,19 @@
 <script>
-    export let json;
-    console.log(json);
+    import { boards } from "$lib/scripts/stores.js";
+    import Card from "$lib/components/Card.svelte";
 </script>
 
 <svelte:head>
     <title>dCache . nhei</title>
 </svelte:head>
 
-<h1 class="title">nhei</h1>
+<div>layout</div>
+
+{#if Boolean($boards.boards) != false}
+    {#each $boards.boards as card}
+        <Card {card} />
+    {/each}
+{/if}
 
 <style>
 </style>

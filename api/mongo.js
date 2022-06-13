@@ -29,7 +29,7 @@ console.log(await connect());
 export const getBoards = async () => {
     try {
         let db = await connect();
-        let cursor = db.collection("nheidev").find().project({ boards: 1 });
+        let cursor = db.collection("nhei").find();
         let boards = await cursor.toArray();
         return boards;
     } catch (error) {
@@ -44,7 +44,8 @@ export const getSections = async (board) => {
         let db = await connect();
         let cursor = db
             .collection("nhei")
-            .find({ "sections.board": board }, { sections: 1 });
+            .find({ "sections.board": board })
+            .project({ sections: 1 });
         let sections = await cursor.toArray();
         return sections;
     } catch (error) {

@@ -1,6 +1,7 @@
 <script>
     import "../app.css";
     import Header from "$lib/components/Header.svelte";
+    let overlay;
 </script>
 
 <div class="body">
@@ -10,6 +11,13 @@
     <main class="main">
         <slot />
     </main>
+    <div
+        class="overlay"
+        class:overlay-visible={overlay}
+        on:click={() => {
+            overlay = true;
+        }}
+    />
 </div>
 
 <style>
