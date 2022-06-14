@@ -28,11 +28,10 @@ let app = express(),
 // }, 43200000);
 
 app.use(cors());
-app.use(bodyParser.json());
+app.use(express.json());
 
-app.post("/", (req, res) => {
-    console.log(req.body);
-    res.send("hello");
+app.get("/", (req, res) => {
+    res.send({ status: "running" });
 });
 app.post("/search", searchCacheHandler, searchHandler);
 app.post("/doujin", getDoujinHandler);

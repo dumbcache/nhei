@@ -10,8 +10,8 @@
 </script>
 
 <script>
-    // import Navigation from "$lib/components/Navigation.svelte";
+    import Navigation from "$lib/components/Navigation.svelte";
 </script>
 
-<!-- <Navigation /> -->
+<Navigation />
 <slot />

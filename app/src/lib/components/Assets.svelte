@@ -193,19 +193,19 @@
             icon: home,
         },
         {
-            route: "nhei",
+            route: "/nhei",
             icon: collections,
         },
         {
-            route: "add",
+            route: "/add",
             icon: add,
         },
         {
-            route: "search",
+            route: "/search",
             icon: search,
         },
         {
-            route: "profile",
+            route: "/profile",
             icon: profile,
         },
     ];

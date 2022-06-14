@@ -6,7 +6,7 @@
 <div class="card">
     {#if card}
         <a href={`nhei/${card.name}`}>
-            <div class="thumb">
+            <div class="cover">
                 {#if Boolean(card.cover) == true}
                     <img
                         src={card.cover}
@@ -32,6 +32,6 @@
 
 <style>
     .card {
-        width: 90px;
+        width: 15%;
     }
 </style>

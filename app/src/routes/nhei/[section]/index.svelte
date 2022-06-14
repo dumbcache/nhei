@@ -1,20 +1,39 @@
 <script context="module">
-    export async function load({ params, fetch }) {
-        let req = await fetch(`http://localhost:8080/`, {
+    export async function load({ params }) {
+        let board = params.section;
+        let req = await fetch(`http://localhost:8080/sections`, {
             method: "POST",
-            Headers: {
+            headers: {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({
-                board: params.section,
+                board,
             }),
         });
-        let data = await req.text();
-        console.log(data);
+        let data = await req.json();
+        // console.log(data);
         return {
-            props: { data },
+            props: { data: data[0], board },
         };
     }
 </script>
 
+<script>
+    import Card from "$lib/components/Card.svelte";
+    import Pin from "$lib/components/Pin.svelte";
+    import { boards } from "$lib/scripts/stores.js";
+    export let data, board;
+    console.log(data);
+</script>
+
 <h1>sections</h1>
+{#if data.sections}
+    {#each data.sections as section}
+        <Card card={section} />
+    {/each}
+{/if}
+{#if data.pins}
+    {#each data.pins as pin}
+        <Pin card={pin} />
+    {/each}
+{/if}

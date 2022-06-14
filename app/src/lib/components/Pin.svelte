@@ -1,11 +1,6 @@
 <script>
     import { empty } from "$lib/components/Assets.svelte";
-    export let pin = {
-        id: 373744,
-        m_id: 2014946,
-        fav: 6643,
-        // cover: "thumb",
-    };
+    export let pin;
     let url = isNaN(Number(pin.cover)) ? "t" : "i";
 </script>
 
