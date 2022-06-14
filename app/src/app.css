@@ -61,6 +61,7 @@ a {
     --color-icon: #9aa;
     --color-input: #1e5f74;
     --color-input-disabled: #1e5f7999;
+    --color-overlay: #111a;
 }
 
 html,
@@ -96,6 +97,15 @@ input::placeholder {
 }
 input:disabled::placeholder {
     color: #9aa4;
+}
+
+.overlay-active {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: var(--color-overlay);
 }
 
 @media (max-width: 600px) {

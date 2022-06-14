@@ -1,22 +1,10 @@
 <script>
     import { add, slider } from "$lib/components/Assets.svelte";
-    import { search } from "$lib/scripts/stores.js";
+    import { search, nheiRouteHistory } from "$lib/scripts/stores.js";
     import { page } from "$app/stores";
     // console.log($page.url);
-    let routeHistory = (() => {
-        let { pathname } = $page.url;
-        console.log(pathname);
-        let arr = pathname.replaceAll("/", " ").trim().split(" ");
-        console.log(arr);
-        let result = [];
-        for (let i = 0; i < arr.length; i++) {
-            let slice = arr.slice(0, i + 1);
-            console.log(`/${slice.join("/")}`);
-            result.push({ path: `/${slice.join("/")}`, name: arr[i] });
-        }
-        console.log(result);
-        return result;
-    })();
+    let { pathname } = $page.url;
+    let routeHistory = nheiRouteHistory(pathname);
     export let title;
 </script>
 
@@ -74,14 +62,16 @@
     .link:last-child {
         color: red;
     }
+    .link:last-child {
+    }
     .navigation-wrapper {
         display: flex;
         flex-flow: row wrap;
         justify-content: space-between;
-        padding: 0 1rem;
         margin: 1rem 0 3rem 0;
         align-items: center;
         width: 100%;
+        gap: 0rem 2rem;
     }
     .navigation-wrapper > * {
         margin: 0.2rem 0;

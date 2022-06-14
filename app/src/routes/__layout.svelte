@@ -1,7 +1,7 @@
 <script>
     import "../app.css";
     import Header from "$lib/components/Header.svelte";
-    let overlay;
+    import { overlay } from "$lib/scripts/stores.js";
 </script>
 
 <div class="body">
@@ -10,14 +10,15 @@
     </header>
     <main class="main">
         <slot />
+
+        <div
+            class="overlay"
+            class:overlay-active={$overlay}
+            on:click={() => {
+                $overlay = false;
+            }}
+        />
     </main>
-    <div
-        class="overlay"
-        class:overlay-visible={overlay}
-        on:click={() => {
-            overlay = true;
-        }}
-    />
 </div>
 
 <style>

@@ -21,7 +21,7 @@ let data = [
 ];
 export let search = writable("");
 export let boards = writable(data);
-export let nheiRouteHistory = writable([]);
+export let overlay = writable(false);
 
 export async function fetchBoards() {
     if (browser) {
@@ -36,8 +36,29 @@ export async function fetchBoards() {
 }
 
 export async function refreshBoards() {
-    let req = await fetch("http://localhost:8080/boards");
-    let data = await req.json();
-    window.localStorage.setItem("boards", JSON.stringify(data[0]));
-    boards.set(JSON.parse(boardData));
+    try {
+        let req = await fetch("http://localhost:8080/boards");
+        console.log(req.ok);
+        if (req.ok) {
+            let data = await req.json();
+            window.localStorage.setItem("boards", JSON.stringify(data[0]));
+            boards.set(JSON.parse(boardData));
+        }
+    } catch (error) {
+        console.log("error while fetching");
+    }
+}
+
+export function nheiRouteHistory(pathname) {
+    console.log(pathname);
+    let arr = pathname.replaceAll("/", " ").trim().split(" ");
+    console.log(arr);
+    let result = [];
+    for (let i = 0; i < arr.length; i++) {
+        let slice = arr.slice(0, i + 1);
+        console.log(`/${slice.join("/")}`);
+        result.push({ path: `/${slice.join("/")}`, name: arr[i] });
+    }
+    console.log(result);
+    return result;
 }

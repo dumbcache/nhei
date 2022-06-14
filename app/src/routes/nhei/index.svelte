@@ -16,14 +16,10 @@
     let { pathname } = $page.url;
 </script>
 
-<svelte:head>
-    <title>dCache . nhei</title>
-</svelte:head>
-
 <Navigation title="NHei" />
 {#if Boolean($boards.boards) != false}
     {#each $boards.boards as card}
-        <div>
+        <div class="cover">
             <a href={`${pathname}/${card.name}`}>
                 <Card {card} />
             </a>
@@ -32,7 +28,7 @@
 {/if}
 
 <style>
-    div {
+    .cover {
         width: 100px;
     }
 </style>
