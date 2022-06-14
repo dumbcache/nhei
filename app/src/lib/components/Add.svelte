@@ -2,8 +2,10 @@
     import { ok } from "$lib/components/Assets.svelte";
     import { fade } from "svelte/transition";
 
-    let board, section;
-    let disabled;
+    let board = "",
+        section;
+    $: disabled = !Boolean(board.trim());
+    $: console.log(disabled);
 </script>
 
 <div class="add" transition:fade={{ duration: 200 }}>
@@ -24,9 +26,10 @@
             id="section"
             placeholder="section"
             bind:value={section}
+            {disabled}
         />
 
-        <button class="ok" type="submit" {disabled}>{@html ok()}</button>
+        <button class="ok" type="submit" {disabled}>{@html ok}</button>
     </form>
 </div>
 
@@ -47,6 +50,12 @@
     .ok {
         width: 40px;
     }
+    button :global(svg) {
+        fill: red;
+    }
+    button:disabled :global(svg) {
+        fill: var(--color-icon);
+    }
     input {
         width: 100%;
     }
@@ -60,6 +69,7 @@
     .form :not(:last-child) {
         margin-bottom: 1rem;
     }
+
     @media (max-width: 600px) {
         .form {
             padding: 2rem;

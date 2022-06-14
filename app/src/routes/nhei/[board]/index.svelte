@@ -1,6 +1,6 @@
 <script context="module">
     export async function load({ params }) {
-        let board = params.section;
+        let board = params.board;
         let req = await fetch(`http://localhost:8080/sections`, {
             method: "POST",
             headers: {
@@ -21,8 +21,9 @@
     import Navigation from "$lib/components/Navigation.svelte";
     import Card from "$lib/components/Card.svelte";
     import Pin from "$lib/components/Pin.svelte";
-
-    export let data;
+    import { page } from "$app/stores";
+    let { pathname } = $page.url;
+    export let data, board;
     console.log(data);
 </script>
 
@@ -31,7 +32,9 @@
 <h1>sections</h1>
 {#if data.sections}
     {#each data.sections as section}
-        <Card card={section} />
+        <a href={`${pathname}/${section.name}`}>
+            <Card card={section} />
+        </a>
     {/each}
 {/if}
 {#if data.pins}

@@ -1,17 +1,39 @@
 <script>
     import { add, slider } from "$lib/components/Assets.svelte";
     import { search } from "$lib/scripts/stores.js";
-
-    export let history = [];
+    import { page } from "$app/stores";
+    // console.log($page.url);
+    let routeHistory = (() => {
+        let { pathname } = $page.url;
+        console.log(pathname);
+        let arr = pathname.replaceAll("/", " ").trim().split(" ");
+        console.log(arr);
+        let result = [];
+        for (let i = 0; i < arr.length; i++) {
+            let slice = arr.slice(0, i + 1);
+            console.log(`/${slice.join("/")}`);
+            result.push({ path: `/${slice.join("/")}`, name: arr[i] });
+        }
+        console.log(result);
+        return result;
+    })();
+    export let title;
 </script>
 
 <nav class="navigation-wrapper">
     <div class="navbar">
-        {#each history as item}
-            <a href="/" on:click={() => {}}>{"< back"}</a>
+        {#each routeHistory as route}
+            <span>{">"}</span>
+            <a href={route.path} class="link" on:click={() => {}}
+                ><h3>
+                    {route.name}
+                </h3>
+            </a>
         {/each}
     </div>
-    <h1>NHei</h1>
+    {#if title}
+        <h1>{title}</h1>
+    {/if}
     <input
         class="search"
         name="collection"
@@ -38,15 +60,26 @@
 </nav>
 
 <style>
-    h1 {
+    .link:hover {
+        color: var(--color-icon);
+    }
+    h3 {
+        display: inline;
+        padding: 0.5rem;
         font-weight: 400;
+    }
+    .navbar span {
+        color: var(--color-icon);
+    }
+    .link:last-child {
+        color: red;
     }
     .navigation-wrapper {
         display: flex;
         flex-flow: row wrap;
         justify-content: space-between;
         padding: 0 1rem;
-        margin: 1rem 0;
+        margin: 1rem 0 3rem 0;
         align-items: center;
         width: 100%;
     }
@@ -97,6 +130,9 @@
         cursor: pointer;
     }
     @media screen and (max-width: 600px) {
+        h3 {
+            padding: 0rem;
+        }
         p {
             font-size: small;
         }

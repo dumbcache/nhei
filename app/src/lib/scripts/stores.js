@@ -21,6 +21,7 @@ let data = [
 ];
 export let search = writable("");
 export let boards = writable(data);
+export let nheiRouteHistory = writable([]);
 
 export async function fetchBoards() {
     if (browser) {

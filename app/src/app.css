@@ -60,6 +60,7 @@ a {
     --color-header: #022;
     --color-icon: #9aa;
     --color-input: #1e5f74;
+    --color-input-disabled: #1e5f7999;
 }
 
 html,
@@ -87,11 +88,15 @@ input {
     border: none;
     text-decoration: none;
 }
+input:disabled {
+    background-color: var(--color-input-disabled);
+}
 input::placeholder {
     color: var(--color-icon);
 }
-input:hover {
-    /* outline: 1px solid red; */
+input:disabled::placeholder {
+    color: #9aa4;
 }
+
 @media (max-width: 600px) {
 }
