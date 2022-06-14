@@ -76,8 +76,7 @@
     .search {
         max-width: 100%;
         border: none;
-        padding: 0.3rem;
-        border-radius: 5px;
+        background-color: var(--color-secondary);
     }
     .search:focus {
         outline: none;

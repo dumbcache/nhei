@@ -50,26 +50,48 @@ a {
     text-decoration: none;
 }
 
+::-webkit-scrollbar {
+    display: none;
+}
+
 :root {
     --color-primary: #145;
+    --color-secondary: #04293a;
     --color-header: #022;
-    --icon-color: #9aa;
+    --color-icon: #9aa;
+    --color-input: #1e5f74;
 }
 
 html,
 body {
     height: 100%; /* Allows percentage-based heights in the application */
-    font-size: 1.6rem;
+    font-size: 1.8rem;
     background-color: var(--color-primary);
     color: #fff;
+}
+
+h1 {
+    font-weight: 400;
 }
 .app {
     height: 100%;
 }
 
-::-webkit-scrollbar {
-    display: none;
+input {
+    background-color: var(--color-input);
+    backdrop-filter: blur(2rem);
+    color: #fff;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    outline: none;
+    border: none;
+    text-decoration: none;
 }
-
+input::placeholder {
+    color: var(--color-icon);
+}
+input:hover {
+    /* outline: 1px solid red; */
+}
 @media (max-width: 600px) {
 }

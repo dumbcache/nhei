@@ -1,5 +1,9 @@
+<script>
+    import { fade } from "svelte/transition";
+</script>
+
 <div>
-    <h1 class="title">dCache</h1>
+    <h1 class="title" transition:fade={{ duration: 200 }}>dCache</h1>
 </div>
 
 <style>
@@ -17,5 +21,11 @@
         background-clip: text;
         -webkit-text-fill-color: transparent;
         user-select: none;
+    }
+
+    @media (max-width: 600px) {
+        .title {
+            font-size: 5rem;
+        }
     }
 </style>

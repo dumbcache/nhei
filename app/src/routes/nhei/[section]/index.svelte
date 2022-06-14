@@ -11,7 +11,6 @@
             }),
         });
         let data = await req.json();
-        // console.log(data);
         return {
             props: { data: data[0], board },
         };
@@ -19,12 +18,15 @@
 </script>
 
 <script>
+    import Navigation from "$lib/components/Navigation.svelte";
     import Card from "$lib/components/Card.svelte";
     import Pin from "$lib/components/Pin.svelte";
-    import { boards } from "$lib/scripts/stores.js";
-    export let data, board;
+
+    export let data;
     console.log(data);
 </script>
+
+<Navigation />
 
 <h1>sections</h1>
 {#if data.sections}
