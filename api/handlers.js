@@ -18,9 +18,13 @@ import { getFromCache, setToCache } from "./redis.js";
 export const searchCacheHandler = async (req, res, next) => {
     try {
         let { q } = req.body;
-        if (isNaN(Number(q))) next();
-        let doujin = getFromCache(Number(q));
-        doujin ?? next();
+        let data = await getFromCache(q);
+        if (data) {
+            // console.log({ data });
+            res.status(200).send({ data });
+        } else {
+            next();
+        }
     } catch (error) {
         console.log(error);
         next();
@@ -31,13 +35,12 @@ export const searchHandler = async (req, res) => {
     try {
         let { q } = req.body;
         let data;
-        console.log(req.body);
         if (isNaN(Number(q))) {
             data = await searchFromAPI(q);
-            res.status(200).send(data);
+            res.status(200).send({ data });
         } else {
-            data = await fetchDoujinFromAPI(Number(q));
-            res.status(200).send([data.doujin]);
+            let { doujin } = await fetchDoujinFromAPI(Number(q));
+            res.status(200).send({ data: [doujin] });
         }
     } catch (error) {
         console.log(error);

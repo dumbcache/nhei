@@ -98,6 +98,13 @@ input::placeholder {
 input:disabled::placeholder {
     color: #9aa4;
 }
+button {
+    background: none;
+    color: inherit;
+    border: none;
+    outline: none;
+    cursor: pointer;
+}
 
 .overlay-active {
     position: fixed;
@@ -106,6 +113,8 @@ input:disabled::placeholder {
     bottom: 0;
     left: 0;
     background: var(--color-overlay);
+}
+.pin-wrapper {
 }
 
 @media (max-width: 600px) {

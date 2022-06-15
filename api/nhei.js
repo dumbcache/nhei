@@ -1,6 +1,7 @@
 import { API } from "nhentai";
 import { connect, close } from "./mongo.js";
 import { Pin } from "./types.js";
+import { setToCache } from "./redis.js";
 
 export const isPresent = async (id) => {
     console.log(id);
@@ -39,6 +40,7 @@ export const fetchDoujinFromAPI = async (id) => {
             doujin.uploadTimestamp,
             doujin.cover
         );
+        setToCache(id, [doujin]);
         return { doujin, pin };
     } catch (error) {
         console.log("error while fetching doujin from api");
@@ -55,6 +57,7 @@ export const searchFromAPI = async (q) => {
             delete doujin.scanlator;
             doujin.tags = doujin.tags.all;
         });
+        setToCache(q, res.doujins);
         return res.doujins;
     } catch (error) {
         console.log("error while searching doujin from api");

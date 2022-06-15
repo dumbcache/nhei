@@ -59,13 +59,7 @@
     input {
         width: 100%;
     }
-    button {
-        background: none;
-        color: inherit;
-        border: none;
-        outline: none;
-        cursor: pointer;
-    }
+
     .form :not(:last-child) {
         margin-bottom: 1rem;
     }

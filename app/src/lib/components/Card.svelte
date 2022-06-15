@@ -4,7 +4,7 @@
 </script>
 
 {#if card}
-    <div class="wrapper">
+    <div class="pin-wrapper">
         <div class="cover">
             {#if Boolean(card.cover) == true}
                 <img
