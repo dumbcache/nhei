@@ -1,12 +1,21 @@
 <script>
     import { search } from "$lib/components/Assets.svelte";
     import Pin from "$lib/components/Pin.svelte";
+    import Doujin from "$lib/components/Doujin.svelte";
     import { globalSearch } from "$lib/scripts/search.js";
-    import { identity } from "svelte/internal";
-    let query, data;
+    import { onMount } from "svelte";
+
+    //366224,304307
+    let query = 304307,
+        data,
+        doujin,
+        searchField;
     const getData = async () => {
         data = await globalSearch(query);
     };
+    onMount(() => {
+        searchField.focus();
+    });
 </script>
 
 <div class="wrapper">
@@ -17,37 +26,58 @@
             type="search"
             placeholder="seach"
             bind:value={query}
+            bind:this={searchField}
             required
             autocomplete="off"
         />
-        <button type="submit">
+        <!-- <button type="submit">
             {@html search()}
-        </button>
+        </button> -->
     </form>
     <div class="pins">
         {#if data}
             {#each data as entry}
-                <Pin
-                    pin={{
-                        id: entry.id,
-                        m_id: entry.mediaId,
-                        fav: entry.favorites,
-                        cover: "thumb",
+                <div
+                    class="pin-wrapper"
+                    on:click={() => {
+                        doujin = entry;
                     }}
-                />
+                >
+                    <Pin
+                        pin={{
+                            id: entry.id,
+                            m_id: entry.mediaId,
+                            fav: entry.favorites,
+                            cover: "thumb",
+                        }}
+                    />
+                </div>
             {/each}
         {/if}
     </div>
+    {#if doujin}
+        <Doujin {doujin} />
+    {/if}
 </div>
 
 <style>
     .wrapper {
         text-align: center;
     }
+    .wrapper :not(:last-child) {
+        margin-bottom: 4rem;
+    }
     .form {
         display: inline-flex;
     }
+    .pin-wrapper {
+        cursor: pointer;
+    }
+    .search {
+        width: 100%;
+    }
     button {
         width: 4rem;
+        height: 4rem;
     }
 </style>

@@ -34,7 +34,10 @@ export const setToCache = async (q, data) => {
     try {
         await redis.connect();
         console.log(`caching doujin ${q} to redis `);
-        redis.set(String(q), JSON.stringify(data));
+        redis.set(String(q), JSON.stringify(data), {
+            EX: 24 * 60 * 60,
+            NX: true,
+        });
         console.log(`caching ${q} completed`);
         redis.quit();
     } catch (error) {

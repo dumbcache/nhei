@@ -62,8 +62,7 @@
     .link:last-child {
         color: red;
     }
-    .link:last-child {
-    }
+
     .navigation-wrapper {
         display: flex;
         flex-flow: row wrap;
@@ -77,14 +76,6 @@
         margin: 0.2rem 0;
     }
 
-    .navigation-wrapper button :global(svg) {
-        width: 40px;
-    }
-
-    .navigation-wrapper button {
-        font-size: large;
-        height: 30px;
-    }
     .stats {
         display: flex;
         width: 600px;
@@ -93,9 +84,6 @@
         justify-content: space-between;
     }
 
-    .overlay {
-        z-index: 1;
-    }
     .search {
         max-width: 100%;
         border: none;
@@ -107,12 +95,7 @@
     .toolbar {
         position: relative;
     }
-    .sort {
-        position: absolute;
-        right: 0px;
-        font-size: smaller;
-        z-index: 1;
-    }
+
     .toolbar span {
         display: inline-block;
         width: 4rem;
@@ -126,13 +109,7 @@
         p {
             font-size: small;
         }
-        .navigation-wrapper button :global(svg) {
-            width: 30px;
-        }
-        .navigation-wrapper button {
-            height: 30px;
-            font-size: medium;
-        }
+
         .stats {
             justify-content: space-between;
             width: 100%;
