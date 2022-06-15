@@ -15,3 +15,6 @@
 </script>
 
 <Navigation />
+<div class="pins">
+    <Pin />
+</div>

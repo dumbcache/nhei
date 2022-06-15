@@ -31,14 +31,18 @@
 
 <h1>sections</h1>
 {#if data.sections}
-    {#each data.sections as section}
-        <a href={`${pathname}/${section.name}`}>
-            <Card card={section} />
-        </a>
-    {/each}
+    <div class="sections">
+        {#each data.sections as section}
+            <a href={`${pathname}/${section.name}`}>
+                <Card card={section} />
+            </a>
+        {/each}
+    </div>
 {/if}
 {#if data.pins}
-    {#each data.pins as pin}
-        <Pin card={pin} />
-    {/each}
+    <div class="pins">
+        {#each data.pins as pin}
+            <Pin card={pin} />
+        {/each}
+    </div>
 {/if}

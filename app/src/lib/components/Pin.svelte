@@ -20,16 +20,19 @@
                 {@html empty()}
             {/if}
         </div>
-        <span class="text">{pin.id}</span>
-        <!-- <span class="text">{pin.fav}</span> -->
+        {#if pin.id}
+            <span class="text">{pin.id}</span>
+        {/if}
+        {#if pin.fav}
+            <span class="text">{pin.fav}</span>
+        {/if}
     {/if}
 </div>
 
 <style>
-    .pin {
-        width: 15%;
-    }
     .text {
         font-size: 1.6rem;
+    }
+    @media (max-width: 600px) {
     }
 </style>

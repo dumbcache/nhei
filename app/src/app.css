@@ -114,8 +114,18 @@ button {
     left: 0;
     background: var(--color-overlay);
 }
+.pins {
+    width: 100%;
+    display: flex;
+    flex-flow: row wrap;
+    gap: 0.3%;
+}
 .pin-wrapper {
+    width: 160px;
 }
 
 @media (max-width: 600px) {
+    .pin-wrapper {
+        width: 33%;
+    }
 }

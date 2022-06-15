@@ -45,9 +45,7 @@
                 >
                     <Pin
                         pin={{
-                            id: entry.id,
                             m_id: entry.mediaId,
-                            fav: entry.favorites,
                             cover: "thumb",
                         }}
                     />
@@ -79,5 +77,10 @@
     button {
         width: 4rem;
         height: 4rem;
+    }
+    @media (max-width: 600px) {
+        .wrapper :not(:last-child) {
+            margin-bottom: 2rem;
+        }
     }
 </style>

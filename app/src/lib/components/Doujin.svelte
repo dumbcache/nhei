@@ -56,8 +56,8 @@
     }
 
     .cover {
-        width: 100%;
-        margin-left: auto;
+        width: 300px;
+        /* margin-left: auto; */
         border-radius: 10px;
     }
 
@@ -71,7 +71,7 @@
         border-radius: 5px;
     }
     .info {
-        padding-left: 1rem;
+        /* padding-left: 1rem; */
         display: flex;
         flex-flow: column;
         align-items: flex-start;
@@ -104,11 +104,15 @@
         .data {
             /* display: initial; */
             flex-flow: column;
+            align-items: flex-start;
             gap: 2rem;
         }
 
         .page {
             width: 33%;
+        }
+        .cover {
+            width: 200px;
         }
         .doujin {
             margin-bottom: 130px;
