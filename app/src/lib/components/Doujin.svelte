@@ -18,7 +18,7 @@
             <div class="info">
                 <p><small>#</small>{doujin.id}</p>
                 <p><small>Title:</small> {doujin.titles.pretty}</p>
-                <p><small>MediaId</small>{doujin.mediaId}</p>
+                <p><small>MediaId:</small>{doujin.mediaId}</p>
                 <!-- <p><small>Language:</small> {doujin.language}</p> -->
                 <p><small>Pages:</small> {doujin.length}</p>
                 <p><small>Favourites:</small> {doujin.favorites}</p>
