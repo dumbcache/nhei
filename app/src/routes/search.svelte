@@ -34,8 +34,8 @@
             {@html search()}
         </button> -->
     </form>
-    <div class="pins">
-        {#if data}
+    {#if data}
+        <div class="pins">
             {#each data as entry}
                 <div
                     class="pin-wrapper"
@@ -51,8 +51,8 @@
                     />
                 </div>
             {/each}
-        {/if}
-    </div>
+        </div>
+    {/if}
     {#if doujin}
         <Doujin {doujin} />
     {/if}

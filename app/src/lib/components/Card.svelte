@@ -4,7 +4,7 @@
 </script>
 
 {#if card}
-    <div class="pin-wrapper">
+    <div class="card">
         <div class="cover">
             {#if Boolean(card.cover) == true}
                 <img
@@ -29,12 +29,14 @@
 {/if}
 
 <style>
-    .wrapper {
-        display: flex;
-        flex-flow: column;
+    .card {
+        height: 70%;
+    }
+    .cover {
+        height: 100%;
     }
     img {
-        height: 100px;
+        height: 100%;
         width: 100%;
         object-fit: cover;
     }

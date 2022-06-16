@@ -1,6 +1,5 @@
 <script>
     import { ok } from "$lib/components/Assets.svelte";
-    import { fade } from "svelte/transition";
 
     let board = "",
         section;
@@ -8,7 +7,7 @@
     $: console.log(disabled);
 </script>
 
-<div class="add" transition:fade={{ duration: 200 }}>
+<div class="add">
     <form class="form" on:submit|preventDefault={() => {}}>
         <label for="board">board</label>
         <input

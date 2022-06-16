@@ -1,8 +1,11 @@
 <script context="module">
-    export async function load({ params }) {
-        console.log(params);
+    import { fetchPinsFromSection } from "$lib/scripts/stores.js";
+    export async function load({ url }) {
+        let parents = url.pathname.replace("/nhei/", "").split("/");
+        console.log(parents);
+        let data = await fetchPinsFromSection(parents);
         return {
-            props: { section: params.section },
+            props: { data },
         };
     }
 </script>
@@ -11,10 +14,22 @@
     import Navigation from "$lib/components/Navigation.svelte";
     import Pin from "$lib/components/Pin.svelte";
 
-    export let section;
+    export let data;
+    console.log(data);
 </script>
 
 <Navigation />
-<div class="pins">
-    <Pin />
-</div>
+{#if data}
+    <div class="pins">
+        {#each data as entry}
+            <div class="pin-wrapper">
+                <Pin
+                    pin={{
+                        m_id: entry.m_id,
+                        cover: "thumb",
+                    }}
+                />
+            </div>
+        {/each}
+    </div>
+{/if}

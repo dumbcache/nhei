@@ -114,7 +114,9 @@ button {
     left: 0;
     background: var(--color-overlay);
 }
-.pins {
+
+.pins,
+.cards {
     width: 100%;
     display: flex;
     flex-flow: row wrap;
@@ -123,9 +125,20 @@ button {
 .pin-wrapper {
     width: 160px;
 }
+.card-wrapper {
+    width: 300px;
+    height: 300px;
+}
 
 @media (max-width: 600px) {
     .pin-wrapper {
         width: 33%;
+    }
+    .card-wrapper {
+        width: 49%;
+        height: 200px;
+    }
+    .cards {
+        gap: 1%;
     }
 }

@@ -1,18 +1,11 @@
 <script context="module">
-    export async function load({ params }) {
+    import { fetchSections, fetchPinsFromBoard } from "$lib/scripts/stores.js";
+    export async function load({ params, fetch }) {
         let board = params.board;
-        let req = await fetch(`http://localhost:8080/sections`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                board,
-            }),
-        });
-        let data = await req.json();
+        let fetchedSections = await fetchSections(board, fetch);
+        let fetchedPins = await fetchPinsFromBoard(board);
         return {
-            props: { data: data[0], board },
+            props: { fetchedSections, fetchedPins },
         };
     }
 </script>
@@ -22,27 +15,39 @@
     import Card from "$lib/components/Card.svelte";
     import Pin from "$lib/components/Pin.svelte";
     import { page } from "$app/stores";
+    import { sectionStore } from "$lib/scripts/stores.js";
+
     let { pathname } = $page.url;
-    export let data, board;
+    export let fetchedSections, fetchedPins;
+    let data = $sectionStore ?? fetchedSections;
     console.log(data);
+    console.log(fetchedPins);
 </script>
 
 <Navigation />
 
-<h1>sections</h1>
-{#if data.sections}
-    <div class="sections">
-        {#each data.sections as section}
-            <a href={`${pathname}/${section.name}`}>
-                <Card card={section} />
-            </a>
+{#if data}
+    <div class="cards">
+        {#each data as section}
+            <div class="card-wrapper">
+                <a href={`${pathname}/${section.name}`}>
+                    <Card card={section} />
+                </a>
+            </div>
         {/each}
     </div>
 {/if}
-{#if data.pins}
+{#if fetchedPins}
     <div class="pins">
-        {#each data.pins as pin}
-            <Pin card={pin} />
+        {#each fetchedPins as entry}
+            <div class="pin-wrapper">
+                <Pin
+                    pin={{
+                        m_id: entry.m_id,
+                        cover: "thumb",
+                    }}
+                />
+            </div>
         {/each}
     </div>
 {/if}

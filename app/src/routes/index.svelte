@@ -1,9 +1,8 @@
 <script>
-    import { fade } from "svelte/transition";
 </script>
 
 <div>
-    <h1 class="title" transition:fade={{ duration: 200 }}>dCache</h1>
+    <h1 class="title">dCache</h1>
 </div>
 
 <style>

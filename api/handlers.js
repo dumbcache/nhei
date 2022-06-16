@@ -20,7 +20,6 @@ export const searchCacheHandler = async (req, res, next) => {
         let { q } = req.body;
         let data = await getFromCache(q);
         if (data) {
-            // console.log({ data });
             res.status(200).send({ data });
         } else {
             next();
@@ -51,7 +50,7 @@ export const searchHandler = async (req, res) => {
 export const getBoardsHandler = async (req, res) => {
     try {
         let boards = await getBoards();
-        res.status(200).send(boards);
+        res.status(200).send({ boards });
     } catch (error) {
         console.log(error);
         res.sendStatus(500);
@@ -63,7 +62,7 @@ export const getSectionsHandler = async (req, res) => {
         let { board } = req.body;
         console.log(req.body);
         let sections = await getSections(board);
-        res.status(200).send(sections);
+        res.status(200).send({ sections });
     } catch (error) {
         console.log(error);
         res.sendStatus(500);
@@ -81,7 +80,6 @@ export const getDoujinHandler = async (req, res) => {
             res.status(200).send(doujin);
         }
         let data = fetchDoujinFromAPI(id);
-        // setToCache(id, JSON.stringify(data));
         res.status(200).send([data.doujin]);
     } catch (error) {
         console.log(error);

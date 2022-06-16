@@ -29,12 +29,11 @@ console.log(await connect());
 export const getBoards = async () => {
     try {
         let db = await connect();
-        let cursor = db.collection("nhei").find();
-        let boards = await cursor.toArray();
+        let cursor = await db.collection("nhei").findOne();
+        let { boards } = cursor;
         return boards;
     } catch (error) {
         console.log("error while fetching boards from mongo");
-        throw error;
     } finally {
         close();
     }
@@ -42,15 +41,13 @@ export const getBoards = async () => {
 export const getSections = async (board) => {
     try {
         let db = await connect();
-        let cursor = db
-            .collection("nhei")
-            .find({ "sections.board": board })
-            .project({ sections: 1 });
-        let sections = await cursor.toArray();
+        let cursor = await db.collection("nhei").findOne();
+        let { sections } = cursor;
+        sections = sections.filter((section) => section.board == board);
+        // console.log(sections);
         return sections;
     } catch (error) {
         console.log("error while fetching sections from mongo");
-        throw error;
     } finally {
         close();
     }
@@ -63,7 +60,6 @@ export const getDoujin = async (id) => {
         return doujin;
     } catch (error) {
         console.log("error while fetching sections from mongo");
-        throw error;
     } finally {
         close();
     }
@@ -115,7 +111,6 @@ export const createBoard = async (board) => {
         return "created";
     } catch (error) {
         console.log("error while creating board in mongo");
-        throw error;
     }
 };
 export const createSection = async (board, section) => {
@@ -140,7 +135,6 @@ export const createSection = async (board, section) => {
         return "created";
     } catch (error) {
         console.log("error while creating section in mongo");
-        throw error;
     }
 };
 
@@ -163,7 +157,6 @@ export const addPin = async (board, section, pin) => {
         );
     } catch (error) {
         console.log("error while adding pin");
-        throw error;
     } finally {
         close();
     }
@@ -208,7 +201,6 @@ export const editBoard = async (oldBoard, newBoard) => {
         return "created";
     } catch (error) {
         console.log("error while editing board in mongo");
-        throw error;
     } finally {
         close();
     }
@@ -241,7 +233,6 @@ export const editSection = async (
         return "success";
     } catch (error) {
         console.log("error while editing section in mongo");
-        throw error;
     } finally {
         close();
     }
@@ -322,7 +313,6 @@ export const deletePin = async (board, section, id) => {
         }
     } catch (error) {
         console.log("error while deleting pin");
-        throw error;
     } finally {
         close();
     }
