@@ -62,7 +62,6 @@
     .link:last-child {
         color: red;
     }
-
     .navigation {
         display: flex;
         flex-flow: row wrap;
