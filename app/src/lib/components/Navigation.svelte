@@ -8,7 +8,7 @@
     export let title;
 </script>
 
-<nav class="navigation-wrapper">
+<nav class="navigation">
     <div class="navbar">
         {#each routeHistory as route}
             <span>{">"}</span>
@@ -33,12 +33,12 @@
     />
     <div class="stats">
         <!-- {#if boardsCount} -->
-        <p>Boards</p>
+        <p>Boards: 100</p>
         <!-- {/if} -->
         <!-- {#if sectionsCount} -->
-        <!-- <p>Sections</p> -->
+        <p>Sections: 500</p>
         <!-- {/if}{#if pinsCount >= 0} -->
-        <!-- <p>Pins</p> -->
+        <p>Pins: 10000</p>
         <!-- {/if} -->
         <div class="toolbar">
             <span on:click={() => {}}>{@html add()}</span>
@@ -63,22 +63,20 @@
         color: red;
     }
 
-    .navigation-wrapper {
+    .navigation {
         display: flex;
         flex-flow: row wrap;
         justify-content: space-between;
         margin: 1rem 0 3rem 0;
         align-items: center;
         width: 100%;
-        gap: 0rem 2rem;
-    }
-    .navigation-wrapper > * {
-        margin: 0.2rem 0;
+        gap: 1rem 2rem;
     }
 
     .stats {
         display: flex;
-        width: 600px;
+        width: 60rem;
+        gap: 0rem 0.5rem;
         flex-flow: row nowrap;
         align-items: center;
         justify-content: space-between;
@@ -86,33 +84,34 @@
 
     .search {
         max-width: 100%;
-        border: none;
         background-color: var(--color-secondary);
     }
-    .search:focus {
-        outline: none;
-    }
+
     .toolbar {
         position: relative;
     }
-
     .toolbar span {
-        display: inline-block;
         width: 4rem;
         height: 4rem;
         cursor: pointer;
+    }
+    .toolbar {
+        display: inline-flex;
+        flex-flow: row nowrap;
     }
     @media screen and (max-width: 600px) {
         h3 {
             padding: 0rem;
         }
-        p {
-            font-size: small;
-        }
 
         .stats {
+            font-size: 1.3rem;
             justify-content: space-between;
             width: 100%;
+        }
+        .toolbar span {
+            width: 3rem;
+            height: 3rem;
         }
     }
 </style>
