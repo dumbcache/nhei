@@ -33,13 +33,7 @@
 </div>
 
 <style>
-    .add {
-        display: grid;
-        place-content: center;
-        height: 100%;
-    }
     .form {
-        margin: auto;
         display: flex;
         flex-flow: column;
         background-color: var(--color-secondary);
@@ -66,7 +60,6 @@
     @media (max-width: 600px) {
         .form {
             padding: 2rem;
-            width: 90%;
         }
     }
 </style>

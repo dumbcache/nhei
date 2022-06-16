@@ -61,7 +61,7 @@ a {
     --color-icon: #9aa;
     --color-input: #1e5f74;
     --color-input-disabled: #1e5f7999;
-    --color-overlay: #111a;
+    --color-overlay: #145a;
     --color-card-background: #022;
 }
 
@@ -107,13 +107,14 @@ button {
     cursor: pointer;
 }
 
-.overlay-active {
+.overlay {
     position: fixed;
     top: 0;
     right: 0;
     bottom: 0;
     left: 0;
     background: var(--color-overlay);
+    z-index: 5;
 }
 
 .pins,
@@ -138,7 +139,9 @@ button {
     backface-visibility: hidden;
     background-color: var(--color-card-background);
 }
-
+svg:hover {
+    fill: red;
+}
 @media (max-width: 600px) {
     .pin-wrapper {
         width: 33%;

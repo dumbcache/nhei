@@ -10,14 +10,6 @@
     </header>
     <main class="main">
         <slot />
-
-        <div
-            class="overlay"
-            class:overlay-active={$overlay}
-            on:click={() => {
-                $overlay = false;
-            }}
-        />
     </main>
 </div>
 

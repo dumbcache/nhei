@@ -197,16 +197,8 @@
             icon: collections,
         },
         {
-            route: "/add",
-            icon: add,
-        },
-        {
             route: "/search",
             icon: search,
-        },
-        {
-            route: "/profile",
-            icon: profile,
         },
     ];
 </script>

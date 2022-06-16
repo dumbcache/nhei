@@ -61,6 +61,9 @@
         width: 100%;
         object-fit: cover;
     }
+    .cover:global(svg) {
+        fill: red;
+    }
     @media (max-width: 600px) {
         .card {
             gap: 0rem;

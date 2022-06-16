@@ -2,10 +2,14 @@
     import { add, slider } from "$lib/components/Assets.svelte";
     import { search, nheiRouteHistory } from "$lib/scripts/stores.js";
     import { page } from "$app/stores";
+    import Add from "$lib/components/add/Add.svelte";
+
     // console.log($page.url);
     let { pathname } = $page.url;
     let routeHistory = nheiRouteHistory(pathname);
     export let title;
+    let addHidden = true,
+        overlay = false;
 </script>
 
 <nav class="navigation">
@@ -41,10 +45,22 @@
         <!-- <p>Pins: 10000</p> -->
         <!-- {/if} -->
         <div class="toolbar">
-            <span on:click={() => {}}>{@html add()}</span>
+            <span
+                on:click={() => {
+                    addHidden = false;
+                }}>{@html add()}</span
+            >
             <span on:click={() => {}}>{@html slider()}</span>
         </div>
     </div>
+    <div class="add" hidden={addHidden}><Add /></div>
+    <div
+        class="overlay"
+        hidden={addHidden}
+        on:click={() => {
+            addHidden = true;
+        }}
+    />
 </nav>
 
 <style>
@@ -98,6 +114,13 @@
         display: inline-flex;
         flex-flow: row nowrap;
     }
+    .add {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 10;
+    }
     @media screen and (max-width: 600px) {
         h3 {
             padding: 0rem;
@@ -111,6 +134,9 @@
         .toolbar span {
             width: 3rem;
             height: 3rem;
+        }
+        .add {
+            width: 80%;
         }
     }
 </style>

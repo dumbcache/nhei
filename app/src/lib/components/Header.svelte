@@ -1,5 +1,5 @@
 <script>
-    import { navAsstets } from "./Assets.svelte";
+    import { navAsstets, profile } from "./Assets.svelte";
 </script>
 
 <nav class="navbar">
@@ -8,6 +8,9 @@
             {@html entry.icon()}
         </a>
     {/each}
+    <button>
+        {@html profile()}
+    </button>
 </nav>
 
 <style>
@@ -27,7 +30,7 @@
             justify-content: space-evenly;
         }
         .navbar * {
-            width: 4rem;
+            width: 3rem;
             padding: 0rem;
         }
     }
