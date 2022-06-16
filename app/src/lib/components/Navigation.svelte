@@ -36,9 +36,9 @@
         <p>Boards: 100</p>
         <!-- {/if} -->
         <!-- {#if sectionsCount} -->
-        <p>Sections: 500</p>
+        <!-- <p>Sections: 500</p> -->
         <!-- {/if}{#if pinsCount >= 0} -->
-        <p>Pins: 10000</p>
+        <!-- <p>Pins: 10000</p> -->
         <!-- {/if} -->
         <div class="toolbar">
             <span on:click={() => {}}>{@html add()}</span>
