@@ -63,7 +63,7 @@ export async function refreshBoards(fetch) {
         let req = await fetch("http://localhost:8080/boards");
         if (req.ok) {
             console.log("fetching completed");
-            let { boards } = await req.json();
+            let boards = await req.json();
             window.localStorage.setItem("boards", JSON.stringify(boards));
             boardStore.set(boards);
             console.log(boards);
@@ -125,13 +125,14 @@ export async function fetchPinsFromBoard(boardName) {
         console.log("checking if pins present locally");
         if (window.localStorage.getItem("boards")) {
             console.log("checking if pins present locally");
-            let data = JSON.parse(window.localStorage.getItem("boards"));
-            data = data.filter((board) => board.name === boardName);
+            let { boards } = JSON.parse(window.localStorage.getItem("boards"));
+            data = boards.filter((board) => board.name === boardName);
             console.log(data, data[0]);
-            let { pins } = data[0];
+            let { pins, pCount, sCount } = data[0];
             console.log(pins);
-            pinStore.set(pins);
-            return pins;
+            data = { pins, pCount, sCount };
+            pinStore.set(data);
+            return data;
         }
         console.log("pins not present locally");
         return;

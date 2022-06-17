@@ -4,6 +4,7 @@
     import { page } from "$app/stores";
     import Add from "$lib/components/add/Add.svelte";
 
+    export let bCount, sCount, pCount;
     // console.log($page.url);
     let { pathname } = $page.url;
     let routeHistory = nheiRouteHistory(pathname);
@@ -36,14 +37,14 @@
         autocomplete="off"
     />
     <div class="stats">
-        <!-- {#if boardsCount} -->
-        <p>Boards: 100</p>
-        <!-- {/if} -->
-        <!-- {#if sectionsCount} -->
-        <!-- <p>Sections: 500</p> -->
-        <!-- {/if}{#if pinsCount >= 0} -->
-        <!-- <p>Pins: 10000</p> -->
-        <!-- {/if} -->
+        {#if bCount}
+            <p>Boards: {bCount}</p>
+        {/if}
+        {#if sCount}
+            <p>Sections: {sCount}</p>
+        {/if}{#if pCount >= 0}
+            <p>Pins: {pCount}</p>
+        {/if}
         <div class="toolbar">
             <span
                 on:click={() => {

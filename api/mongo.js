@@ -30,8 +30,8 @@ export const getBoards = async () => {
     try {
         let db = await connect();
         let cursor = await db.collection("nhei").findOne();
-        let { boards } = cursor;
-        return boards;
+        let { boards, bCount } = cursor;
+        return { boards, bCount };
     } catch (error) {
         console.log("error while fetching boards from mongo");
     } finally {

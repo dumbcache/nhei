@@ -50,7 +50,7 @@ export const searchHandler = async (req, res) => {
 export const getBoardsHandler = async (req, res) => {
     try {
         let boards = await getBoards();
-        res.status(200).send({ boards });
+        res.status(200).send(boards);
     } catch (error) {
         console.log(error);
         res.sendStatus(500);

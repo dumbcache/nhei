@@ -24,7 +24,7 @@
     console.log(fetchedPins);
 </script>
 
-<Navigation />
+<Navigation pCount={fetchedPins.pCount} sCount={fetchedPins.sCount} />
 
 {#if data}
     <div class="cards">
@@ -37,9 +37,9 @@
         {/each}
     </div>
 {/if}
-{#if fetchedPins}
+{#if fetchedPins.pins}
     <div class="pins">
-        {#each fetchedPins as entry}
+        {#each fetchedPins.pins as entry}
             <div class="pin-wrapper">
                 <Pin
                     pin={{

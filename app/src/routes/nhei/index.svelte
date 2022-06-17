@@ -20,10 +20,10 @@
     let data = $boardStore ?? fetchData;
 </script>
 
-<Navigation title="NHei" />
-{#if Boolean(data) != false}
+<Navigation title="NHei" bCount={data.bCount} />
+{#if Boolean(data.boards) != false}
     <div class="cards">
-        {#each data as card}
+        {#each data.boards as card}
             <div class="card-wrapper">
                 <a href={`${pathname}/${card.name}`}>
                     <Card {card} />
