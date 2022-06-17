@@ -19,10 +19,10 @@
     $: console.log("parents", parents);
 </script>
 
-<Navigation {boardName} {sectionName} />
-{#if data}
+<Navigation {boardName} {sectionName} pCount={data.pCount} />
+{#if data.pins}
     <div class="pins">
-        {#each data as entry}
+        {#each data.pins as entry}
             <div class="pin-wrapper">
                 <Pin
                     pin={{

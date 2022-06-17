@@ -2,7 +2,7 @@
     import { add, slider } from "$lib/components/Assets.svelte";
     import { search, nheiRouteHistory } from "$lib/scripts/stores.js";
     import { page } from "$app/stores";
-    import Add from "$lib/components/add/Add.svelte";
+    import Add from "$lib/components/actions/Add.svelte";
 
     export let bCount, sCount, pCount;
     export let title, boardName, sectionName;

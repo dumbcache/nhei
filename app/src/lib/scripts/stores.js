@@ -150,10 +150,10 @@ export async function fetchPinsFromSection([boardName, sectionName]) {
                     section.board === boardName && section.name === sectionName
             );
             console.log(data, data[0]);
-            let { pins } = data[0];
+            let { pins, pCount } = data[0];
             console.log(pins);
-            pinStore.set(pins);
-            return pins;
+            pinStore.set({ pins, pCount });
+            return { pins, pCount };
         }
         console.log("pins not present locally");
         return;
