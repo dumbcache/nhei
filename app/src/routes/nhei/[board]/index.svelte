@@ -35,7 +35,12 @@
     <div class="cards">
         {#each data as section}
             <div class="card-wrapper">
-                <Card card={section} {pathname} />
+                <Card
+                    card={section}
+                    {pathname}
+                    {boardName}
+                    sectionName={section.name}
+                />
             </div>
         {/each}
     </div>

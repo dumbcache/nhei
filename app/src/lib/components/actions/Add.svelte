@@ -50,6 +50,7 @@
     }
     button:disabled :global(svg) {
         fill: var(--color-icon);
+        cursor: not-allowed;
     }
     input {
         width: 100%;

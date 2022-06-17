@@ -8,8 +8,7 @@
     export let title, boardName, sectionName;
     let { pathname } = $page.url;
     let routeHistory = nheiRouteHistory(pathname);
-    let addHidden = true,
-        overlay = false;
+    let addHidden = true;
 </script>
 
 <nav class="navigation">

@@ -1,7 +1,9 @@
 <script>
     import { empty, edit } from "$lib/components/Assets.svelte";
+    import PinEdit from "$lib/components/actions/PinEdit.svelte";
     export let pin;
     let url = isNaN(Number(pin.cover)) ? "t" : "i";
+    let editHidden = true;
 </script>
 
 <div class="pin">
@@ -27,10 +29,23 @@
             <span class="text">{pin.fav}</span>
         {/if}
         <div class="actions">
-            <button on:click={(e) => {}}>{@html edit()}</button>
+            <button
+                on:click={() => {
+                    editHidden = false;
+                }}>{@html edit()}</button
+            >
         </div>
     {/if}
 </div>
+
+<div class="edit" hidden={editHidden}><PinEdit /></div>
+<div
+    class="overlay"
+    hidden={editHidden}
+    on:click={() => {
+        editHidden = true;
+    }}
+/>
 
 <style>
     .pin {
@@ -51,6 +66,16 @@
         width: 2rem;
         transform: translate(10%, 20%);
     }
+    .edit {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 10;
+    }
     @media (max-width: 600px) {
+        .edit {
+            width: 80%;
+        }
     }
 </style>

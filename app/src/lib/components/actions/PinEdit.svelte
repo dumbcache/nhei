@@ -1,36 +1,34 @@
 <script>
-    import { ok, del, move } from "$lib/components/Assets.svelte";
+    import { ok, del, copy, move } from "$lib/components/Assets.svelte";
 
-    export let boardName, sectionName;
-    let oldBoardName = boardName,
-        oldSectioName = sectionName;
-    $: disabled = oldBoardName.trim() === boardName;
+    let action,
+        cover,
+        disabled = true;
 </script>
 
 <div class="edit">
     <form class="form" on:submit|preventDefault={() => {}}>
-        <label for="board">board</label>
+        <label for="m_id">cover</label>
         <input
-            type="search"
-            name="board"
-            id="board"
-            placeholder="board"
-            bind:value={oldBoardName}
+            type="text"
+            name="m_id"
+            id="m_id"
+            placeholder="media id"
+            bind:value={cover}
         />
-        {#if oldSectioName}
-            <label for="section">section</label>
-            <input
-                type="search"
-                name="section"
-                id="section"
-                placeholder="section"
-                bind:value={oldSectioName}
-                {disabled}
-            />
-        {/if}
+        <label for="cover">cover</label>
+        <input
+            type="text"
+            name="cover"
+            id="cover"
+            placeholder="enter any number"
+            bind:value={cover}
+        />
+
         <button class="ok" type="submit" {disabled}>{@html ok}</button>
     </form>
     <span class="actions">
+        <button class="copy">{@html copy}</button>
         <button class="move">{@html move}</button>
         <button class="delete">{@html del}</button>
     </span>
@@ -42,7 +40,7 @@
         display: flex;
         flex-flow: column;
         background-color: var(--color-secondary);
-        padding: 4rem;
+        padding: 2rem;
         border-radius: 1rem;
     }
     .edit {
@@ -76,7 +74,6 @@
 
     @media (max-width: 600px) {
         .form {
-            font-size: 1.6rem;
             padding: 2rem;
         }
         button {

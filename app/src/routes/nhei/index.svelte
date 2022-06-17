@@ -25,7 +25,7 @@
     <div class="cards">
         {#each data.boards as card}
             <div class="card-wrapper">
-                <Card {card} {pathname} />
+                <Card {card} {pathname} boardName={card.name} />
             </div>
         {/each}
     </div>

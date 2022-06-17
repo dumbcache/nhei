@@ -1,6 +1,8 @@
 <script>
     import { empty, edit } from "$lib/components/Assets.svelte";
-    export let card, pathname;
+    import Edit from "$lib/components/actions/Edit.svelte";
+    export let card, pathname, boardName, sectionName;
+    let editHidden = true;
 </script>
 
 {#if card}
@@ -35,10 +37,22 @@
             {/if}
         </div>
         <div class="actions">
-            <button on:click={(e) => {}}>{@html edit()}</button>
+            <button
+                on:click={() => {
+                    editHidden = false;
+                }}>{@html edit()}</button
+            >
         </div>
     </div>
 {/if}
+<div class="edit" hidden={editHidden}><Edit {boardName} {sectionName} /></div>
+<div
+    class="overlay"
+    hidden={editHidden}
+    on:click={() => {
+        editHidden = true;
+    }}
+/>
 
 <style>
     .card {
@@ -82,9 +96,19 @@
         width: 2.4rem;
         transform: translateY(10%);
     }
+    .edit {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 10;
+    }
     @media (max-width: 600px) {
         .card {
             gap: 0rem;
+        }
+        .edit {
+            width: 80%;
         }
     }
 </style>
