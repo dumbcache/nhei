@@ -5,7 +5,7 @@
         console.log(parents);
         let data = await fetchPinsFromSection(parents);
         return {
-            props: { data },
+            props: { parents, data },
         };
     }
 </script>
@@ -14,11 +14,12 @@
     import Navigation from "$lib/components/Navigation.svelte";
     import Pin from "$lib/components/Pin.svelte";
 
-    export let data;
-    console.log(data);
+    export let data, parents;
+    let [boardName, sectionName] = parents;
+    $: console.log("parents", parents);
 </script>
 
-<Navigation />
+<Navigation {boardName} {sectionName} />
 {#if data}
     <div class="pins">
         {#each data as entry}

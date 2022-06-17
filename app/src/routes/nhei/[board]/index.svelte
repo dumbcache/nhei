@@ -2,6 +2,7 @@
     import { fetchSections, fetchPinsFromBoard } from "$lib/scripts/stores.js";
     export async function load({ params, fetch }) {
         let board = params.board;
+        console.log(board);
         let fetchedSections = await fetchSections(board, fetch);
         let fetchedPins = await fetchPinsFromBoard(board);
         return {
@@ -20,19 +21,21 @@
     let { pathname } = $page.url;
     export let fetchedSections, fetchedPins;
     let data = $sectionStore ?? fetchedSections;
-    console.log(data);
-    console.log(fetchedPins);
+    let boardName = $page.params.board;
+    $: console.log("boardname", boardName);
 </script>
 
-<Navigation pCount={fetchedPins.pCount} sCount={fetchedPins.sCount} />
+<Navigation
+    pCount={fetchedPins.pCount}
+    sCount={fetchedPins.sCount}
+    {boardName}
+/>
 
 {#if data}
     <div class="cards">
         {#each data as section}
             <div class="card-wrapper">
-                <a href={`${pathname}/${section.name}`}>
-                    <Card card={section} />
-                </a>
+                <Card card={section} {pathname} />
             </div>
         {/each}
     </div>

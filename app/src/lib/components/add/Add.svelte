@@ -1,8 +1,10 @@
 <script>
     import { ok } from "$lib/components/Assets.svelte";
 
-    let board = "",
-        section;
+    export let boardName, sectionName;
+    let board = boardName ?? "",
+        section = sectionName ?? "";
+    $: console.log("names", boardName, sectionName);
     $: disabled = !Boolean(board.trim());
     $: console.log(disabled);
 </script>

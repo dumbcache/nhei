@@ -5,10 +5,9 @@
     import Add from "$lib/components/add/Add.svelte";
 
     export let bCount, sCount, pCount;
-    // console.log($page.url);
+    export let title, boardName, sectionName;
     let { pathname } = $page.url;
     let routeHistory = nheiRouteHistory(pathname);
-    export let title;
     let addHidden = true,
         overlay = false;
 </script>
@@ -54,7 +53,7 @@
             <span on:click={() => {}}>{@html slider()}</span>
         </div>
     </div>
-    <div class="add" hidden={addHidden}><Add /></div>
+    <div class="add" hidden={addHidden}><Add {boardName} {sectionName} /></div>
     <div
         class="overlay"
         hidden={addHidden}

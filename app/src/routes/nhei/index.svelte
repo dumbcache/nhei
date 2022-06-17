@@ -25,9 +25,7 @@
     <div class="cards">
         {#each data.boards as card}
             <div class="card-wrapper">
-                <a href={`${pathname}/${card.name}`}>
-                    <Card {card} />
-                </a>
+                <Card {card} {pathname} />
             </div>
         {/each}
     </div>
