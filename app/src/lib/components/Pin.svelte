@@ -38,7 +38,9 @@
     {/if}
 </div>
 
-<div class="edit" hidden={editHidden}><PinEdit /></div>
+<div class="edit" hidden={editHidden}>
+    <PinEdit m_id={pin.m_id} cover={pin.cover} />
+</div>
 <div
     class="overlay"
     hidden={editHidden}

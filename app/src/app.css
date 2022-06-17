@@ -92,6 +92,7 @@ input {
 }
 input:disabled {
     background-color: var(--color-input-disabled);
+    color: #9aaa;
 }
 input::placeholder {
     color: var(--color-icon);

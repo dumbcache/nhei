@@ -1,20 +1,26 @@
 <script>
     import { ok, del, copy, move } from "$lib/components/Assets.svelte";
 
-    let action,
-        cover,
-        disabled = true;
+    export let m_id, cover;
+    let action;
+    let old_m_id = m_id,
+        oldCover = cover;
+    $: disabled =
+        old_m_id.trim() === m_id ||
+        old_m_id.trim() === "" ||
+        oldCover.trim() === cover ||
+        oldCover.trim() === "";
 </script>
 
 <div class="edit">
     <form class="form" on:submit|preventDefault={() => {}}>
-        <label for="m_id">cover</label>
+        <label for="m_id">media_id</label>
         <input
             type="text"
             name="m_id"
             id="m_id"
             placeholder="media id"
-            bind:value={cover}
+            bind:value={old_m_id}
         />
         <label for="cover">cover</label>
         <input
@@ -22,7 +28,7 @@
             name="cover"
             id="cover"
             placeholder="enter any number"
-            bind:value={cover}
+            bind:value={oldCover}
         />
 
         <button class="ok" type="submit" {disabled}>{@html ok}</button>

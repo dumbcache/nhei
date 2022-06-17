@@ -1,10 +1,13 @@
 <script>
     import { ok, del, move } from "$lib/components/Assets.svelte";
 
-    export let boardName, sectionName;
+    export let boardName,
+        sectionName = "";
     let oldBoardName = boardName,
-        oldSectioName = sectionName;
-    $: disabled = oldBoardName.trim() === boardName;
+        oldSectionName = sectionName;
+    $: disabled =
+        (oldBoardName.trim() === boardName || oldBoardName.trim() === "") &&
+        (oldSectionName.trim() === sectionName || oldSectionName.trim() === "");
 </script>
 
 <div class="edit">
@@ -16,22 +19,22 @@
             id="board"
             placeholder="board"
             bind:value={oldBoardName}
+            disabled={!!sectionName}
         />
-        {#if oldSectioName}
+        {#if sectionName}
             <label for="section">section</label>
             <input
                 type="search"
                 name="section"
                 id="section"
                 placeholder="section"
-                bind:value={oldSectioName}
-                {disabled}
+                bind:value={oldSectionName}
             />
         {/if}
         <button class="ok" type="submit" {disabled}>{@html ok}</button>
     </form>
     <span class="actions">
-        <button class="move">{@html move}</button>
+        <button class="move" hidden={!sectionName}>{@html move}</button>
         <button class="delete">{@html del}</button>
     </span>
 </div>
