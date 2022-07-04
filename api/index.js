@@ -1,6 +1,5 @@
 import express from "express";
 import cors from "cors";
-import bodyParser from "body-parser";
 
 import {
     searchHandler,
@@ -22,10 +21,6 @@ import {
 
 let app = express(),
     port = 8080;
-
-// let doBackup = setInterval(() => {
-//     backup();
-// }, 43200000);
 
 app.use(cors());
 app.use(express.json());
@@ -50,5 +45,6 @@ app.patch("/sections/edit", editSectionHandler);
 
 app.put("/pins/delete", deletePinHandler);
 app.post("pins/add", createPinHandler);
+app.patch("pins/edit", createPinHandler);
 
 app.listen(port, () => console.log(`listening at port ${port}`));

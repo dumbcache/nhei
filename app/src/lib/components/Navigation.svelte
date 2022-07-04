@@ -9,6 +9,7 @@
     let { pathname } = $page.url;
     let routeHistory = nheiRouteHistory(pathname);
     let addHidden = true;
+    console.log("bcount", bCount);
 </script>
 
 <nav class="navigation">
@@ -35,7 +36,7 @@
         autocomplete="off"
     />
     <div class="stats">
-        {#if bCount}
+        {#if bCount >= 0}
             <p>Boards: {bCount}</p>
         {/if}
         {#if sCount}

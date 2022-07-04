@@ -59,3 +59,17 @@
         {/each}
     </div>
 {/if}
+{#if Boolean(data) == false}
+    <div class="board-status">no data</div>
+{/if}
+
+<style>
+    .board-status {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: var(--color-icon);
+        user-select: none;
+    }
+</style>

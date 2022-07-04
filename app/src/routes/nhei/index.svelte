@@ -18,10 +18,11 @@
     (async () => await fetchBoards())();
     export let fetchData;
     let data = $boardStore ?? fetchData;
+    console.log($boardStore, data);
 </script>
 
-<Navigation title="NHei" bCount={data.bCount} />
-{#if Boolean(data.boards) != false}
+<Navigation title="NHei" bCount={Boolean(data) ? data.bCount : 0} />
+{#if data}
     <div class="cards">
         {#each data.boards as card}
             <div class="card-wrapper">
@@ -30,6 +31,17 @@
         {/each}
     </div>
 {/if}
+{#if Boolean(data) == false}
+    <div class="board-status">no data</div>
+{/if}
 
 <style>
+    .board-status {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: var(--color-icon);
+        user-select: none;
+    }
 </style>

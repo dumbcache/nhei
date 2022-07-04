@@ -11,6 +11,8 @@ import {
     deletePin,
     addToThumbs,
     getThumbs,
+    editBoard,
+    editSection,
 } from "./mongo.js";
 import { fetchDoujinFromAPI, searchFromAPI } from "./nhei.js";
 import { getFromCache, setToCache } from "./redis.js";
@@ -138,7 +140,7 @@ export const createPinHandler = async (req, res) => {
 export const editBoardHandler = async (req, res) => {
     try {
         let { board } = req.body;
-        let status = createBoard(board);
+        let status = editBoard(board);
         res.status(200).send({ status });
     } catch (error) {
         console.log(`error while creating boards`);
@@ -159,7 +161,7 @@ export const editSectionHandler = async (req, res) => {
 export const deleteBoardHandler = async (req, res) => {
     try {
         let { board } = req.body;
-        let status = editBoard(board);
+        let status = deleteBoard(board);
         res.status(200).send({ status });
     } catch (error) {
         console.log(`error while creating boards`);

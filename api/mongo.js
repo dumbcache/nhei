@@ -192,6 +192,7 @@ export const editBoard = async (oldBoard, newBoard) => {
             oldBoardName = oldBoard.trim(),
             newBoardName = newBoard.trim();
         if (!oldBoardName || !newBoardName) return "board name is empty";
+
         await mongo
             .collection("nhei")
             .updateOne(

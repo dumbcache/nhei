@@ -52,6 +52,7 @@ export async function fetchBoards(fetchWrapper) {
         }
         console.log("boards not present locally");
         data = await refreshBoards(fetch);
+        console.log(data);
         return data;
     }
     return;
@@ -70,7 +71,7 @@ export async function refreshBoards(fetch) {
             return boards;
         }
     } catch (error) {
-        console.log("error while fetching boards from server", err);
+        console.log("error while fetching boards from server", error);
     }
 }
 

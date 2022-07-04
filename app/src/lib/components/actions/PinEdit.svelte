@@ -1,19 +1,25 @@
 <script>
     import { ok, del, copy, move } from "$lib/components/Assets.svelte";
+    import { sendEditPinData } from "$lib/scripts/server.js";
 
-    export let m_id, cover;
+    export let m_id, cover, board, section;
     let action;
     let old_m_id = m_id,
         oldCover = cover;
     $: disabled =
-        old_m_id.trim() === m_id ||
-        old_m_id.trim() === "" ||
-        oldCover.trim() === cover ||
-        oldCover.trim() === "";
+        (old_m_id.trim() === m_id || old_m_id.trim() === "") &&
+        (oldCover.trim() === cover || oldCover.trim() === "");
+
+    function handler(e) {
+        let formData = new FormData(e.target);
+        m_id = formData.get("m_id");
+        cover = formData.get("cover");
+        let response = sendEditPinData({ board, section, m_id, cover });
+    }
 </script>
 
 <div class="edit">
-    <form class="form" on:submit|preventDefault={() => {}}>
+    <form class="form" on:submit|preventDefault={handler}>
         <label for="m_id">media_id</label>
         <input
             type="text"

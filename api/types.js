@@ -1,25 +1,28 @@
-export function Pin(id, m_id, favourites, creationDate, cover) {
+export function Pin(id, m_id, favorites, timeStamp, cover, format) {
     this.id = id;
     this.m_id = m_id;
-    this.favourites = favourites;
-    this.creationDate = creationDate;
-    this.cover = cover;
+    this.fav = favorites;
+    this.time = timeStamp;
+    this.cov = cover;
+    this.fmt = format;
 }
 
-export function Section(board, section) {
+export function Section(board, section, cover) {
     this.name = section;
-    this.creationDate = Math.round(new Date().getTime() / 1000);
-    this.pinCount = 0;
+    this.time = Math.round(new Date().getTime() / 1000);
+    this.cover = cover;
     this.board = board;
     this.pins = [];
+    this.pCount = 0;
 }
 
 export function Board(name) {
     this.name = name;
-    this.creationDate = Math.round(new Date().getTime() / 1000);
-    this.sectionCount = 0;
-    this.pinCount = 0;
+    this.time = Math.round(new Date().getTime() / 1000);
+    this.cover = cover;
     this.pins = [];
+    this.sCount = 0;
+    this.pCount = 0;
 }
 
 let mongo = {
@@ -36,9 +39,10 @@ let mongo = {
                 {
                     id: "373744",
                     m_id: "2014946",
-                    cover: "cover",
                     fav: "3737",
                     time: "1653044668",
+                    cover: "cover",
+                    fmt: "jpg",
                 },
             ],
         },
@@ -55,8 +59,9 @@ let mongo = {
                     id: "373744",
                     m_id: "2014946",
                     fav: "3737",
-                    cover: "1",
                     time: "1653044668",
+                    cover: "1",
+                    fmt: "jpg",
                 },
             ],
         },
