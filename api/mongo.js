@@ -48,6 +48,7 @@ export const getSections = async (board) => {
         return sections;
     } catch (error) {
         console.log("error while fetching sections from mongo");
+        throw error;
     } finally {
         close();
     }

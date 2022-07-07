@@ -27,7 +27,7 @@ export const searchCacheHandler = async (req, res, next) => {
             next();
         }
     } catch (error) {
-        console.log(error);
+        console.log("error");
         next();
     }
 };
@@ -44,7 +44,7 @@ export const searchHandler = async (req, res) => {
             res.status(200).send({ data: [doujin] });
         }
     } catch (error) {
-        console.log(error);
+        // console.log(error);
         res.sendStatus(500);
     }
 };
@@ -61,8 +61,8 @@ export const getBoardsHandler = async (req, res) => {
 
 export const getSectionsHandler = async (req, res) => {
     try {
-        let { board } = req.body;
-        console.log(req.body);
+        let { board } = req.params;
+        console.log(req.params);
         let sections = await getSections(board);
         res.status(200).send({ sections });
     } catch (error) {

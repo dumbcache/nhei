@@ -28,6 +28,7 @@ export const getFromCache = async (q) => {
         return JSON.parse(data);
     } catch (error) {
         console.log(`error while fetching ${q} from redis\n`, error);
+        throw error;
     }
 };
 export const setToCache = async (q, data) => {
